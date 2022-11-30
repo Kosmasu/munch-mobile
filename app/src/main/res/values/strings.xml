@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Munch</string>
+    <string-array name="roles_user">
+        <item>Customer</item>
+        <item>Provider</item>
+    </string-array>
 </resources>
