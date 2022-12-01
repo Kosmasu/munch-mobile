@@ -6,13 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".activities.AdminHomeActivity">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnvAdmin"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Admin Home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:menu="@menu/navbar_admin" />
+
+    <FrameLayout
+        android:id="@+id/flFragmentAdmin"
+        android:layout_width="409dp"
+        android:layout_height="673dp"
+        android:padding="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/bnvAdmin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
