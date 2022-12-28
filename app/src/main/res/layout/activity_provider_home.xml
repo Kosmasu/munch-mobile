@@ -18,6 +18,8 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#4A148C"
+        app:itemTextColor="#FFFFFF"
         app:menu="@menu/navbar_provider" />
 
 </LinearLayout>
