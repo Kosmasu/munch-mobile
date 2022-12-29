@@ -18,26 +18,31 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/tvWaitingNama"
-            android:layout_width="match_parent"
+            android:id="@+id/tvTabelID"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="provider baru" />
+            android:text="ID"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvWaitingEmail"
-            android:layout_width="match_parent"
+            android:id="@+id/tvTabelNama"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="email baru" />
+            android:text="Nama User"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btWaitingAction"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvTabelEmail"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/rounded_border_shape"
-            android:backgroundTint="#000000"
-            android:text="Button" />
+            android:text="Email User"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
