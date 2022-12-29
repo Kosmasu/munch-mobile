@@ -26,7 +26,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView69"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Registered Accounts:"
@@ -105,7 +105,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvHeaderProvider1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Recent Provider Registration:"
