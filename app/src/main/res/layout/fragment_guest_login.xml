@@ -52,6 +52,7 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_borderless_shape"
             android:text="Login" />
     </LinearLayout>
 
