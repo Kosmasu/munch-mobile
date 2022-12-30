@@ -22,8 +22,7 @@ class AuthStore(val context: Context) : AuthAPI {
     if (response.data != null && response.data.access_token != null) {
       storeToken(context, Token(response.data.users_id.toInt(), response.data.access_token))
     }
-    com.example.munch.api.Retrofit.resetInstance(context)
-    _authStore!!.authAPI = com.example.munch.api.Retrofit.getInstance(context).create(AuthAPI::class.java)
+    _authStore!!.authAPI = com.example.munch.api.Retrofit.resetInstance(context).create(AuthAPI::class.java)
     return response
   }
 
@@ -45,8 +44,7 @@ class AuthStore(val context: Context) : AuthAPI {
 
   override suspend fun logout(): Response<String?> {
     removeToken(context)
-    com.example.munch.api.Retrofit.resetInstance(context)
-    _authStore!!.authAPI = com.example.munch.api.Retrofit.getInstance(context).create(AuthAPI::class.java)
+    _authStore!!.authAPI = com.example.munch.api.Retrofit.resetInstance(context).create(AuthAPI::class.java)
     return authAPI.logout()
   }
 
