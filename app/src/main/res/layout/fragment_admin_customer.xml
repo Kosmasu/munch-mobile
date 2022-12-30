@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_border_shape"
         android:orientation="vertical"
-        android:padding="3dp"
+        android:padding="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView69"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -40,7 +40,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/etSearchProvider"
+                    android:id="@+id/etSearchCustomer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -49,7 +49,7 @@
                     android:inputType="textPersonName" />
 
                 <Button
-                    android:id="@+id/btnSearchProvider"
+                    android:id="@+id/btnSearchCustomer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -57,6 +57,7 @@
                     android:gravity="center"
                     app:icon="@drawable/vector_search"
                     app:iconPadding="0dp" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -78,7 +79,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/tvHeaderCustomer1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -86,28 +87,27 @@
                     android:textColor="@color/text_black" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/tvHeaderCustomer2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Nama"
-                    android:textColor="#000000" />
+                    android:textColor="@color/text_black" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/tvHeaderCustomer3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Email"
-                    android:textColor="#000000" />
+                    android:textColor="@color/text_black" />
+
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvListProvider"
+                android:id="@+id/rvListCustomer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </LinearLayout>
