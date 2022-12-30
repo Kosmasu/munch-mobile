@@ -20,7 +20,7 @@ class AuthStore(val context: Context) : AuthAPI {
   override suspend fun login(body: RequestBody): Response<LoginResponse?> {
     val response = authAPI.login(body)
     if (response.data != null && response.data.access_token != null) {
-      storeToken(context, Token(response.data.users_id, response.data.access_token))
+      storeToken(context, Token(response.data.users_id.toInt(), response.data.access_token))
     }
     com.example.munch.api.Retrofit.resetInstance(context)
     _authStore!!.authAPI = com.example.munch.api.Retrofit.getInstance(context).create(AuthAPI::class.java)
@@ -73,6 +73,10 @@ class AuthStore(val context: Context) : AuthAPI {
   //only use getToken() after calling storeToken() and before calling removeToken()
   fun getToken(): Token? {
     return token
+  }
+
+  fun getBearer(): String {
+    return "Bearer ${token!!.access_token}"
   }
 
   companion object {

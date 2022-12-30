@@ -8,12 +8,12 @@ apply plugin: "kotlin-kapt"
 
 android {
     namespace 'com.example.munch'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.munch"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -55,11 +55,9 @@ dependencies {
     // interceptor
 //    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
     // coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     // room (untuk simpan access token)
     implementation "androidx.room:room-runtime:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
-
 }

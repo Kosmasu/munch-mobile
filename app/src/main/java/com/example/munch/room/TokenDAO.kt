@@ -21,6 +21,6 @@ interface TokenDAO {
   suspend fun fetch(): List<Token>
 
   @Query("SELECT * FROM Token where users_id = :users_id")
-  suspend fun fetch(users_id: ULong): Token?
+  suspend fun fetch(users_id: Int): Token?
 
 }

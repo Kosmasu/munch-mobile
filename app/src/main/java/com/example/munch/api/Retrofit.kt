@@ -26,7 +26,7 @@ abstract class Retrofit {
             val requestBuilder = chain.request().newBuilder().apply {
               header("Accept", "application/json")
               if (authStore.getToken() != null) {
-                header("Authorization", authStore.getToken()!!.access_token)
+                header("Authorization", authStore.getBearer())
               }
             }
             val request = requestBuilder.build()
