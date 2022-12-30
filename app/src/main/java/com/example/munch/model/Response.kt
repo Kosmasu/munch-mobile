@@ -1,4 +1,4 @@
-package com.example.munch.api
+package com.example.munch.model
 
 data class Response<T>(
   val status: String,

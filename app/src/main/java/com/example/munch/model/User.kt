@@ -3,7 +3,7 @@ package com.example.munch.model
 import java.sql.Timestamp
 
 data class User (
-  val users_id: ULong?,
+  val users_id: ULong,
   val users_email: String?,
   val users_telepon: String?,
   val users_nama: String?,

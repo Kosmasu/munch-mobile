@@ -4,14 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.munch.activities.CustomerHomeActivity
-import com.example.munch.api.AuthAPI
+import com.example.munch.api.auth.AuthAPI
 import com.example.munch.api.Retrofit
+import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityMainBinding
 import com.example.munch.fragments.GuestLoginFragment
 import com.example.munch.fragments.GuestRegisterFragment
 import com.example.munch.model.enum_class.PemesananStatus
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import okhttp3.FormBody
+import okhttp3.RequestBody
 
 class MainActivity : AppCompatActivity() {
   private lateinit var binding: ActivityMainBinding
@@ -22,30 +25,20 @@ class MainActivity : AppCompatActivity() {
 
     //testing api
 
-    val retrofit = Retrofit.getInstance()
-    val retrofitAuth = retrofit.create(AuthAPI::class.java)
+
+    val authStore = AuthStore.getInstance(this)
     Retrofit.coroutine.launch {
-      val hasil = retrofitAuth.login(
+      val responseLogin = authStore.login(
         FormBody.Builder()
           .add("users_email", "kevin@kevin.com")
           .add("password", "123")
           .build()
       )
-      println("hasil=${hasil.string()}")
-//      println("hasil=${hasil.}")
-      val hasil2 = retrofitAuth.login2(
-        FormBody.Builder()
-          .add("users_email", "kevin@kevin.com")
-          .add("password", "123")
-          .build()
-      )
-      println("hasil=${hasil2}")
-//      println("hasil.data=${hasil2.user.users_id}")
+      println("responseLogin=${responseLogin}")
+
+      val responseMe = authStore.me()
+      println("responseMe = ${responseMe}")
     }
-    println(PemesananStatus.DITOLAK)
-    println(PemesananStatus.DITOLAK.name)
-    println(PemesananStatus.DITOLAK.toString())
-    println(PemesananStatus.DITOLAK.status)
 
     //testing api
 
