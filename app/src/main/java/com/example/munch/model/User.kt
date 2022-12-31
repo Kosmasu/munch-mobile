@@ -15,4 +15,5 @@ data class User (
   val created_at: Timestamp?,
   val updated_at: Timestamp?,
   val deleted_at: Timestamp?,
+  val menu: List<Menu>
 )

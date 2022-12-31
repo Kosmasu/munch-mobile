@@ -11,8 +11,21 @@ import okhttp3.RequestBody
 
 class AuthStore(val context: Context) : AuthAPI {
   private var token: Token? = null
-  public lateinit var authAPI: AuthAPI
+  private var authAPI: AuthAPI = Retrofit.getInstance(context).create(AuthAPI::class.java)
 
+  companion object {
+    //https://stackoverflow.com/questions/37709918/warning-do-not-place-android-context-classes-in-static-fields-this-is-a-memory
+    //yang penting pake getApplicationContext(), kata stack overflow no problem :D
+    private var _instance : AuthStore? = null
+
+    fun getInstance(context: Context): AuthStore {
+      if (_instance == null) {
+        _instance = AuthStore(context.applicationContext)
+      }
+      return _instance!!
+    }
+
+  }
   override suspend fun register(body: RequestBody): Response<String?> {
     return authAPI.register(body)
   }
@@ -22,7 +35,7 @@ class AuthStore(val context: Context) : AuthAPI {
     if (response.data != null && response.data.access_token != null) {
       storeToken(context, Token(response.data.users_id.toInt(), response.data.access_token))
     }
-    _authStore!!.authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)
+    authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)
     return response
   }
 
@@ -44,7 +57,7 @@ class AuthStore(val context: Context) : AuthAPI {
 
   override suspend fun logout(): Response<String?> {
     removeToken(context)
-    _authStore!!.authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)
+    authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)
     return authAPI.logout()
   }
 
@@ -75,19 +88,5 @@ class AuthStore(val context: Context) : AuthAPI {
 
   fun getBearer(): String {
     return "Bearer ${token!!.access_token}"
-  }
-
-  companion object {
-    //https://stackoverflow.com/questions/37709918/warning-do-not-place-android-context-classes-in-static-fields-this-is-a-memory
-    //yang penting pake getApplicationContext(), kata stack overflow no problem :D
-    private var _authStore : AuthStore? = null
-
-    fun getInstance(context: Context): AuthStore {
-      if (_authStore == null) {
-        _authStore = AuthStore(context.applicationContext)
-        _authStore!!.authAPI = Retrofit.getInstance(context).create(AuthAPI::class.java)
-      }
-      return _authStore!!
-    }
   }
 }
