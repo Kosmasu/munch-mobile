@@ -1,13 +1,13 @@
 package com.example.munch.api.auth
 
 import android.content.Context
+import com.example.munch.api.Retrofit
 import com.example.munch.model.Response
 import com.example.munch.model.User
 import com.example.munch.room.AppDatabase
 import com.example.munch.room.Token
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
-import retrofit2.Retrofit
 
 class AuthStore(val context: Context) : AuthAPI {
   private var token: Token? = null
@@ -22,7 +22,7 @@ class AuthStore(val context: Context) : AuthAPI {
     if (response.data != null && response.data.access_token != null) {
       storeToken(context, Token(response.data.users_id.toInt(), response.data.access_token))
     }
-    _authStore!!.authAPI = com.example.munch.api.Retrofit.resetInstance(context).create(AuthAPI::class.java)
+    _authStore!!.authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)
     return response
   }
 
@@ -44,7 +44,7 @@ class AuthStore(val context: Context) : AuthAPI {
 
   override suspend fun logout(): Response<String?> {
     removeToken(context)
-    _authStore!!.authAPI = com.example.munch.api.Retrofit.resetInstance(context).create(AuthAPI::class.java)
+    _authStore!!.authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)
     return authAPI.logout()
   }
 
@@ -85,7 +85,7 @@ class AuthStore(val context: Context) : AuthAPI {
     fun getInstance(context: Context): AuthStore {
       if (_authStore == null) {
         _authStore = AuthStore(context.applicationContext)
-        _authStore!!.authAPI = com.example.munch.api.Retrofit.getInstance(context).create(AuthAPI::class.java)
+        _authStore!!.authAPI = Retrofit.getInstance(context).create(AuthAPI::class.java)
       }
       return _authStore!!
     }
