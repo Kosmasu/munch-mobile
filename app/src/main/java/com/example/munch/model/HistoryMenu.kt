@@ -8,4 +8,5 @@ data class HistoryMenu(
   val MenuId: ULong,
   val created_at: Timestamp?,
   val updated_at: Timestamp?,
+  val users: User?,
 )

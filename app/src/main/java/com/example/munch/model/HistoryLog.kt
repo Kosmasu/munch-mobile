@@ -10,4 +10,5 @@ data class HistoryLog(
   val log_desc: String?,
   val users_id: ULong,
   val log_timestamp: Timestamp?,
+  val users: User?,
 )

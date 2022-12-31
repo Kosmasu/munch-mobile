@@ -13,4 +13,5 @@ data class HistoryPemesanan(
   val pemesanan_rating: Int?,
   val created_at: Timestamp?,
   val updated_at: Timestamp?,
+  val users: User?,
 )
