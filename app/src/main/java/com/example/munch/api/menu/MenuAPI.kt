@@ -11,5 +11,21 @@ import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
 interface MenuAPI {
+  @GET("menu")
+  fun fetchPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<Menu>>>
 
+  @GET("menu")
+  fun fetchUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<Menu>>
+
+  @GET("menu/{menu_id}")
+  suspend fun fetch(@Path("menu_id") menu_id: ULong): Response<Menu>
+
+  @POST("menu")
+  suspend fun create(@Body body: RequestBody): Response<String?>
+
+  @POST("menu/{menu_id}?_method=PATCH")
+  suspend fun update(@Path("menu_id") menu_id: ULong, @Body body: RequestBody): Response<String?>
+
+  @DELETE("menu/{menu_id}")
+  suspend fun delete(@Path("menu_id") menu_id: ULong): Response<String?>
 }
