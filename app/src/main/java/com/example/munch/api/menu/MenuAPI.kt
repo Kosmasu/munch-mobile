@@ -12,10 +12,10 @@ import retrofit2.http.QueryMap
 
 interface MenuAPI {
   @GET("menu")
-  fun fetchPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<Menu>>>
+  suspend fun fetchPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<Menu>>>
 
   @GET("menu")
-  fun fetchUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<Menu>>
+  suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<Menu>>
 
   @GET("menu/{menu_id}")
   suspend fun fetch(@Path("menu_id") menu_id: ULong): Response<Menu>

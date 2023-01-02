@@ -21,11 +21,11 @@ class CartStore(val context: Context) : CartAPI {
     }
   }
 
-  override fun fetchPaginate(parameters: Map<String, String>): Response<Paginate<List<Cart>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String>): Response<Paginate<List<Cart>>> {
     return cartAPI.fetchPaginate(parameters)
   }
 
-  override fun fetchUnpaginated(parameters: Map<String, String>): Response<List<Cart>> {
+  override suspend fun fetchUnpaginated(parameters: Map<String, String>): Response<List<Cart>> {
     return cartAPI.fetchUnpaginated(parameters)
   }
 

@@ -12,10 +12,10 @@ import retrofit2.http.QueryMap
 
 interface PesananAPI {
   @GET("pesanan")
-  fun fetchPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<DetailPemesanan>>>
+  suspend fun fetchPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<DetailPemesanan>>>
 
   @GET("pesanan")
-  fun fetchUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<DetailPemesanan>>
+  suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<DetailPemesanan>>
 
   @GET("pesanan/{pesanan_id}")
   suspend fun fetch(@Path("pesanan_id") pesanan_id: ULong): Response<String?>
