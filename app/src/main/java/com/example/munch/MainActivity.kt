@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     Retrofit.coroutine.launch {
       val responseLogin = authStore.login(
         FormBody.Builder()
-          .add("users_email", "kevin@kevin.com")
+          .add("users_email", "provider@provider.com")
           .add("password", "123")
           .build()
       )
@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
       val responseMe = authStore.me()
       println("responseMe = ${responseMe}")
+
+      val responseMyStat = authStore.myStat()
+      println("responseMe = ${responseMyStat}")
     }
 
     //testing api

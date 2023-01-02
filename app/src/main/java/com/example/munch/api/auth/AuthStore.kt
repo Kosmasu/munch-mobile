@@ -43,7 +43,7 @@ class AuthStore(val context: Context) : AuthAPI {
     return authAPI.me()
   }
 
-  override suspend fun myStat(): Response<String?> {
+  override suspend fun myStat(): Response<MyStatResponse?> {
     return authAPI.myStat()
   }
 

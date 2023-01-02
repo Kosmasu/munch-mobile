@@ -11,16 +11,22 @@ import retrofit2.http.POST
 interface AuthAPI {
   @POST("register")
   suspend fun register(@Body body: RequestBody): Response<String?>
+
   @POST("login-api")
   suspend fun login (@Body body: RequestBody): Response<LoginResponse?>
+
   @GET("me")
   suspend fun me(): Response<User?>
+
   @GET("mystat")
-  suspend fun myStat(): Response<String?>
+  suspend fun myStat(): Response<MyStatResponse?>
+
   @GET("mini-me")
   suspend fun miniMe(): Response<User?>
-  @PATCH("topup")
+
+  @PATCH("topup-api")
   suspend fun topup(): Response<String?>
+
   @POST("logout")
   suspend fun logout(): Response<String?>
 }
