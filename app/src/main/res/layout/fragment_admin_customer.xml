@@ -75,7 +75,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -83,6 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="ID"
                     android:textColor="@color/text_black" />
 
@@ -90,7 +91,8 @@
                     android:id="@+id/tvHeaderCustomer2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="4"
+                    android:gravity="center"
                     android:text="Nama"
                     android:textColor="@color/text_black" />
 
@@ -98,7 +100,8 @@
                     android:id="@+id/tvHeaderCustomer3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="5"
+                    android:gravity="center"
                     android:text="Email"
                     android:textColor="@color/text_black" />
 
@@ -107,7 +110,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvListCustomer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
         </LinearLayout>
     </LinearLayout>

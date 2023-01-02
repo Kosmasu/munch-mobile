@@ -1,5 +1,7 @@
 package com.example.munch.adapter
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +11,7 @@ import com.example.munch.R
 import com.example.munch.model.User
 
 class AdminUserAdapter(
-    private val data: List<User>
+    var data: List<User>
 ): RecyclerView.Adapter<AdminUserAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -24,6 +26,12 @@ class AdminUserAdapter(
         holder.tvID.text = item.users_id.toString()
         holder.tvNama.text = item.users_nama
         holder.tvEmail.text = item.users_email
+
+        if (item.users_status == "aktif") {
+            holder.tvNama.setTextColor(Color.parseColor("#000000"))
+        } else if (item.users_status == "banned") {
+            holder.tvNama.setTextColor(Color.parseColor("#FF0000"))
+        }
     }
 
     override fun getItemCount(): Int {
