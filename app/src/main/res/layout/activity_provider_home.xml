@@ -8,14 +8,15 @@
     tools:context=".activities.ProviderHomeActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/flFragmentProvider"
         android:name="com.example.munch.fragments.fragment_provider_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         tools:layout="@layout/fragment_provider_home" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnvProvider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#4A148C"

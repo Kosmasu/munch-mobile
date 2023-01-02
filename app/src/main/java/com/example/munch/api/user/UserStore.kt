@@ -24,11 +24,11 @@ class UserStore(val context: Context) : UserAPI {
     }
   }
 
-  override fun fetchPaginate(parameters: Map<String, String>): Response<Paginate<List<User>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String>): Response<Paginate<List<User>>> {
     return userAPI.fetchPaginate(parameters)
   }
 
-  override fun fetchUnpaginated(parameters: Map<String, String>): Response<List<User>> {
+  override suspend fun fetchUnpaginated(parameters: Map<String, String>): Response<List<User>> {
     return userAPI.fetchUnpaginated(parameters)
   }
 

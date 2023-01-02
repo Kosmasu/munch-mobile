@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_popup_details"
+        android:title="Details" />
+    <item
+        android:id="@+id/menu_popup_ban"
+        android:title="Ban" />
+    <item
+        android:id="@+id/menu_popup_unban"
+        android:title="Unban" />
+</menu>
