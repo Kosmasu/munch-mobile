@@ -23,7 +23,7 @@ class AdminCustomerFragment : Fragment() {
   var _binding: FragmentAdminCustomerBinding? = null
   val binding get() = _binding!!
 
-  val reqMap : Map<String, String> = mapOf("users_role" to "customer")
+  var reqMap : Map<String, String> = mapOf("users_nama" to "", "users_role" to "customer")
   var listCustomer : List<User> = listOf()
   lateinit var customerAdapter : AdminUserAdapter
   lateinit var userStore : UserStore
@@ -83,6 +83,17 @@ class AdminCustomerFragment : Fragment() {
             }
           }
           popUp.show()
+        }
+      }
+    }
+
+    binding.btnSearchCustomer.setOnClickListener {
+      reqMap = mapOf("users_nama" to binding.etSearchCustomer.text.toString(), "users_role" to "customer")
+      Retrofit.coroutine.launch {
+        listCustomer = userStore.fetchUnpaginated(reqMap).data
+        (context as Activity).runOnUiThread {
+          customerAdapter.data = listCustomer
+          customerAdapter.notifyDataSetChanged()
         }
       }
     }
