@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_order_detail"
+        android:title="Detail" />
+    <item
+        android:id="@+id/menu_order_terima"
+        android:title="Accept" />
+    <item
+        android:id="@+id/menu_order_tolak"
+        android:title="Reject" />
+</menu>
