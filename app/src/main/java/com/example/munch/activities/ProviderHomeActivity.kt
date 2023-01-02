@@ -2,7 +2,7 @@ package com.example.munch.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+//import androidx.fragment.app.Fragment
 import com.example.munch.databinding.ActivityProviderHomeBinding
 
 class ProviderHomeActivity : AppCompatActivity() {
@@ -18,12 +18,12 @@ class ProviderHomeActivity : AppCompatActivity() {
 
   }
 
-  fun swapFragment(fragment: Fragment, tag: String) {
-    supportFragmentManager.beginTransaction().apply {
-      replace(binding.flFragmentProvider.id, fragment , tag)
-      setReorderingAllowed(true)
-      addToBackStack(tag)
-      commit()
-    }
-  }
+//  fun swapFragment(fragment: Fragment, tag: String) {
+//    supportFragmentManager.beginTransaction().apply {
+//      replace(binding.flFragmentProvider.id, fragment , tag)
+//      setReorderingAllowed(true)
+//      addToBackStack(tag)
+//      commit()
+//    }
+//  }
 }
