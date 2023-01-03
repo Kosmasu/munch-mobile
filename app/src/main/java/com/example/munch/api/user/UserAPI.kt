@@ -37,4 +37,7 @@ interface UserAPI {
 
   @POST("users/restore/{users_id}")
   suspend fun restore(@Path("users_id") users_id: ULong): Response<Nothing>
+
+  @PATCH("users/approveProvider/{users_id}")
+  suspend fun approveProvider(@Path("users_id") users_id: ULong): Response<Nothing>
 }

@@ -55,4 +55,8 @@ class UserStore(val context: Context) : UserAPI {
   override suspend fun restore(users_id: ULong): Response<Nothing> {
     return userAPI.restore(users_id)
   }
+
+  override suspend fun approveProvider(users_id: ULong): Response<Nothing> {
+    return userAPI.approveProvider(users_id)
+  }
 }
