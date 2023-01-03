@@ -5,19 +5,25 @@ import android.os.Bundle
 import com.example.munch.R
 import androidx.fragment.app.Fragment
 import com.example.munch.databinding.ActivityProviderHomeBinding
+import com.example.munch.fragments.ProviderHistoryFragment
 import com.example.munch.fragments.ProviderHomeFragment
+import com.example.munch.fragments.ProviderMenusFragment
 
 class ProviderHomeActivity : AppCompatActivity() {
   private lateinit var binding: ActivityProviderHomeBinding
 
   lateinit var homeFragment: ProviderHomeFragment
+  lateinit var menuFragment: ProviderMenusFragment
+  lateinit var historyFragment: ProviderHistoryFragment
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityProviderHomeBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
     // Fragment init
-    homeFragment = ProviderHomeFragment.newInstance()
+    homeFragment = ProviderHomeFragment()
+    menuFragment = ProviderMenusFragment()
+    historyFragment = ProviderHistoryFragment()
     swapFragment(homeFragment,"ProviderHomeFragment")
 
     binding.bnvProvider.setOnItemSelectedListener {
@@ -27,9 +33,11 @@ class ProviderHomeActivity : AppCompatActivity() {
           true
         }
         R.id.nav_provider_menu -> {
+          swapFragment(menuFragment,"ProviderHomeFragment")
           true
         }
-        R.id.nav_provider_profile -> {
+        R.id.nav_provider_history -> {
+          swapFragment(historyFragment,"ProviderHomeFragment")
           true
         }
         else -> {

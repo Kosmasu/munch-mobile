@@ -68,6 +68,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_green_borderless"
+                android:backgroundTint="#7CB342"
+                android:drawableTint="#7CB342"
                 android:text="Add New Menu" />
 
         </LinearLayout>
