@@ -37,11 +37,11 @@ class HistoryStore(val context: Context) : HistoryAPI {
     return historyAPI.menuUnpaginated(parameters)
   }
 
-  override suspend fun topUpPaginate(parameters: Map<String, String>): Response<Paginate<List<HistoryPemesanan>>> {
+  override suspend fun topUpPaginate(parameters: Map<String, String>): Response<Paginate<List<HistoryTopUp>>> {
     return historyAPI.topUpPaginate(parameters)
   }
 
-  override suspend fun topUpUnpaginated(parameters: Map<String, String>): Response<List<HistoryPemesanan>> {
+  override suspend fun topUpUnpaginated(parameters: Map<String, String>): Response<List<HistoryTopUp>> {
     return historyAPI.topUpUnpaginated(parameters)
   }
 }

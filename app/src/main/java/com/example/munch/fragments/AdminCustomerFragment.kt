@@ -60,7 +60,7 @@ class AdminCustomerFragment : Fragment() {
           popUp.menuInflater.inflate(R.menu.menu_popup_ban_unban, popUp.menu)
           if (user.users_status == "aktif") {
             popUp.menu.removeItem(R.id.menu_popup_unban)
-          } else {
+          } else if (user.users_status == "banned") {
             popUp.menu.removeItem(R.id.menu_popup_ban)
           }
           popUp.setOnMenuItemClickListener {

@@ -16,7 +16,7 @@ class AdminUserAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
         return ViewHolder(itemView.inflate(
-            R.layout.layout_list_user, parent, false
+            R.layout.layout_list_tabel_3, parent, false
         ))
     }
 
@@ -39,9 +39,9 @@ class AdminUserAdapter(
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val tvID: TextView = itemView.findViewById(R.id.layout_admin_user_id)
-        val tvNama: TextView = itemView.findViewById(R.id.layout_admin_user_nama)
-        val tvEmail: TextView = itemView.findViewById(R.id.layout_admin_user_email)
+        val tvID: TextView = itemView.findViewById(R.id.tvTabelKolom1)
+        val tvNama: TextView = itemView.findViewById(R.id.tvTabelKolom2)
+        val tvEmail: TextView = itemView.findViewById(R.id.tvTabelKolom3)
         init {
             view.setOnClickListener {
                 onClickListener?.invoke(it, adapterPosition, data[adapterPosition])
