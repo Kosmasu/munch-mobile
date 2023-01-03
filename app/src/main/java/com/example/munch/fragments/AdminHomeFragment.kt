@@ -93,7 +93,7 @@ class AdminHomeFragment : Fragment() {
 
   fun approve(id: ULong, context: Context) {
     Retrofit.coroutine.launch {
-//      userStore.approve(id)
+      userStore.approveProvider(id)
       listWaitingProvider = userStore.fetchUnpaginated(reqMap).data
       (context as Activity).runOnUiThread {
         providerAdapter.data = listWaitingProvider
