@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.munch.R
-import com.example.munch.databinding.FragmentAdminHomeBinding
 import com.example.munch.databinding.FragmentCustomerHomeBinding
 
-class fragment_customer_home : Fragment() {
+class CustomerHomeFragment : Fragment() {
     var _binding: FragmentCustomerHomeBinding? = null
     val binding get() = _binding!!
 
