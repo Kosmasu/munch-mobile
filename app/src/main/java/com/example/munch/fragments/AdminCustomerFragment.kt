@@ -57,7 +57,7 @@ class AdminCustomerFragment : Fragment() {
 
         customerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
           val popUp = PopupMenu(requireContext(), it)
-          popUp.menuInflater.inflate(R.menu.menu_popup_detail_ban, popUp.menu)
+          popUp.menuInflater.inflate(R.menu.menu_popup_ban_unban, popUp.menu)
           if (user.users_status == "aktif") {
             popUp.menu.removeItem(R.id.menu_popup_unban)
           } else {
@@ -65,10 +65,6 @@ class AdminCustomerFragment : Fragment() {
           }
           popUp.setOnMenuItemClickListener {
             return@setOnMenuItemClickListener when(it.itemId) {
-              R.id.menu_popup_details -> {
-                println(user)
-                true
-              }
               R.id.menu_popup_ban -> {
                 ban(user.users_id, requireContext())
                 true
