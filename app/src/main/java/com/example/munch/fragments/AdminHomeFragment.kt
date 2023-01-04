@@ -51,7 +51,6 @@ class AdminHomeFragment : Fragment() {
 
     authStore = AuthStore.getInstance(requireContext())
     userStore = UserStore.getInstance(requireContext())
-    println("HELLO")
     Retrofit.coroutine.launch {
       stats = authStore.myStat().data
       listWaitingProvider = userStore.fetchUnpaginated(reqMap).data

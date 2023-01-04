@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:gravity="center"
-            android:text="Customer"
+            android:text="Menu"
             android:textColor="@color/text_black" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:gravity="center"
-            android:text="Nominal"
+            android:text="Action"
             android:textColor="@color/text_black" />
     </LinearLayout>
 
