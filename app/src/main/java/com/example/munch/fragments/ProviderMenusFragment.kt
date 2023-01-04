@@ -6,26 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.munch.R
-import com.example.munch.databinding.FragmentAdminHomeBinding
+import com.example.munch.databinding.FragmentDetailUserBinding
 import com.example.munch.databinding.FragmentProviderHomeBinding
+import com.example.munch.databinding.FragmentProviderMenusBinding
 
 
-class fragment_provider_home : Fragment() {
-    var _binding: FragmentProviderHomeBinding? = null
+class ProviderMenusFragment : Fragment() {
+    var _binding: FragmentProviderMenusBinding? = null
     val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentProviderHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentProviderMenusBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

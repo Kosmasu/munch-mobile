@@ -24,8 +24,8 @@ interface HistoryAPI {
   suspend fun menuUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<HistoryMenu>>
 
   @GET("historyTopup")
-  suspend fun topUpPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<HistoryPemesanan>>>
+  suspend fun topUpPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<HistoryTopUp>>>
 
   @GET("historyTopup")
-  suspend fun topUpUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<HistoryPemesanan>>
+  suspend fun topUpUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<HistoryTopUp>>
 }

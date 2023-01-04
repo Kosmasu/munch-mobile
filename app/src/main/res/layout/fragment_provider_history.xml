@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AdminHistoryFragment" >
+    tools:context=".fragments.ProviderHistoryFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,11 +25,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Admin Log History"
+                android:text="History Pemesanan"
                 android:textColor="@color/text_black"
                 android:textSize="28sp" />
 
@@ -46,30 +46,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="History Filter"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
-
-                    <Spinner
-                        android:id="@+id/spinnerHistoryFilter"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:entries="@array/admin_history" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/textView32"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -78,13 +55,12 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/etDateMin"
+                        android:id="@+id/etDateMinPemesanan"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="date" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,7 +70,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView21"
+                        android:id="@+id/textView33"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -103,7 +79,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/etDateMax"
+                        android:id="@+id/etDateMaxPemesanan"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_weight="1"
@@ -119,16 +95,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_header_borderless"
+                android:orientation="horizontal"
+                android:paddingStart="4dp"
+                android:paddingEnd="3dp">
+
+                <TextView
+                    android:id="@+id/tvHeaderHistory4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ID"
+                    android:textColor="@color/text_black" />
+
+                <TextView
+                    android:id="@+id/tvHeaderHistory5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Customer"
+                    android:textColor="@color/text_black" />
+
+                <TextView
+                    android:id="@+id/tvHeaderHistory6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tanggal"
+                    android:textColor="@color/text_black" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHistoryPemesanan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp" />
 
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/flFragmentAdminHistory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </FrameLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

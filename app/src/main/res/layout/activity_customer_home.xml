@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView6"
-        android:name="com.example.munch.fragments.fragment_customer_home"
+        android:name="com.example.munch.fragments.CustomerHomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="4dp"

@@ -10,7 +10,7 @@
         android:icon="@drawable/vector_menu"
         android:title="Menu" />
     <item
-        android:id="@+id/nav_provider_profile"
-        android:icon="@drawable/vector_user_tie_solid"
-        android:title="Profile" />
+        android:id="@+id/nav_provider_history"
+        android:icon="@drawable/vector_history"
+        android:title="History" />
 </menu>
