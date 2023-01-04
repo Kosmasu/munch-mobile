@@ -21,11 +21,11 @@ class PesananStore(val context: Context) : PesananAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String>): Response<Paginate<List<DetailPemesanan>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String>): Response<Paginate<List<HistoryPemesanan>>> {
     return pesananAPI.fetchPaginate(parameters)
   }
 
-  override suspend fun fetchUnpaginated(parameters: Map<String, String>): Response<List<DetailPemesanan>> {
+  override suspend fun fetchUnpaginated(parameters: Map<String, String>): Response<List<HistoryPemesanan>> {
     return pesananAPI.fetchUnpaginated(parameters)
   }
 
