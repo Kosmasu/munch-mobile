@@ -15,10 +15,10 @@ import retrofit2.http.QueryMap
 
 interface UserAPI {
   @GET("users")
-  suspend fun fetchPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<User>>>
+  suspend fun fetchPaginate(@QueryMap parameters: Map<String, String?>): Response<Paginate<List<User>>>
 
   @GET("users")
-  suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<User>>
+  suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String?>): Response<List<User>>
 
   @GET("users/{users_id}")
   suspend fun fetch(@Path("users_id") users_id: ULong): Response<User>

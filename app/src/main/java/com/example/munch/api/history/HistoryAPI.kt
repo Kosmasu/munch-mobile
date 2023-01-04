@@ -12,20 +12,20 @@ import retrofit2.http.QueryMap
 
 interface HistoryAPI {
   @GET("log")
-  suspend fun logPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<HistoryLog>>>
+  suspend fun logPaginate(@QueryMap parameters: Map<String, String?>): Response<Paginate<List<HistoryLog>>>
 
   @GET("log")
-  suspend fun logUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<HistoryLog>>
+  suspend fun logUnpaginated(@QueryMap parameters: Map<String, String?>): Response<List<HistoryLog>>
 
   @GET("historyMenu")
-  suspend fun menuPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<HistoryMenu>>>
+  suspend fun menuPaginate(@QueryMap parameters: Map<String, String?>): Response<Paginate<List<HistoryMenu>>>
 
   @GET("historyMenu")
-  suspend fun menuUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<HistoryMenu>>
+  suspend fun menuUnpaginated(@QueryMap parameters: Map<String, String?>): Response<List<HistoryMenu>>
 
   @GET("historyTopup")
-  suspend fun topUpPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<HistoryTopUp>>>
+  suspend fun topUpPaginate(@QueryMap parameters: Map<String, String?>): Response<Paginate<List<HistoryTopUp>>>
 
   @GET("historyTopup")
-  suspend fun topUpUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<HistoryTopUp>>
+  suspend fun topUpUnpaginated(@QueryMap parameters: Map<String, String?>): Response<List<HistoryTopUp>>
 }

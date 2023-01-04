@@ -21,11 +21,11 @@ class PesananStore(val context: Context) : PesananAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String>): Response<Paginate<List<HistoryPemesanan>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Paginate<List<HistoryPemesanan>>> {
     return pesananAPI.fetchPaginate(parameters)
   }
 
-  override suspend fun fetchUnpaginated(parameters: Map<String, String>): Response<List<HistoryPemesanan>> {
+  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<List<HistoryPemesanan>> {
     return pesananAPI.fetchUnpaginated(parameters)
   }
 
@@ -41,7 +41,7 @@ class PesananStore(val context: Context) : PesananAPI {
     return pesananAPI.rate(pesanan_id, body)
   }
 
-  override suspend fun fetchDelivery(parameters: Map<String, String>): Response<List<String?>> {
+  override suspend fun fetchDelivery(parameters: Map<String, String?>): Response<List<String?>> {
     return pesananAPI.fetchDelivery(parameters)
   }
 

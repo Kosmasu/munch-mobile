@@ -12,10 +12,10 @@ import retrofit2.http.QueryMap
 
 interface PesananAPI {
   @GET("pesanan")
-  suspend fun fetchPaginate(@QueryMap parameters: Map<String, String>): Response<Paginate<List<HistoryPemesanan>>>
+  suspend fun fetchPaginate(@QueryMap parameters: Map<String, String?>): Response<Paginate<List<HistoryPemesanan>>>
 
   @GET("pesanan")
-  suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String>): Response<List<HistoryPemesanan>>
+  suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String?>): Response<List<HistoryPemesanan>>
 
   @GET("pesanan/{pesanan_id}")
   suspend fun fetch(@Path("pesanan_id") pesanan_id: ULong): Response<String?>
@@ -27,7 +27,7 @@ interface PesananAPI {
   suspend fun rate(@Path("pesanan_id") pesanan_id: ULong, @Body body: RequestBody): Response<String?>
 
   @GET("pesanan/showDelivery")
-  suspend fun fetchDelivery(@QueryMap parameters: Map<String, String>): Response<List<String?>>
+  suspend fun fetchDelivery(@QueryMap parameters: Map<String, String?>): Response<List<String?>>
 
   @POST("pesanan/{pesanan_id}/reject")
   suspend fun reject(@Path("pesanan_id") pesanan_id: ULong): Response<String?>

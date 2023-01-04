@@ -21,27 +21,27 @@ class HistoryStore(val context: Context) : HistoryAPI {
     }
   }
 
-  override suspend fun logPaginate(parameters: Map<String, String>): Response<Paginate<List<HistoryLog>>> {
+  override suspend fun logPaginate(parameters: Map<String, String?>): Response<Paginate<List<HistoryLog>>> {
     return historyAPI.logPaginate(parameters)
   }
 
-  override suspend fun logUnpaginated(parameters: Map<String, String>): Response<List<HistoryLog>> {
+  override suspend fun logUnpaginated(parameters: Map<String, String?>): Response<List<HistoryLog>> {
     return historyAPI.logUnpaginated(parameters)
   }
 
-  override suspend fun menuPaginate(parameters: Map<String, String>): Response<Paginate<List<HistoryMenu>>> {
+  override suspend fun menuPaginate(parameters: Map<String, String?>): Response<Paginate<List<HistoryMenu>>> {
     return historyAPI.menuPaginate(parameters)
   }
 
-  override suspend fun menuUnpaginated(parameters: Map<String, String>): Response<List<HistoryMenu>> {
+  override suspend fun menuUnpaginated(parameters: Map<String, String?>): Response<List<HistoryMenu>> {
     return historyAPI.menuUnpaginated(parameters)
   }
 
-  override suspend fun topUpPaginate(parameters: Map<String, String>): Response<Paginate<List<HistoryTopUp>>> {
+  override suspend fun topUpPaginate(parameters: Map<String, String?>): Response<Paginate<List<HistoryTopUp>>> {
     return historyAPI.topUpPaginate(parameters)
   }
 
-  override suspend fun topUpUnpaginated(parameters: Map<String, String>): Response<List<HistoryTopUp>> {
+  override suspend fun topUpUnpaginated(parameters: Map<String, String?>): Response<List<HistoryTopUp>> {
     return historyAPI.topUpUnpaginated(parameters)
   }
 }
