@@ -3,18 +3,14 @@ package com.example.munch
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.munch.activities.CustomerHomeActivity
-import com.example.munch.api.auth.AuthAPI
+import com.example.munch.activities.ProviderHomeActivity
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityMainBinding
 import com.example.munch.fragments.GuestLoginFragment
 import com.example.munch.fragments.GuestRegisterFragment
-import com.example.munch.model.enum_class.PemesananStatus
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import okhttp3.FormBody
-import okhttp3.RequestBody
 
 class MainActivity : AppCompatActivity() {
   private lateinit var binding: ActivityMainBinding
@@ -40,14 +36,14 @@ class MainActivity : AppCompatActivity() {
       println("responseMe = ${responseMe}")
 
       val responseMyStat = authStore.myStat()
-      println("responseMe = ${responseMyStat}")
+      println("responseStat = ${responseMyStat}")
     }
 
     //testing api
 
     val login: (String, String)->Unit = { email: String, password: String ->
       // tambah pengecekan role
-      startActivity(Intent(this@MainActivity, CustomerHomeActivity::class.java))
+      startActivity(Intent(this@MainActivity, ProviderHomeActivity::class.java))
     }
 
     supportFragmentManager.beginTransaction().apply {

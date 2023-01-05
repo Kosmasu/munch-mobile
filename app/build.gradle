@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.munch"
-        minSdk 21
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -60,4 +60,6 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
+    // picaso
+    implementation 'com.squareup.picasso:picasso:2.8'
 }

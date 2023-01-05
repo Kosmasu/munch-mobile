@@ -21,9 +21,9 @@ class ProviderHomeActivity : AppCompatActivity() {
     setContentView(binding.root)
 
     // Fragment init
-    homeFragment = ProviderHomeFragment()
-    menuFragment = ProviderMenusFragment()
-    historyFragment = ProviderHistoryFragment()
+    homeFragment = ProviderHomeFragment.newInstance()
+    menuFragment = ProviderMenusFragment.newInstance()
+    historyFragment = ProviderHistoryFragment.newInstance()
     swapFragment(homeFragment,"ProviderHomeFragment")
 
     binding.bnvProvider.setOnItemSelectedListener {
@@ -33,11 +33,11 @@ class ProviderHomeActivity : AppCompatActivity() {
           true
         }
         R.id.nav_provider_menu -> {
-          swapFragment(menuFragment,"ProviderHomeFragment")
+          swapFragment(menuFragment,"ProviderMenuFragment")
           true
         }
         R.id.nav_provider_history -> {
-          swapFragment(historyFragment,"ProviderHomeFragment")
+          swapFragment(historyFragment,"ProviderHistoryFragment")
           true
         }
         else -> {
