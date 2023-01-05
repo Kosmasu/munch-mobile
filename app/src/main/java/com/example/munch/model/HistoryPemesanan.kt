@@ -5,8 +5,8 @@ import java.sql.Timestamp
 
 data class HistoryPemesanan(
   val pemesanan_id: ULong,
-  val users_provider: ULong,
-  val users_customer: ULong,
+  val users_provider: User?,
+  val users_customer: User?,
   val pemesanan_jumlah: Int?,
   val pemesanan_total: Long?,
   val pemesanan_status: PemesananStatus?, //enum("menunggu", "ditolak", "diterima", "selesai")
