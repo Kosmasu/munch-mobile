@@ -17,6 +17,7 @@ abstract class Retrofit {
     @get:Synchronized
     private var _instance: Retrofit? = null
     val coroutine = CoroutineScope(Dispatchers.IO)
+    val baseUrl: String = "http://10.0.2.2:8000/api/"
 
     fun getInstance(context: Context) : Retrofit {
       if(_instance == null){
@@ -43,12 +44,11 @@ abstract class Retrofit {
           addInterceptor(interceptor)
         }.build()
 
-        _instance = Retrofit.Builder().baseUrl("http://10.0.2.2:8000/api/")
+        _instance = Retrofit.Builder().baseUrl(baseUrl)
           .addConverterFactory(GsonConverterFactory.create())
           .client(client)
           .build()
       }
-
       return _instance!!
     }
 
