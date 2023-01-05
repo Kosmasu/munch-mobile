@@ -13,4 +13,8 @@
         <item>Pemesanan</item>
         <item>Topup</item>
     </string-array>
+    <string-array name="customer_history">
+        <item>Pemesanan</item>
+        <item>Topup</item>
+    </string-array>
 </resources>

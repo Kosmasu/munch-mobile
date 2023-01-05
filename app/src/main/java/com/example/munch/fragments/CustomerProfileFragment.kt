@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.munch.R
-import com.example.munch.databinding.FragmentAdminHomeBinding
-import com.example.munch.databinding.FragmentDetailUserBinding
+import com.example.munch.databinding.FragmentCustomerProfileBinding
+import com.example.munch.databinding.FragmentProviderProfileBinding
 
 
-class DetailUserFragment : Fragment() {
-    var _binding: FragmentDetailUserBinding? = null
+class CustomerProfileFragment : Fragment() {
+    var _binding: FragmentCustomerProfileBinding? = null
     val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,12 +23,13 @@ class DetailUserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDetailUserBinding.inflate(inflater, container, false)
+        _binding = FragmentCustomerProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 
 }
