@@ -62,7 +62,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_border_shape"
+                android:background="@drawable/rounded_border_solid"
                 android:orientation="vertical"
                 android:padding="3dp">
 
@@ -92,7 +92,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_border_shape"
+                android:background="@drawable/rounded_border_solid"
                 android:orientation="vertical"
                 android:padding="3dp">
 
@@ -122,7 +122,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_border_shape"
+                android:background="@drawable/rounded_border_solid"
                 android:orientation="vertical"
                 android:padding="3dp">
 
@@ -156,7 +156,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_border_shape"
+            android:background="@drawable/rounded_border_solid"
             android:orientation="vertical"
             android:padding="2dp">
 
@@ -206,7 +206,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_border_shape"
+            android:background="@drawable/rounded_border_solid"
             android:orientation="vertical"
             android:padding="2dp"
             android:paddingTop="1dp">
