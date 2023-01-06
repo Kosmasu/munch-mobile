@@ -98,19 +98,19 @@ class AdminHistoryFragment : Fragment() {
       when (filter) {
           "log" -> {
             println("ADMIN LOG")
-            replace(binding.flFragmentAdminHistory.id, AdminHistoryLogFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryFragment")
+            replace(binding.flFragmentAdminHistory.id, AdminHistoryLogFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryLogFragment")
           }
           "menu" -> {
             println("ADMIN MENU")
-            replace(binding.flFragmentAdminHistory.id, AdminHistoryMenuFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryFragment")
+            replace(binding.flFragmentAdminHistory.id, AdminHistoryMenuFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryMenuFragment")
           }
           "pemesanan" -> {
             println("ADMIN PEMESANAN")
-            replace(binding.flFragmentAdminHistory.id, AdminHistoryPemesananFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryFragment")
+            replace(binding.flFragmentAdminHistory.id, AdminHistoryPemesananFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryPemesananFragment")
           }
           "topup" -> {
             println("ADMIN TOPUP")
-            replace(binding.flFragmentAdminHistory.id, AdminHistoryTopupFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryFragment")
+            replace(binding.flFragmentAdminHistory.id, AdminHistoryTopupFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryTopupFragment")
           }
       }
       setReorderingAllowed(true)
