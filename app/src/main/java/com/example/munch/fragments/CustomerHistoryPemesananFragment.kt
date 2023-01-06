@@ -14,7 +14,6 @@ import com.example.munch.adapter.CustomerHistoryPemesananAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.databinding.FragmentCustomerHistoryPemesananBinding
-import com.example.munch.databinding.FragmentDetailMenuBinding
 import com.example.munch.model.HistoryPemesanan
 import kotlinx.coroutines.launch
 
@@ -29,6 +28,7 @@ class CustomerHistoryPemesananFragment(date_lower: String = "", date_upper: Stri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pesananStore = PesananStore.getInstance(requireContext())
     }
 
     override fun onCreateView(
@@ -41,8 +41,6 @@ class CustomerHistoryPemesananFragment(date_lower: String = "", date_upper: Stri
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        pesananStore = PesananStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
                 listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).data
@@ -72,7 +70,7 @@ class CustomerHistoryPemesananFragment(date_lower: String = "", date_upper: Stri
                 }
             } catch (e: Exception) {
                 requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), "Check Date Again", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error fetch pemesanan", Toast.LENGTH_SHORT).show()
                 }
             }
         }
