@@ -10,7 +10,7 @@ import com.example.munch.databinding.FragmentCustomerHistoryTopupBinding
 import com.example.munch.databinding.FragmentDetailMenuBinding
 
 
-class CustomerHistoryTopupFragment : Fragment() {
+class CustomerHistoryTopupFragment(date_lower: String = "", date_upper: String = "") : Fragment() {
     var _binding: FragmentCustomerHistoryTopupBinding? = null
     val binding get() = _binding!!
 
