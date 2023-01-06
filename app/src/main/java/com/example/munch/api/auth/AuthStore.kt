@@ -56,9 +56,10 @@ class AuthStore(val context: Context) : AuthAPI {
   }
 
   override suspend fun logout(): Response<String?> {
+    val response = authAPI.logout()
     removeToken(context)
     authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)
-    return authAPI.logout()
+    return response
   }
 
   suspend fun storeToken(context: Context, token: Token) {
