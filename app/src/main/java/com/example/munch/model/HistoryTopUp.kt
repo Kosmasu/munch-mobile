@@ -10,6 +10,6 @@ data class HistoryTopUp(
   val topup_response_code: Int?,
   val topup_response: String?,
   val users_id: ULong,
-  val created_at: Timestamp?,
-  val updated_at: Timestamp?,
+  val created_at: String?,
+  val updated_at: String?,
 )

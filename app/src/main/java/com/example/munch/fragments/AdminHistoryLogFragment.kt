@@ -16,7 +16,7 @@ import com.example.munch.model.HistoryLog
 import kotlinx.coroutines.launch
 
 class AdminHistoryLogFragment : Fragment() {
-    var _binding: FragmentAdminHistoryLogBinding? = null
+    private var _binding: FragmentAdminHistoryLogBinding? = null
     val binding get() = _binding!!
 
     var reqMap : Map<String, String> = mapOf("date_lower" to "", "date_upper" to "")
@@ -31,7 +31,7 @@ class AdminHistoryLogFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAdminHistoryLogBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,7 +43,7 @@ class AdminHistoryLogFragment : Fragment() {
         Retrofit.coroutine.launch {
             listHistoryLog = historyStore.logUnpaginated(reqMap).data
 
-            (requireContext() as Activity).runOnUiThread {
+            requireActivity().runOnUiThread {
                 logAdapter = AdminHistoryLogAdapter(listHistoryLog)
                 binding.rvAdminHistoryLog.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
                 binding.rvAdminHistoryLog.adapter = logAdapter

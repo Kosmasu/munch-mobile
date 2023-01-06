@@ -2,6 +2,8 @@ package com.example.munch.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.example.munch.R
 import androidx.fragment.app.Fragment
 import com.example.munch.databinding.ActivityProviderHomeBinding
@@ -52,6 +54,16 @@ class ProviderHomeActivity : AppCompatActivity() {
         }
       }
     }
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_option_logout, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    finish()
+    return super.onOptionsItemSelected(item)
   }
 
   private fun swapFragment(fragment: Fragment, tag: String) {

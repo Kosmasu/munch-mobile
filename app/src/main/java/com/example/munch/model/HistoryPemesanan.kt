@@ -11,7 +11,7 @@ data class HistoryPemesanan(
   val pemesanan_total: Long?,
   val pemesanan_status: PemesananStatus?, //enum("menunggu", "ditolak", "diterima", "selesai")
   val pemesanan_rating: Int?,
-  val created_at: Timestamp?,
-  val updated_at: Timestamp?,
+  val created_at: String?,
+  val updated_at: String?,
   val users: User?,
 )
