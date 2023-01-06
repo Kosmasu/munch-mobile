@@ -14,6 +14,8 @@ class AdminHistoryFragment : Fragment() {
   private var _binding: FragmentAdminHistoryBinding? = null
   val binding get() = _binding!!
 
+  var filter : String = "log"
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
   }
@@ -31,8 +33,9 @@ class AdminHistoryFragment : Fragment() {
       val datePickerDialog = DatePickerDialog(
         requireContext(),
         { view, year , monthOfYear, dayOfMonth ->
-          val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+          val dat = "$year-${monthOfYear + 1}-$dayOfMonth"
           binding.etDateMin.setText(dat)
+          filter()
         },
         calendarYear,
         calendarMonth,
@@ -48,8 +51,9 @@ class AdminHistoryFragment : Fragment() {
       val datePickerDialog = DatePickerDialog(
         requireContext(),
         { view, year , monthOfYear, dayOfMonth ->
-          val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+          val dat = "$year-${monthOfYear + 1}-$dayOfMonth"
           binding.etDateMax.setText(dat)
+          filter()
         },
         calendarYear,
         calendarMonth,
@@ -62,38 +66,19 @@ class AdminHistoryFragment : Fragment() {
       override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (position) {
           0 -> {
-            println("ADMIN LOG")
-            childFragmentManager.beginTransaction().apply {
-              replace(binding.flFragmentAdminHistory.id, AdminHistoryLogFragment(binding.etDateMin.toString(), binding.etDateMax.toString()), "AdminHistoryFragment")
-              setReorderingAllowed(true)
-              commit()
-            }
+            filter = "log"
           }
           1 -> {
-            println("ADMIN MENU")
-            childFragmentManager.beginTransaction().apply {
-              replace(binding.flFragmentAdminHistory.id, AdminHistoryMenuFragment(), "AdminHistoryFragment")
-              setReorderingAllowed(true)
-              commit()
-            }
+            filter = "menu"
           }
           2 -> {
-            println("ADMIN PEMESANAN")
-            childFragmentManager.beginTransaction().apply {
-              replace(binding.flFragmentAdminHistory.id, AdminHistoryPemesananFragment(), "AdminHistoryFragment")
-              setReorderingAllowed(true)
-              commit()
-            }
+            filter = "pemesanan"
           }
           3 -> {
-            println("ADMIN TOPUP")
-            childFragmentManager.beginTransaction().apply {
-              replace(binding.flFragmentAdminHistory.id, AdminHistoryTopupFragment(), "AdminHistoryFragment")
-              setReorderingAllowed(true)
-              commit()
-            }
+            filter = "topup"
           }
         }
+        filter()
       }
     }
     return binding.root
@@ -101,17 +86,35 @@ class AdminHistoryFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    // FOR SOME REASON, THROWS ERROR WHEN UNCOMMENTED - Kevin
-//    childFragmentManager.beginTransaction().apply {
-//      replace(binding.flFragmentAdminHistory.id, AdminHistoryLogFragment(), "AdminHistoryFragment")
-//      setReorderingAllowed(true)
-//      commit()
-//    }
   }
 
   override fun onDestroyView() {
     super.onDestroyView()
     _binding = null
+  }
+
+  fun filter() {
+    childFragmentManager.beginTransaction().apply {
+      when (filter) {
+          "log" -> {
+            println("ADMIN LOG")
+            replace(binding.flFragmentAdminHistory.id, AdminHistoryLogFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryFragment")
+          }
+          "menu" -> {
+            println("ADMIN MENU")
+            replace(binding.flFragmentAdminHistory.id, AdminHistoryMenuFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryFragment")
+          }
+          "pemesanan" -> {
+            println("ADMIN PEMESANAN")
+            replace(binding.flFragmentAdminHistory.id, AdminHistoryPemesananFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryFragment")
+          }
+          "topup" -> {
+            println("ADMIN TOPUP")
+            replace(binding.flFragmentAdminHistory.id, AdminHistoryTopupFragment(binding.etDateMin.text.toString(), binding.etDateMax.text.toString()), "AdminHistoryFragment")
+          }
+      }
+      setReorderingAllowed(true)
+      commit()
+    }
   }
 }
