@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,29 +45,35 @@ class AdminHistoryPemesananFragment(date_lower: String = "", date_upper: String 
 
         pesananStore = PesananStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
-            listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).data
+            try {
+                listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).data
 
-            requireActivity().runOnUiThread {
-                pemesananAdapter = AdminHistoryPemesananAdapter(listHistoryPemesanan)
-                binding.rvAdminHistoryPemesanan.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-                binding.rvAdminHistoryPemesanan.adapter = pemesananAdapter
-                binding.rvAdminHistoryPemesanan.layoutManager = LinearLayoutManager(requireContext())
-                pemesananAdapter.notifyDataSetChanged()
+                requireActivity().runOnUiThread {
+                    pemesananAdapter = AdminHistoryPemesananAdapter(listHistoryPemesanan)
+                    binding.rvAdminHistoryPemesanan.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+                    binding.rvAdminHistoryPemesanan.adapter = pemesananAdapter
+                    binding.rvAdminHistoryPemesanan.layoutManager = LinearLayoutManager(requireContext())
+                    pemesananAdapter.notifyDataSetChanged()
 
-                pemesananAdapter.onClickListener = fun (it: View, position: Int, pemesanan: HistoryPemesanan) {
-                    val popUp = PopupMenu(requireContext(), it)
-                    popUp.menuInflater.inflate(R.menu.menu_popup_detailonly, popUp.menu)
-                    popUp.setOnMenuItemClickListener {
-                        return@setOnMenuItemClickListener when(it.itemId) {
-                            R.id.menu_popup_detailonly -> {
-                                true
-                            }
-                            else -> {
-                                false
+                    pemesananAdapter.onClickListener = fun (it: View, position: Int, pemesanan: HistoryPemesanan) {
+                        val popUp = PopupMenu(requireContext(), it)
+                        popUp.menuInflater.inflate(R.menu.menu_popup_detailonly, popUp.menu)
+                        popUp.setOnMenuItemClickListener {
+                            return@setOnMenuItemClickListener when(it.itemId) {
+                                R.id.menu_popup_detailonly -> {
+                                    true
+                                }
+                                else -> {
+                                    false
+                                }
                             }
                         }
+                        popUp.show()
                     }
-                    popUp.show()
+                }
+            } catch (e: Exception) {
+                requireActivity().runOnUiThread {
+                    Toast.makeText(requireContext(), "Check Date Again", Toast.LENGTH_SHORT).show()
                 }
             }
         }

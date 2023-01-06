@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.munch.R
@@ -46,50 +47,63 @@ class AdminCustomerFragment : Fragment() {
 
     userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
-      listCustomer = userStore.fetchUnpaginated(reqMap).data
+      try {
+        listCustomer = userStore.fetchUnpaginated(reqMap).data
 
-      (requireContext() as Activity).runOnUiThread{
-        customerAdapter = AdminUserAdapter(listCustomer)
-        binding.rvListCustomer.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-        binding.rvListCustomer.adapter = customerAdapter
-        binding.rvListCustomer.layoutManager = LinearLayoutManager(requireContext())
-        customerAdapter.notifyDataSetChanged()
+        (requireContext() as Activity).runOnUiThread{
+          customerAdapter = AdminUserAdapter(listCustomer)
+          binding.rvListCustomer.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+          binding.rvListCustomer.adapter = customerAdapter
+          binding.rvListCustomer.layoutManager = LinearLayoutManager(requireContext())
+          customerAdapter.notifyDataSetChanged()
 
-        customerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
-          val popUp = PopupMenu(requireContext(), it)
-          popUp.menuInflater.inflate(R.menu.menu_popup_ban_unban, popUp.menu)
-          if (user.users_status == "aktif") {
-            popUp.menu.removeItem(R.id.menu_popup_unban)
-          } else if (user.users_status == "banned") {
-            popUp.menu.removeItem(R.id.menu_popup_ban)
-          }
-          popUp.setOnMenuItemClickListener {
-            return@setOnMenuItemClickListener when(it.itemId) {
-              R.id.menu_popup_ban -> {
-                ban(user.users_id, requireContext())
-                true
-              }
-              R.id.menu_popup_unban -> {
-                unban(user.users_id, requireContext())
-                true
-              }
-              else -> {
-                false
+          customerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
+            val popUp = PopupMenu(requireContext(), it)
+            popUp.menuInflater.inflate(R.menu.menu_popup_ban_unban, popUp.menu)
+            if (user.users_status == "aktif") {
+              popUp.menu.removeItem(R.id.menu_popup_unban)
+            } else if (user.users_status == "banned") {
+              popUp.menu.removeItem(R.id.menu_popup_ban)
+            }
+            popUp.setOnMenuItemClickListener {
+              return@setOnMenuItemClickListener when(it.itemId) {
+                R.id.menu_popup_ban -> {
+                  ban(user.users_id, requireContext())
+                  true
+                }
+                R.id.menu_popup_unban -> {
+                  unban(user.users_id, requireContext())
+                  true
+                }
+                else -> {
+                  false
+                }
               }
             }
+            popUp.show()
           }
-          popUp.show()
+        }
+      } catch (e: Exception) {
+        (requireContext() as Activity).runOnUiThread {
+          Toast.makeText(requireContext(), "Error fetching customer", Toast.LENGTH_SHORT).show()
         }
       }
     }
 
     binding.btnSearchCustomer.setOnClickListener {
       reqMap = mapOf("users_nama" to binding.etSearchCustomer.text.toString(), "users_role" to "customer")
+
       Retrofit.coroutine.launch {
-        listCustomer = userStore.fetchUnpaginated(reqMap).data
-        (context as Activity).runOnUiThread {
-          customerAdapter.data = listCustomer
-          customerAdapter.notifyDataSetChanged()
+        try {
+          listCustomer = userStore.fetchUnpaginated(reqMap).data
+          (context as Activity).runOnUiThread {
+            customerAdapter.data = listCustomer
+            customerAdapter.notifyDataSetChanged()
+          }
+        } catch (e: Exception) {
+          (context as Activity).runOnUiThread {
+            Toast.makeText(requireContext(), "Error fetching customer", Toast.LENGTH_SHORT).show()
+          }
         }
       }
     }
@@ -97,22 +111,35 @@ class AdminCustomerFragment : Fragment() {
 
   fun ban(id: ULong, context: Context) {
     Retrofit.coroutine.launch {
-      userStore.ban(id)
-      listCustomer = userStore.fetchUnpaginated(reqMap).data
-      (context as Activity).runOnUiThread {
-        customerAdapter.data = listCustomer
-        customerAdapter.notifyDataSetChanged()
+      try {
+        userStore.ban(id)
+        listCustomer = userStore.fetchUnpaginated(reqMap).data
+        (context as Activity).runOnUiThread {
+          customerAdapter.data = listCustomer
+          customerAdapter.notifyDataSetChanged()
+        }
+      } catch (e: Exception) {
+        (context as Activity).runOnUiThread {
+          Toast.makeText(requireContext(), "Error ban customer", Toast.LENGTH_SHORT).show()
+        }
       }
+
     }
   }
 
   fun unban(id: ULong, context: Context) {
     Retrofit.coroutine.launch {
-      userStore.unban(id)
-      listCustomer = userStore.fetchUnpaginated(reqMap).data
-      (context as Activity).runOnUiThread {
-        customerAdapter.data = listCustomer
-        customerAdapter.notifyDataSetChanged()
+      try {
+        userStore.unban(id)
+        listCustomer = userStore.fetchUnpaginated(reqMap).data
+        (context as Activity).runOnUiThread {
+          customerAdapter.data = listCustomer
+          customerAdapter.notifyDataSetChanged()
+        }
+      } catch (e: Exception) {
+        (context as Activity).runOnUiThread {
+          Toast.makeText(requireContext(), "Error unban customer", Toast.LENGTH_SHORT).show()
+        }
       }
     }
   }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,14 +42,20 @@ class AdminHistoryTopupFragment(date_lower: String = "", date_upper: String = ""
 
         historyStore = HistoryStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
-            listHistoryTopUp = historyStore.topUpUnpaginated(reqMap).data
+            try {
+                listHistoryTopUp = historyStore.topUpUnpaginated(reqMap).data
 
-            requireActivity().runOnUiThread {
-                topupAdapter = AdminHistoryTopupAdapter(listHistoryTopUp)
-                binding.rvAdminHistoryTopup.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-                binding.rvAdminHistoryTopup.adapter = topupAdapter
-                binding.rvAdminHistoryTopup.layoutManager = LinearLayoutManager(requireContext())
-                topupAdapter.notifyDataSetChanged()
+                requireActivity().runOnUiThread {
+                    topupAdapter = AdminHistoryTopupAdapter(listHistoryTopUp)
+                    binding.rvAdminHistoryTopup.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+                    binding.rvAdminHistoryTopup.adapter = topupAdapter
+                    binding.rvAdminHistoryTopup.layoutManager = LinearLayoutManager(requireContext())
+                    topupAdapter.notifyDataSetChanged()
+                }
+            } catch (e: Exception) {
+                requireActivity().runOnUiThread {
+                    Toast.makeText(requireContext(), "Check Date Again", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

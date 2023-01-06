@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.munch.R
@@ -52,39 +53,54 @@ class AdminHomeFragment : Fragment() {
     authStore = AuthStore.getInstance(requireContext())
     userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
-      stats = authStore.myStat().data
-      listWaitingProvider = userStore.fetchUnpaginated(reqMap).data
+      try {
+        stats = authStore.myStat().data
 
-      (requireContext() as Activity).runOnUiThread {
-        binding.tvRegisteredAccounts.text = "${stats?.providers_count?.let {
-          stats?.customers_count?.plus(
-            it
-          )
-        }} Accounts"
-        binding.tvCustomers.text = "${stats?.customers_count} Accounts"
-        binding.tvProviders.text = "${stats?.providers_count} Accounts"
+        (requireContext() as Activity).runOnUiThread {
+          binding.tvRegisteredAccounts.text = "${stats?.providers_count?.let {
+            stats?.customers_count?.plus(
+              it
+            )
+          }} Accounts"
+          binding.tvCustomers.text = "${stats?.customers_count} Accounts"
+          binding.tvProviders.text = "${stats?.providers_count} Accounts"
+        }
+      } catch (e: Exception) {
+        (requireContext() as Activity).runOnUiThread {
+          Toast.makeText(requireContext(), "Error fetching stats", Toast.LENGTH_SHORT).show()
+        }
+      }
 
-        providerAdapter = AdminUserAdapter(listWaitingProvider)
-        binding.rvListWaitingProvider.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-        binding.rvListWaitingProvider.adapter = providerAdapter
-        binding.rvListWaitingProvider.layoutManager = LinearLayoutManager(requireContext())
-        providerAdapter.notifyDataSetChanged()
+      try {
+        listWaitingProvider = userStore.fetchUnpaginated(reqMap).data
 
-        providerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
-          val popUp = PopupMenu(requireContext(), it)
-          popUp.menuInflater.inflate(R.menu.menu_popup_approve, popUp.menu)
-          popUp.setOnMenuItemClickListener {
-            return@setOnMenuItemClickListener when(it.itemId) {
-              R.id.menu_popup_approve -> {
-                approve(user.users_id, requireContext())
-                true
-              }
-              else -> {
-                false
+        (requireContext() as Activity).runOnUiThread {
+          providerAdapter = AdminUserAdapter(listWaitingProvider)
+          binding.rvListWaitingProvider.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+          binding.rvListWaitingProvider.adapter = providerAdapter
+          binding.rvListWaitingProvider.layoutManager = LinearLayoutManager(requireContext())
+          providerAdapter.notifyDataSetChanged()
+
+          providerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
+            val popUp = PopupMenu(requireContext(), it)
+            popUp.menuInflater.inflate(R.menu.menu_popup_approve, popUp.menu)
+            popUp.setOnMenuItemClickListener {
+              return@setOnMenuItemClickListener when(it.itemId) {
+                R.id.menu_popup_approve -> {
+                  approve(user.users_id, requireContext())
+                  true
+                }
+                else -> {
+                  false
+                }
               }
             }
+            popUp.show()
           }
-          popUp.show()
+        }
+      } catch (e: Exception) {
+        (requireContext() as Activity).runOnUiThread {
+          Toast.makeText(requireContext(), "Error fetching waiting provider", Toast.LENGTH_SHORT).show()
         }
       }
     }
@@ -92,11 +108,17 @@ class AdminHomeFragment : Fragment() {
 
   fun approve(id: ULong, context: Context) {
     Retrofit.coroutine.launch {
-      userStore.approveProvider(id)
-      listWaitingProvider = userStore.fetchUnpaginated(reqMap).data
-      (context as Activity).runOnUiThread {
-        providerAdapter.data = listWaitingProvider
-        providerAdapter.notifyDataSetChanged()
+      try {
+        userStore.approveProvider(id)
+        listWaitingProvider = userStore.fetchUnpaginated(reqMap).data
+        (context as Activity).runOnUiThread {
+          providerAdapter.data = listWaitingProvider
+          providerAdapter.notifyDataSetChanged()
+        }
+      } catch (e: Exception) {
+        (context as Activity).runOnUiThread {
+          Toast.makeText(requireContext(), "Error approve provider", Toast.LENGTH_SHORT).show()
+        }
       }
     }
   }
