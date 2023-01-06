@@ -8,6 +8,7 @@ import com.example.munch.databinding.ActivityProviderHomeBinding
 import com.example.munch.fragments.ProviderHistoryFragment
 import com.example.munch.fragments.ProviderHomeFragment
 import com.example.munch.fragments.ProviderMenusFragment
+import com.example.munch.fragments.ProviderProfileFragment
 
 class ProviderHomeActivity : AppCompatActivity() {
   private lateinit var binding: ActivityProviderHomeBinding
@@ -15,6 +16,7 @@ class ProviderHomeActivity : AppCompatActivity() {
   lateinit var homeFragment: ProviderHomeFragment
   lateinit var menuFragment: ProviderMenusFragment
   lateinit var historyFragment: ProviderHistoryFragment
+  lateinit var profileFragment: ProviderProfileFragment
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityProviderHomeBinding.inflate(layoutInflater)
@@ -24,6 +26,7 @@ class ProviderHomeActivity : AppCompatActivity() {
     homeFragment = ProviderHomeFragment.newInstance()
     menuFragment = ProviderMenusFragment.newInstance()
     historyFragment = ProviderHistoryFragment.newInstance()
+    profileFragment = ProviderProfileFragment.newInstance()
     swapFragment(homeFragment,"ProviderHomeFragment")
 
     binding.bnvProvider.setOnItemSelectedListener {
@@ -38,6 +41,10 @@ class ProviderHomeActivity : AppCompatActivity() {
         }
         R.id.nav_provider_history -> {
           swapFragment(historyFragment,"ProviderHistoryFragment")
+          true
+        }
+        R.id.nav_provider_profile -> {
+          swapFragment(profileFragment,"ProviderProfileFragment")
           true
         }
         else -> {
