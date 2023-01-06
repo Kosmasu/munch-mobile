@@ -57,7 +57,7 @@ class CustomerHistoryPemesananFragment(date_lower: String = "", date_upper: Stri
                         popUp.menuInflater.inflate(R.menu.menu_popup_detailonly, popUp.menu)
                         popUp.setOnMenuItemClickListener {
                             return@setOnMenuItemClickListener when(it.itemId) {
-                                R.id.menu_popup_detailonly -> {
+                                R.id.menu_detail_only -> {
                                     true
                                 }
                                 else -> {

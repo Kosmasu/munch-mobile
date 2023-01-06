@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_detail_only"
-        android:title="Detail" />
+        android:id="@+id/menu_delete_only"
+        android:title="Delete" />
 </menu>

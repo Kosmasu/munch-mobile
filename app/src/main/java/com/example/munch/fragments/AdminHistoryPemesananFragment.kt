@@ -1,6 +1,5 @@
 package com.example.munch.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.munch.R
-import com.example.munch.adapter.AdminHistoryLogAdapter
 import com.example.munch.adapter.AdminHistoryPemesananAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.pesanan.PesananStore
@@ -60,7 +58,7 @@ class AdminHistoryPemesananFragment(date_lower: String = "", date_upper: String 
                         popUp.menuInflater.inflate(R.menu.menu_popup_detailonly, popUp.menu)
                         popUp.setOnMenuItemClickListener {
                             return@setOnMenuItemClickListener when(it.itemId) {
-                                R.id.menu_popup_detailonly -> {
+                                R.id.menu_detail_only -> {
                                     true
                                 }
                                 else -> {

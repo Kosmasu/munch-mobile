@@ -68,6 +68,18 @@
             android:textColor="#000000"
             android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/btnTopup"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/rounded_green_borderless"
+            android:backgroundTint="#7CB342"
+
+            android:backgroundTintMode="multiply"
+            android:text="TOP UP" />
+
     </LinearLayout>
 
 </LinearLayout>
