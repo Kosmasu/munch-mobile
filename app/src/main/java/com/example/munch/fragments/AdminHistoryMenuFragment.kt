@@ -16,11 +16,11 @@ import com.example.munch.databinding.FragmentAdminHistoryMenuBinding
 import com.example.munch.model.HistoryMenu
 import kotlinx.coroutines.launch
 
-class AdminHistoryMenuFragment : Fragment() {
+class AdminHistoryMenuFragment(date_lower: String = "", date_upper: String = "") : Fragment() {
     var _binding: FragmentAdminHistoryMenuBinding? = null
     val binding get() = _binding!!
 
-    var reqMap : Map<String, String> = mapOf("date_lower" to "", "date_upper" to "")
+    var reqMap : Map<String, String> = mapOf("date_lower" to date_lower, "date_upper" to date_upper)
     var listHistoryMenu : List<HistoryMenu> = listOf()
     lateinit var historyStore : HistoryStore
     lateinit var menuAdapter : AdminHistoryMenuAdapter
@@ -44,7 +44,7 @@ class AdminHistoryMenuFragment : Fragment() {
         Retrofit.coroutine.launch {
             listHistoryMenu = historyStore.menuUnpaginated(reqMap).data
 
-            (requireContext() as Activity).runOnUiThread {
+            requireActivity().runOnUiThread {
                 menuAdapter = AdminHistoryMenuAdapter(listHistoryMenu)
                 binding.rvAdminHistoryMenu.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
                 binding.rvAdminHistoryMenu.adapter = menuAdapter

@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_detailOnly"
+        android:id="@+id/menu_popup_detailonly"
         android:title="Detail" />
 </menu>

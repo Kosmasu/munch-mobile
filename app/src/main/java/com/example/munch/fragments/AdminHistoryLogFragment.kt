@@ -15,11 +15,11 @@ import com.example.munch.databinding.FragmentAdminHistoryLogBinding
 import com.example.munch.model.HistoryLog
 import kotlinx.coroutines.launch
 
-class AdminHistoryLogFragment : Fragment() {
+class AdminHistoryLogFragment(date_lower: String = "", date_upper: String = "") : Fragment() {
     private var _binding: FragmentAdminHistoryLogBinding? = null
     val binding get() = _binding!!
 
-    var reqMap : Map<String, String> = mapOf("date_lower" to "", "date_upper" to "")
+    var reqMap : Map<String, String> = mapOf("date_lower" to date_lower, "date_upper" to date_upper)
     var listHistoryLog : List<HistoryLog> = listOf()
     lateinit var historyStore : HistoryStore
     lateinit var logAdapter : AdminHistoryLogAdapter

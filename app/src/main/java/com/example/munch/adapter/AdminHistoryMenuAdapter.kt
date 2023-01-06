@@ -23,9 +23,9 @@ class AdminHistoryMenuAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
 
-        holder.tvID.text = item.HistoryMenuId.toString()
-        holder.tvProvider.text = item.users?.users_nama.toString()
-        holder.tvAction.text = "${item.HistoryMenuAction} ${item.MenuId}"
+        holder.tvID.text = item.history_menu_id.toString()
+        holder.tvMenu.text = "${item.history_menu_action} ${item.menu_id}"
+        holder.tvAction.text = item.created_at
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +34,7 @@ class AdminHistoryMenuAdapter(
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val tvID: TextView = itemView.findViewById(R.id.tvTabelKolom1)
-        val tvProvider: TextView = itemView.findViewById(R.id.tvTabelKolom2)
+        val tvMenu: TextView = itemView.findViewById(R.id.tvTabelKolom2)
         val tvAction: TextView = itemView.findViewById(R.id.tvTabelKolom3)
     }
 }

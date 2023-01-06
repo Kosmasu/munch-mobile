@@ -15,11 +15,11 @@ import com.example.munch.databinding.FragmentAdminHistoryTopupBinding
 import com.example.munch.model.HistoryTopUp
 import kotlinx.coroutines.launch
 
-class AdminHistoryTopupFragment : Fragment() {
+class AdminHistoryTopupFragment(date_lower: String = "", date_upper: String = "") : Fragment() {
     var _binding: FragmentAdminHistoryTopupBinding? = null
     val binding get() = _binding!!
 
-    var reqMap : Map<String, String> = mapOf("date_lower" to "", "date_upper" to "")
+    var reqMap : Map<String, String> = mapOf("date_lower" to date_lower, "date_upper" to date_upper)
     var listHistoryTopUp : List<HistoryTopUp> = listOf()
     lateinit var historyStore : HistoryStore
     lateinit var topupAdapter : AdminHistoryTopupAdapter
@@ -43,7 +43,7 @@ class AdminHistoryTopupFragment : Fragment() {
         Retrofit.coroutine.launch {
             listHistoryTopUp = historyStore.topUpUnpaginated(reqMap).data
 
-            (requireContext() as Activity).runOnUiThread {
+            requireActivity().runOnUiThread {
                 topupAdapter = AdminHistoryTopupAdapter(listHistoryTopUp)
                 binding.rvAdminHistoryTopup.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
                 binding.rvAdminHistoryTopup.adapter = topupAdapter

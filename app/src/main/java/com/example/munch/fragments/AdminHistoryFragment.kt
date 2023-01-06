@@ -64,7 +64,7 @@ class AdminHistoryFragment : Fragment() {
           0 -> {
             println("ADMIN LOG")
             childFragmentManager.beginTransaction().apply {
-              replace(binding.flFragmentAdminHistory.id, AdminHistoryLogFragment(), "AdminHistoryFragment")
+              replace(binding.flFragmentAdminHistory.id, AdminHistoryLogFragment(binding.etDateMin.toString(), binding.etDateMax.toString()), "AdminHistoryFragment")
               setReorderingAllowed(true)
               commit()
             }
