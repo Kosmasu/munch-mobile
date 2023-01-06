@@ -82,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="ID"
                     android:textColor="@color/text_black" />
 
@@ -89,7 +90,8 @@
                     android:id="@+id/tvHeaderProvider2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="4"
+                    android:gravity="center"
                     android:text="Nama"
                     android:textColor="#000000" />
 
@@ -97,7 +99,8 @@
                     android:id="@+id/tvHeaderProvider3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="5"
+                    android:gravity="center"
                     android:text="Email"
                     android:textColor="#000000" />
 
