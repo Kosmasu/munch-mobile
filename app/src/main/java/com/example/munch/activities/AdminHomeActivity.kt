@@ -5,58 +5,49 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import com.example.munch.R
 import com.example.munch.databinding.ActivityAdminHomeBinding
 import com.example.munch.fragments.*
 
 class AdminHomeActivity : AppCompatActivity() {
   private lateinit var binding: ActivityAdminHomeBinding
+
+  val homeFragment = AdminHomeFragment()
+  val customerFragment = AdminCustomerFragment()
+  val providerFragment = AdminProviderFragment()
+  val historyFragment = AdminHistoryFragment()
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityAdminHomeBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-
-    supportFragmentManager.beginTransaction().apply {
-      replace(binding.flFragmentAdmin.id,AdminHomeFragment() , "AdminHomeFragment")
-      setReorderingAllowed(true)
-      commit()
-    }
+    swapFragment(homeFragment, "AdminHomeFragment")
 
     binding.bnvAdmin.setOnItemSelectedListener {
       when (it.title.toString().lowercase()) {
         "home" -> {
-          supportFragmentManager.beginTransaction().apply {
-            replace(binding.flFragmentAdmin.id, AdminHomeFragment(), "GuestLoginFragment")
-            setReorderingAllowed(true)
-            commit()
-          }
+          swapFragment(homeFragment, "AdminHomeFragment")
+          true
         }
         "customer" -> {
-          supportFragmentManager.beginTransaction().apply {
-            replace(binding.flFragmentAdmin.id,AdminCustomerFragment() , "AdminHomeFragment")
-            setReorderingAllowed(true)
-            commit()
-          }
+          swapFragment(customerFragment, "AdminCustomerFragment")
+          true
         }
         "provider" -> {
-          supportFragmentManager.beginTransaction().apply {
-            replace(binding.flFragmentAdmin.id,AdminProviderFragment() , "AdminHomeFragment")
-            setReorderingAllowed(true)
-            commit()
-          }
+          swapFragment(providerFragment, "AdminProviderFragment")
+          true
         }
         "history" -> {
-          supportFragmentManager.beginTransaction().apply {
-            replace(binding.flFragmentAdmin.id,AdminHistoryFragment() , "AdminHomeFragment")
-            setReorderingAllowed(true)
-            commit()
-          }
+          swapFragment(historyFragment, "AdminHistoryFragment")
+          true
+        }
+        else -> {
+          false
         }
       }
-      return@setOnItemSelectedListener true
     }
-
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,5 +58,14 @@ class AdminHomeActivity : AppCompatActivity() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     finish()
     return super.onOptionsItemSelected(item)
+  }
+
+  private fun swapFragment(fragment: Fragment, tag: String) {
+    supportFragmentManager.beginTransaction().apply {
+      replace(binding.flFragmentAdmin.id, fragment, tag)
+      setReorderingAllowed(true)
+      addToBackStack(tag)
+      commit()
+    }
   }
 }
