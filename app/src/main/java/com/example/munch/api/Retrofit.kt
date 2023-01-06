@@ -2,10 +2,8 @@ package com.example.munch.api
 
 import android.content.Context
 import com.example.munch.api.auth.AuthStore
-import com.example.munch.room.AppDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -17,7 +15,8 @@ abstract class Retrofit {
     @get:Synchronized
     private var _instance: Retrofit? = null
     val coroutine = CoroutineScope(Dispatchers.IO)
-    val baseUrl: String = "http://10.0.2.2:8000/api/"
+    const val hostUrl: String = "http://10.0.2.2:8000"
+    const val baseUrl: String = "$hostUrl/api/"
 
     fun getInstance(context: Context) : Retrofit {
       if(_instance == null){

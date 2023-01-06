@@ -1,17 +1,17 @@
 package com.example.munch.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.munch.api.Retrofit
 import com.example.munch.databinding.LayoutCardProviderBinding
 import com.example.munch.model.Menu
 import com.squareup.picasso.Picasso
 
 class ProviderMenuAdapter(
     val context: Context,
-    val menuList : ArrayList<Menu>
+    var menuList : ArrayList<Menu>
 ) : RecyclerView.Adapter<ProviderMenuAdapter.MenuHolder>() {
     private val TAG = "ProviderMenuAdapter"
 
@@ -31,15 +31,15 @@ class ProviderMenuAdapter(
     }
 
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
-//        holder.image.setImageURI(menuList[position].menu_foto)
-        Log.d(TAG, "onBindViewHolder: menu_foto = ${menuList[position].menu_foto}")
-
-//        val url =
+//        Log.d(TAG, "onBindViewHolder: menu_foto = ${menuList[position].menu_foto}")
+        val url = Retrofit.hostUrl + "/storage/" + menuList[position].menu_foto
+//        Log.d(TAG, "onBindViewHolder: menu_foto = $url")
         Picasso.get()
-            .load(menuList[position].menu_foto)
-            .resize(50,50)
+            .load(url)
 //            .placeholder(R.drawable.user_placeholder)
 //            .error(R.drawable.user_placeholder_error)
+            .resize(230,160)
+            .centerCrop()
             .into(holder.image)
         holder.caption.text = menuList[position].menu_nama
     }

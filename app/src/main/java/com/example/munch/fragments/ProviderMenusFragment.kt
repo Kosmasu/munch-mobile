@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.munch.R
 import com.example.munch.adapter.ProviderMenuAdapter
 import com.example.munch.api.Retrofit
+import com.example.munch.api.auth.AuthStore
 import com.example.munch.api.menu.MenuStore
 import com.example.munch.databinding.FragmentProviderMenusBinding
-import com.example.munch.model.Menu
 import kotlinx.coroutines.launch
 
 
@@ -21,12 +21,14 @@ class ProviderMenusFragment : Fragment() {
     private val TAG = "ProviderMenusFragment"
     private var _binding: FragmentProviderMenusBinding? = null
     val binding get() = _binding!!
+    private lateinit var authStore : AuthStore
     private lateinit var menuStore: MenuStore
     lateinit var menuAdapter: ProviderMenuAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         menuStore = MenuStore.getInstance(requireContext())
+        authStore = AuthStore.getInstance(requireContext())
     }
 
     override fun onCreateView(
@@ -45,6 +47,9 @@ class ProviderMenusFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // init layout
+        menuAdapter = ProviderMenuAdapter(requireContext(), arrayListOf())
+        binding.rvListMenu.adapter = menuAdapter
+        binding.rvListMenu.layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL, false)
         getMenu()
 
         binding.btnAddMenu.setOnClickListener {
@@ -55,18 +60,28 @@ class ProviderMenusFragment : Fragment() {
         }
     }
 
-    fun getMenu() {
+    private fun getMenu() {
         val term = binding.etSearchMenus.text.toString()
         Retrofit.coroutine.launch {
             try {
-                val menus = menuStore.fetchUnpaginated(mapOf("menu_nama" to term)).data
-                print(menus)
+                val me = authStore.miniMe().data
+                val menus = menuStore.fetchUnpaginated(
+                    mapOf(
+                        "menu_nama" to term,
+                        "provider_id" to me!!.users_id.toString()
+                    )
+                ).data
+                Log.d(TAG, "getMenu: menu=$menus")
 
                 if (_binding != null) {
                     requireActivity().runOnUiThread {
-                        menuAdapter = ProviderMenuAdapter(requireContext(),menus as ArrayList<Menu>)
-                        binding.rvListMenu.adapter = menuAdapter
-                        binding.rvListMenu.layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL, false)
+                        if (menus.isEmpty()) {
+                            Toast.makeText(context, "No menu available", Toast.LENGTH_SHORT).show()
+                        } else {
+                            menuAdapter.menuList.clear()
+                            menuAdapter.menuList.addAll(menus)
+                            menuAdapter.notifyItemRangeChanged(0,menuAdapter.menuList.lastIndex)
+                        }
                     }
                 }
             } catch (e : Exception){
