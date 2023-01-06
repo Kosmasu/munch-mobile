@@ -58,7 +58,7 @@
                 android:layout_weight="4"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="Kevin"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="normal" />
@@ -97,7 +97,7 @@
                 android:layout_weight="4"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="Rp. 0,00"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="normal" />
@@ -136,7 +136,7 @@
                 android:layout_weight="4"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="kevin@kevin.com"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="normal" />
@@ -175,7 +175,7 @@
                 android:layout_weight="4"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="420420420"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="normal" />
@@ -214,7 +214,7 @@
                 android:layout_weight="4"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="L404"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="normal" />
