@@ -25,7 +25,7 @@ interface AuthAPI {
   suspend fun miniMe(): Response<User?>
 
   @PATCH("topup-api")
-  suspend fun topup(parameters: Map<String, Any>): Response<String?>
+  suspend fun topup(@Body body: RequestBody): Response<String?>
 
   @POST("logout")
   suspend fun logout(): Response<String?>

@@ -51,8 +51,8 @@ class AuthStore(val context: Context) : AuthAPI {
     return authAPI.miniMe()
   }
 
-  override suspend fun topup(parameters: Map<String, Any>): Response<String?> {
-    return authAPI.topup(parameters)
+  override suspend fun topup(body: RequestBody): Response<String?> {
+    return authAPI.topup(body)
   }
 
   override suspend fun logout(): Response<String?> {
