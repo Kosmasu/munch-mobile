@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.munch.api.user.UserStore
 import com.example.munch.databinding.LayoutListTabel2Binding
 import com.example.munch.model.HistoryPemesanan
 
@@ -14,7 +13,6 @@ class ProviderNewOrderAdapter(
     val newOrder : ArrayList<HistoryPemesanan>
 ) : RecyclerView.Adapter<ProviderNewOrderAdapter.NewOrderHolder>() {
     private val TAG = "ProviderNewOrderAdapter"
-    private lateinit var userStore: UserStore
 
     class NewOrderHolder(val binding : LayoutListTabel2Binding) : RecyclerView.ViewHolder(binding.root) {
         val nama = binding.tvTabelKolom21
@@ -28,31 +26,12 @@ class ProviderNewOrderAdapter(
 
     override fun onBindViewHolder(holder: NewOrderHolder, position: Int) {
         val customer = newOrder[position].users_customer
-        Log.d(TAG, "onBindViewHolder: $customer")
+        Log.d(TAG, "onBindViewHolder: customer=$customer")
 
         if (customer != null){
             holder.nama.text = customer.users_nama
             holder.alamat.text = customer.users_alamat
         }
-
-//        if (customer != null){
-//            Retrofit.coroutine.launch {
-//                try {
-//                    val customer = userStore.fetch(customer.users_id).data
-//
-//                    context.runOnUiThread{
-//                        holder.nama.text = customer.users_nama
-//                        holder.alamat.text = customer.users_alamat
-//                    }
-//                } catch (e: Exception){
-//                    context.runOnUiThread {
-//                        Toast.makeText(context, "Unstable Internet", Toast.LENGTH_SHORT)
-//                            .show()
-//                        Log.e(TAG, "onBindViewHolder: API Server Error")
-//                    }
-//                }
-//            }
-//        }
     }
 
     override fun getItemCount(): Int {
