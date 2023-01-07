@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="4dp"
     tools:context=".fragments.CustomerTopupFragment">
@@ -75,9 +76,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="18dp"
             android:background="@drawable/rounded_green_borderless"
-            android:backgroundTint="#7CB342"
-
-            android:backgroundTintMode="multiply"
+            app:backgroundTint="@null"
             android:text="TOP UP" />
 
     </LinearLayout>
