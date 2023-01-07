@@ -60,8 +60,9 @@ class ProviderProfileFragment : Fragment() {
                     Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
+
+        // TODO: update profile
     }
 
     companion object {

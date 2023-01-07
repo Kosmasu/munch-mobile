@@ -80,7 +80,7 @@ class ProviderMenusFragment : Fragment() {
                         } else {
                             menuAdapter.menuList.clear()
                             menuAdapter.menuList.addAll(menus)
-                            menuAdapter.notifyItemRangeChanged(0,menuAdapter.menuList.lastIndex)
+                            menuAdapter.notifyItemRangeChanged(0,menuAdapter.menuList.size)
                         }
                     }
                 }

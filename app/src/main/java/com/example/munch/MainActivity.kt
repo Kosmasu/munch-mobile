@@ -15,6 +15,7 @@ import com.example.munch.fragments.GuestLoginFragment
 import com.example.munch.fragments.GuestRegisterFragment
 import kotlinx.coroutines.launch
 import okhttp3.FormBody
+import retrofit2.HttpException
 
 class MainActivity : AppCompatActivity() {
   private val TAG = "MainActivity"
@@ -72,9 +73,15 @@ class MainActivity : AppCompatActivity() {
           }
 
         } catch (e : Exception) {
-          Log.e(TAG, "onViewCreated: API Server error", e)
+          var message = "API Server Error"
+          if (e is HttpException) {
+            when (e.code()) {
+              422 -> message = "Wrong username/password"
+            }
+          }
+          Log.e(TAG, "onViewCreated: $message", e)
           runOnUiThread {
-            Toast.makeText(this@MainActivity, "Server error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
           }
         }
       }

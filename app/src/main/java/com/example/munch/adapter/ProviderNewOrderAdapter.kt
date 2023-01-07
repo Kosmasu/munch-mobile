@@ -1,6 +1,7 @@
 package com.example.munch.adapter
 
 import android.app.Activity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,7 @@ class ProviderNewOrderAdapter(
 
     override fun onBindViewHolder(holder: NewOrderHolder, position: Int) {
         val customer = newOrder[position].users_customer
+        Log.d(TAG, "onBindViewHolder: $customer")
 
         if (customer != null){
             holder.nama.text = customer.users_nama

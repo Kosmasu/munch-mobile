@@ -6,14 +6,18 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.munch.R
 import androidx.fragment.app.Fragment
+import com.example.munch.api.Retrofit
+import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityProviderHomeBinding
 import com.example.munch.fragments.ProviderHistoryFragment
 import com.example.munch.fragments.ProviderHomeFragment
 import com.example.munch.fragments.ProviderMenusFragment
 import com.example.munch.fragments.ProviderProfileFragment
+import kotlinx.coroutines.launch
 
 class ProviderHomeActivity : AppCompatActivity() {
   private lateinit var binding: ActivityProviderHomeBinding
+  lateinit var authStore: AuthStore
 
   lateinit var homeFragment: ProviderHomeFragment
   lateinit var menuFragment: ProviderMenusFragment
@@ -23,6 +27,7 @@ class ProviderHomeActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityProviderHomeBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    authStore = AuthStore.getInstance(this)
 
     // Fragment init
     homeFragment = ProviderHomeFragment.newInstance()
@@ -62,8 +67,13 @@ class ProviderHomeActivity : AppCompatActivity() {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    finish()
-    return super.onOptionsItemSelected(item)
+    Retrofit.coroutine.launch {
+      authStore.logout()
+      runOnUiThread {
+        finish()
+      }
+    }
+    return true
   }
 
   private fun swapFragment(fragment: Fragment, tag: String) {
