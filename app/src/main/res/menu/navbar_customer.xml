@@ -11,9 +11,11 @@
         android:title="Search" />
     <item
         android:id="@+id/nav_customer_history"
+        android:icon="@drawable/vector_history"
         android:title="History" />
     <item
         android:id="@+id/nav_customer_topup"
+        android:icon="@drawable/vector_topup"
         android:title="Topup" />
     <item
         android:id="@+id/nav_customer_profile"

@@ -27,7 +27,7 @@ interface PesananAPI {
   suspend fun rate(@Path("pesanan_id") pesanan_id: ULong, @Body body: RequestBody): Response<String?>
 
   @GET("pesanan/showDelivery")
-  suspend fun fetchDelivery(@QueryMap parameters: Map<String, String?>): Response<List<String?>>
+  suspend fun fetchDelivery(@QueryMap parameters: Map<String, String?>): Response<List<DetailPemesanan>>
 
   @POST("pesanan/{pesanan_id}/reject")
   suspend fun reject(@Path("pesanan_id") pesanan_id: ULong): Response<String?>

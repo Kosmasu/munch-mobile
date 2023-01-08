@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.munch.R
+import com.example.munch.adapter.ProviderDeliveryAdapter
 import com.example.munch.adapter.ProviderNewOrderAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
@@ -15,8 +18,10 @@ import com.example.munch.api.auth.MyStatResponse
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.databinding.FragmentProviderHomeBinding
 import com.example.munch.helpers.CurrencyUtils.toRupiah
+import com.example.munch.model.DetailPemesanan
 import com.example.munch.model.HistoryPemesanan
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 
 class ProviderHomeFragment : Fragment() {
@@ -28,6 +33,7 @@ class ProviderHomeFragment : Fragment() {
     private lateinit var pesananStore: PesananStore
 
     lateinit var providerNewOrderAdapter: ProviderNewOrderAdapter
+    lateinit var providerDeliveryAdapter: ProviderDeliveryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         authStore = AuthStore.getInstance(requireContext())
@@ -50,21 +56,106 @@ class ProviderHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         providerNewOrderAdapter = ProviderNewOrderAdapter(requireActivity(), arrayListOf())
+        providerNewOrderAdapter.onClickListener { newOrderView, position, pemesanan ->
+            val popUp = PopupMenu(requireContext(), newOrderView)
+            popUp.menuInflater.inflate(R.menu.menu_popup_orders, popUp.menu)
+            popUp.setOnMenuItemClickListener {
+                return@setOnMenuItemClickListener when(it.itemId) {
+                    R.id.menu_order_detail -> {
+                        parentFragmentManager.beginTransaction().apply {
+                            replace(R.id.flFragmentProvider, DetailPemesananFragment() , tag)
+                            setReorderingAllowed(true)
+                            addToBackStack(tag)
+                            commit()
+                        }
+                        true
+                    }
+                    R.id.menu_order_terima -> {
+                        Retrofit.coroutine.launch {
+                            try {
+                                pesananStore.accept(pemesanan.pemesanan_id)
+                                requireActivity().runOnUiThread{
+                                    Toast.makeText(
+                                        context,
+                                        "Successfully accepted pesanan",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    providerNewOrderAdapter.newOrder.removeAt(position)
+                                    providerNewOrderAdapter.notifyItemRemoved(position)
+                                    updateView()
+                                }
+                            } catch (e: Exception) {
+                                Log.e(TAG, "onViewCreated: API Server error", e)
+                                requireActivity().runOnUiThread {
+                                    Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                        true
+                    }
+                    R.id.menu_order_tolak -> {
+                        Retrofit.coroutine.launch {
+                            try {
+                                pesananStore.reject(pemesanan.pemesanan_id)
+                                requireActivity().runOnUiThread{
+                                    Toast.makeText(
+                                        context,
+                                        "Successfully rejected pesanan",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                updateView()
+                            } catch (e: Exception) {
+                                Log.e(TAG, "onViewCreated: API Server error", e)
+                                requireActivity().runOnUiThread {
+                                    Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            }
+            popUp.show()
+        }
         binding.rvNewOrders.adapter = providerNewOrderAdapter
         binding.rvNewOrders.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        var pesanan = listOf<HistoryPemesanan>()
+        providerDeliveryAdapter = ProviderDeliveryAdapter(requireContext(), arrayListOf())
+        binding.rvDeliveries.adapter = providerDeliveryAdapter
+        binding.rvDeliveries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
+        updateView()
+    }
+
+    fun updateView() {
+        var newPesanan = listOf<HistoryPemesanan>()
+        var pesananAktif = listOf<DetailPemesanan>()
 
         Retrofit.coroutine.launch {
             try {
                 myStat = authStore.myStat().data!!
 
 //                val params = mapOf("pemesanan_status" to "menunggu", "sort" to mapOf("column" to "created_at", "type" to "asc"))
-                val params = mapOf("pemesanan_status" to "menunggu")
-                Log.d(TAG, "onViewCreated: $params")
+                val paramNewOrder = mapOf("pemesanan_status" to "menunggu")
+                Log.d(TAG, "onViewCreated: $paramNewOrder")
 
-                pesanan = pesananStore.fetchUnpaginated(params).data
-                Log.d(TAG, "onViewCreated: pesanan= $pesanan")
+                newPesanan = pesananStore.fetchUnpaginated(paramNewOrder).data
+                Log.d(TAG, "onViewCreated: newOrder= $newPesanan")
+
+
+                val date = LocalDate.now()
+                val paramPesananAktif = mapOf("month" to date.monthValue.toString(), "year" to date.year.toString())
+                Log.d(TAG, "onViewCreated: $paramPesananAktif")
+
+                pesananAktif = pesananStore.fetchDelivery(paramPesananAktif).data
+                Log.d(TAG, "onViewCreated: delivery= $pesananAktif")
+
+
             } catch (e: Exception){
                 Log.e(TAG, "onViewCreated: API Server error", e)
                 requireActivity().runOnUiThread {
@@ -82,16 +173,17 @@ class ProviderHomeFragment : Fragment() {
 //                        Toast.makeText(context, "No menu available", Toast.LENGTH_SHORT).show()
 //                    } else {
                     providerNewOrderAdapter.newOrder.clear()
-                    providerNewOrderAdapter.newOrder.addAll(pesanan)
-//                    providerNewOrderAdapter.notifyDataSetChanged()
-                    providerNewOrderAdapter.notifyItemRangeChanged(0,pesanan.size)
+                    providerNewOrderAdapter.newOrder.addAll(newPesanan)
+                    providerNewOrderAdapter.notifyDataSetChanged()
+//                    providerNewOrderAdapter.notifyItemRangeChanged(0,newPesanan.size)
 //                    }
+
+                    providerDeliveryAdapter.pesananList.clear()
+                    providerDeliveryAdapter.pesananList.addAll(pesananAktif)
+                    providerDeliveryAdapter.notifyDataSetChanged()
                 }
-
-
             }
         }
-
     }
 
     companion object {
