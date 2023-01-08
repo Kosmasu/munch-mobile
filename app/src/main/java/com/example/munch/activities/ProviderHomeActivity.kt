@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityProviderHomeBinding
-import com.example.munch.fragments.ProviderHistoryFragment
-import com.example.munch.fragments.ProviderHomeFragment
-import com.example.munch.fragments.ProviderMenusFragment
-import com.example.munch.fragments.ProviderProfileFragment
+import com.example.munch.fragments.*
 import kotlinx.coroutines.launch
 
 class ProviderHomeActivity : AppCompatActivity() {
@@ -23,6 +20,7 @@ class ProviderHomeActivity : AppCompatActivity() {
   lateinit var menuFragment: ProviderMenusFragment
   lateinit var historyFragment: ProviderHistoryFragment
   lateinit var profileFragment: ProviderProfileFragment
+  lateinit var detailPemesananFragment: DetailPemesananFragment
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityProviderHomeBinding.inflate(layoutInflater)

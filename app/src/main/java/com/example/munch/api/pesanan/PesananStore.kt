@@ -41,7 +41,7 @@ class PesananStore(val context: Context) : PesananAPI {
     return pesananAPI.rate(pesanan_id, body)
   }
 
-  override suspend fun fetchDelivery(parameters: Map<String, String?>): Response<List<String?>> {
+  override suspend fun fetchDelivery(parameters: Map<String, String?>): Response<List<DetailPemesanan>> {
     return pesananAPI.fetchDelivery(parameters)
   }
 
