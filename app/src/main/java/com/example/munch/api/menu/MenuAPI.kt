@@ -23,7 +23,7 @@ interface MenuAPI {
   @POST("menu")
   suspend fun create(@Body body: RequestBody): Response<String?>
 
-  @POST("menu/{menu_id}?_method=PATCH")
+  @PATCH("menu/{menu_id}")
   suspend fun update(@Path("menu_id") menu_id: ULong, @Body body: RequestBody): Response<String?>
 
   @DELETE("menu/{menu_id}")
