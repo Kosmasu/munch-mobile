@@ -63,7 +63,7 @@ class ProviderHomeFragment : Fragment() {
                 return@setOnMenuItemClickListener when(it.itemId) {
                     R.id.menu_order_detail -> {
                         parentFragmentManager.beginTransaction().apply {
-                            replace(R.id.flFragmentProvider, DetailPemesananFragment() , tag)
+                            replace(R.id.flFragmentProvider, DetailPemesananFragment.newInstance(pemesanan.pemesanan_id) , tag)
                             setReorderingAllowed(true)
                             addToBackStack(tag)
                             commit()

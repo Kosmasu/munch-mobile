@@ -29,7 +29,7 @@ class PesananStore(val context: Context) : PesananAPI {
     return pesananAPI.fetchUnpaginated(parameters)
   }
 
-  override suspend fun fetch(pesanan_id: ULong): Response<String?> {
+  override suspend fun fetch(pesanan_id: ULong): Response<HistoryPemesanan?> {
     return pesananAPI.fetch(pesanan_id)
   }
 

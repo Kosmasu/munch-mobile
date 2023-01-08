@@ -13,4 +13,5 @@ data class HistoryPemesanan(
   val created_at: String?,
   val updated_at: String?,
   val users: User?,
+  val detail_pemesanan: List<DetailPemesanan?>,
 )

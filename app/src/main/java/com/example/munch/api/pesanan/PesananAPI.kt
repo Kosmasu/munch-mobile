@@ -18,7 +18,7 @@ interface PesananAPI {
   suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String?>): Response<List<HistoryPemesanan>>
 
   @GET("pesanan/{pesanan_id}")
-  suspend fun fetch(@Path("pesanan_id") pesanan_id: ULong): Response<String?>
+  suspend fun fetch(@Path("pesanan_id") pesanan_id: ULong): Response<HistoryPemesanan?>
 
   @POST("pesanan")
   suspend fun store(@Body body: RequestBody): Response<String?>
