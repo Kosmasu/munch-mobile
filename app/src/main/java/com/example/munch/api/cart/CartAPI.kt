@@ -17,7 +17,7 @@ interface CartAPI {
   @GET("cart")
   suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String?>): Response<List<Cart>>
 
-  @GET("cart/cart_id}")
+  @GET("cart/{cart_id}")
   suspend fun fetch(@Path("cart_id") cart_id: ULong): Response<Cart>
 
   @POST("cart")
