@@ -1,6 +1,5 @@
 package com.example.munch.model
 
-import com.example.munch.model.enum_class.DetailPemesananStatus
 import java.sql.Timestamp
 
 data class DetailPemesanan(
