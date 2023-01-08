@@ -13,6 +13,7 @@ import com.example.munch.api.auth.AuthStore
 
 import com.example.munch.databinding.FragmentCustomerTopupBinding
 import kotlinx.coroutines.launch
+import okhttp3.FormBody
 
 class CustomerTopupFragment : Fragment() {
     private var _binding: FragmentCustomerTopupBinding? = null
@@ -38,7 +39,12 @@ class CustomerTopupFragment : Fragment() {
             }
             Retrofit.coroutine.launch {
                 try {
-                    authStore.topup(mapOf("topup_amount" to binding.etTopupNominal.text.toString().toInt(), "password" to binding.etTopupPassword.text.toString()))
+                    val responseTopup = authStore.topup(
+                        FormBody.Builder()
+                            .add("topup_amount", binding.etTopupNominal.text.toString())
+                            .add("password", binding.etTopupPassword.text.toString())
+                            .build()
+                    )
 
                     (context as Activity).runOnUiThread {
                         Toast.makeText(requireContext(), "Berhasil topup", Toast.LENGTH_SHORT).show()
