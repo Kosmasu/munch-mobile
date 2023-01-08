@@ -11,7 +11,7 @@ data class DetailPemesanan(
   val detail_jumlah: Int?,
   val detail_total: Long?,
   val detail_tanggal: String?,
-  val detail_status: DetailPemesananStatus?, //enum("belum dikirim", "terkirim", "diterima")
+  val detail_status: String?, //enum("belum dikirim", "terkirim", "diterima")
   val created_at: Timestamp?,
   val updated_at: Timestamp?,
 )
