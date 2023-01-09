@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import com.example.munch.R
 import com.example.munch.databinding.FragmentCustomerHistoryBinding
-import com.example.munch.databinding.FragmentCustomerProfileBinding
+
 import java.util.*
 
 class CustomerHistoryFragment : Fragment() {

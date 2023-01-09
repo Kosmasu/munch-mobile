@@ -1,13 +1,15 @@
 package com.example.munch.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.munch.R
+import android.widget.AdapterView
 import com.example.munch.databinding.FragmentCustomerMenuPesanBinding
-import com.example.munch.databinding.FragmentCustomerProfileBinding
+import java.util.*
+
 
 class CustomerMenuPesanFragment : Fragment() {
     var _binding: FragmentCustomerMenuPesanBinding? = null
@@ -22,6 +24,24 @@ class CustomerMenuPesanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCustomerMenuPesanBinding.inflate(inflater, container, false)
+        binding.etDatePesanMenu.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val calendarYear = calendar.get(Calendar.YEAR)
+            val calendarMonth = calendar.get(Calendar.MONTH)
+            val calendarDay = calendar.get(Calendar.DAY_OF_MONTH)
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { view, year, monthOfYear, dayOfMonth ->
+                    val dat = "$year-${monthOfYear + 1}-$dayOfMonth"
+                    binding.etDatePesanMenu.setText(dat)
+                },
+                calendarYear,
+                calendarMonth,
+                calendarDay,
+            )
+            datePickerDialog.show()
+        }
+
         return binding.root
     }
     override fun onDestroyView() {
