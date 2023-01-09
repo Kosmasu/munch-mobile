@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.munch.adapter.ProviderHistoryPemesananAdapter
 import com.example.munch.api.Retrofit
-import com.example.munch.api.history.HistoryStore
+import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.databinding.FragmentProviderHistoryBinding
 import kotlinx.coroutines.launch
 import java.util.*
@@ -19,11 +21,12 @@ class ProviderHistoryFragment : Fragment() {
     private val TAG = "ProviderHistoryFragment"
     private var _binding: FragmentProviderHistoryBinding? = null
     val binding get() = _binding!!
-    private lateinit var historyStore: HistoryStore
+    private lateinit var pesananStore: PesananStore
 
+    private lateinit var providerHistoryAdapter: ProviderHistoryPemesananAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        historyStore = HistoryStore.getInstance(requireContext())
+        pesananStore = PesananStore.getInstance(requireContext())
     }
 
     override fun onCreateView(
@@ -40,6 +43,11 @@ class ProviderHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        providerHistoryAdapter = ProviderHistoryPemesananAdapter(requireContext(), arrayListOf())
+        binding.rvHistoryPemesanan.adapter = providerHistoryAdapter
+        binding.rvHistoryPemesanan.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+
         binding.etDateMinPemesanan.setOnClickListener {
             val calendar = Calendar.getInstance()
             val calendarYear = calendar.get(Calendar.YEAR)
@@ -48,7 +56,7 @@ class ProviderHistoryFragment : Fragment() {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { view, year , monthOfYear, dayOfMonth ->
-                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    val dat = "$year-${monthOfYear + 1}-$dayOfMonth"
                     binding.etDateMinPemesanan.setText(dat)
                     updateHistory()
                 },
@@ -66,7 +74,7 @@ class ProviderHistoryFragment : Fragment() {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { view, year , monthOfYear, dayOfMonth ->
-                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    val dat = "$year-${monthOfYear + 1}-$dayOfMonth"
                     binding.etDateMaxPemesanan.setText(dat)
                     updateHistory()
                 },
@@ -86,22 +94,31 @@ class ProviderHistoryFragment : Fragment() {
         Retrofit.coroutine.launch {
             val params : MutableMap<String,String> = mutableMapOf()
             if (dateStart.text.toString() != ""){
-                params["date_lower"] = dateStart.toString()
+                params["date_lower"] = dateStart.text.toString()
             }
             if (dateEnd.text.toString() != ""){
-                params["date_upper"] = dateEnd.toString()
+                params["date_upper"] = dateEnd.text.toString()
             }
+            Log.d(TAG, "updateHistory: params=$params")
 
             try {
-                val historyMenu = historyStore.menuUnpaginated(params).data
-                print(historyMenu)
+                val historyPesanan = pesananStore.fetchUnpaginated(params).data
+                Log.d(TAG, "updateHistory: history = $historyPesanan")
 
+                if (activity != null) {
+                    requireActivity().runOnUiThread {
+                        providerHistoryAdapter.historyPemesananList.clear()
+                        providerHistoryAdapter.historyPemesananList.addAll(historyPesanan)
+                        providerHistoryAdapter.notifyDataSetChanged()
+                    }
+                }
             } catch (e: Exception) {
                 Log.e(TAG, "updateHistory: API Server Error", e)
                 requireActivity().runOnUiThread {
                     Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
                 }
             }
+
 
         }
     }

@@ -77,7 +77,7 @@ class DetailPemesananFragment : Fragment() {
                     binding.tvOrderDetailsTelepon.text = pesanan?.users_customer?.users_telepon ?: ""
                     binding.tvOrderDetailsJumlah.text = pesanan?.pemesanan_jumlah.toString()
                     binding.tvOrderDetailsTotal.text = pesanan?.pemesanan_total?.toRupiah() ?: "Rp. 0"
-                    binding.tvOrderDetailsStatus.text = pesanan?.pemesanan_status.toString() // FIXME: null?
+                    binding.tvOrderDetailsStatus.text = pesanan?.pemesanan_status.toString()
 
                     val detailPemesanan : ArrayList<DetailPemesanan?>? = pesanan?.detail_pemesanan as ArrayList<DetailPemesanan?>?
                     Log.d(TAG, "onViewCreated: detailpemesanan = $detailPemesanan")

@@ -2,6 +2,7 @@ package com.example.munch.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.munch.api.Retrofit
@@ -18,6 +19,11 @@ class ProviderMenuAdapter(
     inner class MenuHolder(binding : LayoutCardProviderBinding) : RecyclerView.ViewHolder(binding.root){
         val image = binding.imageView
         val caption = binding.tvNamaProvider
+        init {
+            binding.root.setOnClickListener {
+                onClickListener?.invoke(it, adapterPosition, menuList[adapterPosition])
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuHolder {
@@ -46,5 +52,10 @@ class ProviderMenuAdapter(
 
     override fun getItemCount(): Int {
         return menuList.size
+    }
+
+    private var onClickListener:((view: View, position: Int, menu: Menu)->Unit)? = null
+    fun onClickListener(func: (view: View, position: Int, menu: Menu) -> Unit) {
+        this.onClickListener = func
     }
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.munch.R
@@ -43,17 +44,67 @@ class ProviderMenusFragment : Fragment() {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        getMenu()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // init layout
         menuAdapter = ProviderMenuAdapter(requireContext(), arrayListOf())
+        menuAdapter.onClickListener { popupView, position, menu ->
+            val popUp = PopupMenu(requireContext(), popupView)
+            popUp.menuInflater.inflate(R.menu.menu_popup_detail_hapus, popUp.menu)
+            popUp.setOnMenuItemClickListener {
+                return@setOnMenuItemClickListener when(it.itemId) {
+                    R.id.menu_tabel_details -> {
+                        parentFragmentManager.beginTransaction().apply {
+                            replace(R.id.flFragmentProvider, DetailMenuFragment.newInstance(menu.menu_id) , TAG)
+                            setReorderingAllowed(true)
+                            addToBackStack(TAG)
+                            commit()
+                        }
+                        true
+                    }
+                    R.id.menu_tabel_hapus -> {
+                        Retrofit.coroutine.launch {
+                            try {
+                                menuStore.delete(menu.menu_id)
+
+                                requireActivity().runOnUiThread {
+                                    menuAdapter.menuList.removeAt(position)
+                                    menuAdapter.notifyItemRemoved(position)
+                                    Toast.makeText(context, "menu successfully deleted", Toast.LENGTH_SHORT).show()
+                                }
+                            } catch (e: Exception) {
+                                Log.e(TAG, "onViewCreated: API Server Error", e)
+                                requireActivity().runOnUiThread {
+                                    Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            }
+            popUp.show()
+        }
         binding.rvListMenu.adapter = menuAdapter
         binding.rvListMenu.layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL, false)
         getMenu()
 
         binding.btnAddMenu.setOnClickListener {
-            // TODO add menu
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragmentProvider, ProviderModifyMenuFragment.newInstance() , tag)
+                setReorderingAllowed(true)
+                addToBackStack(tag)
+                commit()
+            }
         }
         binding.btnSearchMenus.setOnClickListener {
             getMenu()

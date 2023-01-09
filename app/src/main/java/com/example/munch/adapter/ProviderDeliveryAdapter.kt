@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.munch.api.user.UserStore
 import com.example.munch.databinding.LayoutListTabel3Binding
 import com.example.munch.model.DetailPemesanan
 
@@ -36,7 +35,7 @@ class ProviderDeliveryAdapter(
         val customer = pesananList[position].history_pemesanan?.users_customer
         Log.d(TAG, "onBindViewHolder: $customer")
 
-        holder.nomorTextView.text = (position + 1).toString()
+        holder.nomorTextView.text = pesananList[position].menu?.menu_nama
         holder.alamatTextView.text = customer?.users_alamat.toString()
         holder.tanggalTextView.text = pesananList[position].detail_tanggal.toString()
     }
