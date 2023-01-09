@@ -19,8 +19,7 @@
         android:id="@+id/bnvProvider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4A148C"
-        app:itemTextColor="#FFFFFF"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/navbar_provider" />
 
 </LinearLayout>
