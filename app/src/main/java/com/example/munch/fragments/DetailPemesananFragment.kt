@@ -1,5 +1,6 @@
 package com.example.munch.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,22 +19,20 @@ import com.example.munch.model.DetailPemesanan
 import com.example.munch.model.HistoryPemesanan
 import kotlinx.coroutines.launch
 
-
-class DetailPemesananFragment : Fragment() {
+class DetailPemesananFragment(var pemesanan_id: ULong) : Fragment() {
     private val TAG = "DetailPemesananFragment"
     private var _binding: FragmentDetailPemesananBinding? = null
     val binding get() = _binding!!
 
-    private var pemesanan_id: Long? = null
     private lateinit var pesananStore: PesananStore
     private var pesanan : HistoryPemesanan? = null
     private lateinit var detailPemesananAdapter: DetailPemesananAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            pemesanan_id = it.getLong("pemesanan_id")
-        }
+//        arguments?.let {
+//            pemesanan_id = it.getLong("pemesanan_id")
+//        }
         pesananStore = PesananStore.getInstance(requireContext())
     }
 
@@ -50,6 +49,7 @@ class DetailPemesananFragment : Fragment() {
         _binding = null
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -59,7 +59,7 @@ class DetailPemesananFragment : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                pesanan = pesananStore.fetch(pemesanan_id!!.toULong()).data
+                pesanan = pesananStore.fetch(pemesanan_id!!).data
                 Log.d(TAG, "onViewCreated: pesanan = $pesanan")
             } catch (e : Exception){
                 Log.e(TAG, "onViewCreated: API Server Error", e)
@@ -70,14 +70,15 @@ class DetailPemesananFragment : Fragment() {
 
             if (_binding != null) {
                 requireActivity().runOnUiThread {
-                    binding.tvOrderDetailsTanggal.text = pesanan?.created_at ?: ""
-                    binding.tvOrderDetailsProvider.text = pesanan?.users_provider?.users_nama ?: ""
-                    binding.tvOrderDetailsCustomer.text = pesanan?.users_customer?.users_nama ?: ""
-                    binding.tvOrderDetailsAlamat.text = pesanan?.users_customer?.users_alamat ?: ""
-                    binding.tvOrderDetailsTelepon.text = pesanan?.users_customer?.users_telepon ?: ""
+                    binding.tvOrderDetailsID.text = "ID Pemesanan ${pesanan?.pemesanan_id}"
+                    binding.tvOrderDetailsTanggal.text = pesanan?.created_at.toString()
+                    binding.tvOrderDetailsProvider.text = pesanan?.users_provider?.users_nama
+                    binding.tvOrderDetailsCustomer.text = pesanan?.users_customer?.users_nama
+                    binding.tvOrderDetailsAlamat.text = pesanan?.users_customer?.users_alamat
+                    binding.tvOrderDetailsTelepon.text = pesanan?.users_customer?.users_telepon
                     binding.tvOrderDetailsJumlah.text = pesanan?.pemesanan_jumlah.toString()
-                    binding.tvOrderDetailsTotal.text = pesanan?.pemesanan_total?.toRupiah() ?: "Rp. 0"
-                    binding.tvOrderDetailsStatus.text = pesanan?.pemesanan_status.toString()
+                    binding.tvOrderDetailsTotal.text = "${pesanan?.pemesanan_total?.toRupiah()},00"
+                    binding.tvOrderDetailsStatus.text = pesanan?.pemesanan_status
 
                     val detailPemesanan : ArrayList<DetailPemesanan?>? = pesanan?.detail_pemesanan as ArrayList<DetailPemesanan?>?
                     Log.d(TAG, "onViewCreated: detailpemesanan = $detailPemesanan")
@@ -102,7 +103,7 @@ class DetailPemesananFragment : Fragment() {
          */
         @JvmStatic
         fun newInstance(pemesanan_id: ULong) =
-            DetailPemesananFragment().apply {
+            DetailPemesananFragment(pemesanan_id).apply {
                 arguments = Bundle().apply {
                     putLong("pemesanan_id", pemesanan_id.toLong())
                 }

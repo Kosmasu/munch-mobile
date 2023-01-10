@@ -13,16 +13,20 @@ import com.example.munch.fragments.*
 class AdminHomeActivity : AppCompatActivity() {
   private lateinit var binding: ActivityAdminHomeBinding
 
-  val homeFragment = AdminHomeFragment()
-  val customerFragment = AdminCustomerFragment()
-  val providerFragment = AdminProviderFragment()
-  val historyFragment = AdminHistoryFragment()
+  lateinit var homeFragment: AdminHomeFragment
+  lateinit var customerFragment: AdminCustomerFragment
+  lateinit var providerFragment: AdminProviderFragment
+  lateinit var historyFragment: AdminHistoryFragment
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityAdminHomeBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
+    homeFragment = AdminHomeFragment()
+    customerFragment = AdminCustomerFragment()
+    providerFragment = AdminProviderFragment()
+    historyFragment = AdminHistoryFragment()
     swapFragment(homeFragment, "AdminHomeFragment")
 
     binding.bnvAdmin.setOnItemSelectedListener {
@@ -65,6 +69,15 @@ class AdminHomeActivity : AppCompatActivity() {
       replace(binding.flFragmentAdmin.id, fragment, tag)
       setReorderingAllowed(true)
       addToBackStack(tag)
+      commit()
+    }
+  }
+
+  fun toDetail(pemesanan_id: ULong) {
+    supportFragmentManager.beginTransaction().apply {
+      replace(binding.flFragmentAdmin.id, DetailPemesananFragment(pemesanan_id), "AdminDetailHistoryFragment")
+      setReorderingAllowed(true)
+      addToBackStack("AdminDetailHistoryFragment")
       commit()
     }
   }

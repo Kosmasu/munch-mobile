@@ -1,12 +1,14 @@
 package com.example.munch.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.munch.R
+import com.example.munch.helpers.CurrencyUtils.toRupiah
 import com.example.munch.model.HistoryTopUp
 
 class AdminHistoryTopupAdapter(
@@ -25,7 +27,13 @@ class AdminHistoryTopupAdapter(
 
         holder.tvID.text = item.topup_id.toString()
         holder.tvCustomer.text = item.users_id.toString()
-        holder.tvNominal.text = item.topup_nominal.toString()
+        holder.tvNominal.text = "${item.topup_nominal?.toRupiah()},00"
+
+        if (item.topup_response_code == 200) {
+            holder.tvNominal.setTextColor(Color.parseColor("#7CB342"))
+        } else {
+            holder.tvNominal.setTextColor(Color.parseColor("#FF0000"))
+        }
     }
 
     override fun getItemCount(): Int {

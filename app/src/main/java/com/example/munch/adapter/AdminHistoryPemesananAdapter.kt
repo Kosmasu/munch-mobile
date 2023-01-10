@@ -39,10 +39,10 @@ class AdminHistoryPemesananAdapter(
         val tvCustomer: TextView = itemView.findViewById(R.id.tvTabelKolom3)
         init {
             view.setOnClickListener {
-                onClickListener?.invoke(it, adapterPosition, data[adapterPosition])
+                onClickListener?.invoke(data[adapterPosition])
             }
         }
     }
 
-    var onClickListener:((view: View, position: Int, pemesanan: HistoryPemesanan)->Unit)? = null
+    var onClickListener:((pemesanan: HistoryPemesanan)->Unit)? = null
 }
