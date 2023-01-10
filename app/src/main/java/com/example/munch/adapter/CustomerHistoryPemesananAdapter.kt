@@ -24,9 +24,9 @@ class CustomerHistoryPemesananAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
 
-        holder.tvProvider.text = item.users_provider?.users_nama
-        holder.tvTotal.text = "${item.pemesanan_total?.toRupiah()},00"
         holder.tvTanggal.text = item.created_at
+        holder.tvTotal.text = "${item.pemesanan_total?.toRupiah()},00"
+        holder.tvProvider.text = item.users_provider?.users_nama
     }
 
     override fun getItemCount(): Int {
@@ -34,15 +34,15 @@ class CustomerHistoryPemesananAdapter(
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val tvProvider: TextView = itemView.findViewById(R.id.tvTabelKolom1)
+        val tvTanggal: TextView = itemView.findViewById(R.id.tvTabelKolom1)
         val tvTotal: TextView = itemView.findViewById(R.id.tvTabelKolom2)
-        val tvTanggal: TextView = itemView.findViewById(R.id.tvTabelKolom3)
+        val tvProvider: TextView = itemView.findViewById(R.id.tvTabelKolom3)
         init {
             view.setOnClickListener {
-                onClickListener?.invoke(it, adapterPosition, data[adapterPosition])
+                onClickListener?.invoke(data[adapterPosition])
             }
         }
     }
 
-    var onClickListener:((view: View, position: Int, pemesanan: HistoryPemesanan)->Unit)? = null
+    var onClickListener:((pemesanan: HistoryPemesanan)->Unit)? = null
 }

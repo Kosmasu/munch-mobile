@@ -105,4 +105,13 @@ class CustomerHomeActivity : AppCompatActivity() {
       commit()
     }
   }
+
+  fun toDetail(pemesanan_id: ULong) {
+    supportFragmentManager.beginTransaction().apply {
+      replace(binding.flFragmentCustomer.id, DetailPemesananFragment(pemesanan_id), "CustomerDetailHistoryFragment")
+      setReorderingAllowed(true)
+      addToBackStack("CustomerDetailHistoryFragment")
+      commit()
+    }
+  }
 }

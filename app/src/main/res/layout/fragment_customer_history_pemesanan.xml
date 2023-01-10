@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Provider"
+            android:text="Tanggal"
             android:textColor="@color/text_black" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Tanggal"
+            android:text="Provider"
             android:textColor="@color/text_black" />
     </LinearLayout>
 
