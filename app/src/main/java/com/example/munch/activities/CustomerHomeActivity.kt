@@ -6,23 +6,35 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.munch.R
+import com.example.munch.api.Retrofit
+import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityCustomerHomeBinding
 import com.example.munch.fragments.*
+import kotlinx.coroutines.launch
 
 class CustomerHomeActivity : AppCompatActivity() {
   private lateinit var binding: ActivityCustomerHomeBinding
+  lateinit var authStore: AuthStore
 
-  val homeFragment = CustomerHomeFragment()
-  val searchFragment = CustomerSearchFragment()
-  val historyFragment = CustomerHistoryFragment()
-  val topupFragment = CustomerTopupFragment()
-  val profileFragment = CustomerProfileFragment()
+  lateinit var homeFragment: CustomerHomeFragment
+  lateinit var searchFragment: CustomerSearchFragment
+  lateinit var cartFragment: CustomerCartFragment
+  lateinit var historyFragment: CustomerHistoryFragment
+  lateinit var profileFragment: CustomerProfileFragment
+  lateinit var topupFragment: CustomerTopupFragment
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityCustomerHomeBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    authStore = AuthStore.getInstance(this)
 
+    homeFragment = CustomerHomeFragment()
+    searchFragment = CustomerSearchFragment()
+    cartFragment = CustomerCartFragment()
+    historyFragment = CustomerHistoryFragment()
+    profileFragment = CustomerProfileFragment()
+    topupFragment = CustomerTopupFragment()
     swapFragment(homeFragment, "CustomerHomeFragment")
 
     binding.bnvCustomer.setOnItemSelectedListener {
@@ -35,16 +47,12 @@ class CustomerHomeActivity : AppCompatActivity() {
           swapFragment(searchFragment, "CustomerSearchFragment")
           true
         }
+        "cart" -> {
+          swapFragment(cartFragment, "CustomerCartFargment")
+          true
+        }
         "history" -> {
           swapFragment(historyFragment, "CustomerHistoryFragment")
-          true
-        }
-        "topup" -> {
-          swapFragment(topupFragment, "CustomerTopupFragment")
-          true
-        }
-        "profile" -> {
-          swapFragment(profileFragment, "CustomerProfileFragment")
           true
         }
         else -> {
@@ -55,13 +63,29 @@ class CustomerHomeActivity : AppCompatActivity() {
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.menu_option_logout, menu)
+    menuInflater.inflate(R.menu.menu_option_customer, menu)
     return super.onCreateOptionsMenu(menu)
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    finish()
-    return super.onOptionsItemSelected(item)
+    when (item.itemId) {
+      R.id.opt_customer_logout -> {
+        Retrofit.coroutine.launch {
+          authStore.logout()
+          runOnUiThread {
+            finish()
+          }
+        }
+        return true
+      }
+      R.id.opt_customer_profile -> {
+        swapFragment(profileFragment, "CustomerProfileFragment")
+        return true
+      }
+      else -> {
+        return false
+      }
+    }
   }
 
   private fun swapFragment(fragment: Fragment, tag: String) {
@@ -69,6 +93,15 @@ class CustomerHomeActivity : AppCompatActivity() {
       replace(binding.flFragmentCustomer.id, fragment, tag)
       setReorderingAllowed(true)
       addToBackStack(tag)
+      commit()
+    }
+  }
+
+  fun toTopup() {
+    supportFragmentManager.beginTransaction().apply {
+      replace(binding.flFragmentCustomer.id, topupFragment, "CustomerTopupFragment")
+      setReorderingAllowed(true)
+      addToBackStack("CustomerTopupFragment")
       commit()
     }
   }
