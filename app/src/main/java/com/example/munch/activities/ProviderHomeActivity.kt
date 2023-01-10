@@ -20,7 +20,6 @@ class ProviderHomeActivity : AppCompatActivity() {
   lateinit var menuFragment: ProviderMenusFragment
   lateinit var historyFragment: ProviderHistoryFragment
   lateinit var profileFragment: ProviderProfileFragment
-  lateinit var detailPemesananFragment: DetailPemesananFragment
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityProviderHomeBinding.inflate(layoutInflater)
@@ -48,10 +47,6 @@ class ProviderHomeActivity : AppCompatActivity() {
           swapFragment(historyFragment,"ProviderHistoryFragment")
           true
         }
-        R.id.nav_provider_profile -> {
-          swapFragment(profileFragment,"ProviderProfileFragment")
-          true
-        }
         else -> {
           false
         }
@@ -60,18 +55,29 @@ class ProviderHomeActivity : AppCompatActivity() {
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.menu_option_logout, menu)
+    menuInflater.inflate(R.menu.menu_option_provider, menu)
     return super.onCreateOptionsMenu(menu)
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    Retrofit.coroutine.launch {
-      authStore.logout()
-      runOnUiThread {
-        finish()
+    when (item.itemId) {
+      R.id.opt_provider_logout -> {
+        Retrofit.coroutine.launch {
+          authStore.logout()
+          runOnUiThread {
+            finish()
+          }
+        }
+        return true
+      }
+      R.id.opt_provider_profile -> {
+        swapFragment(profileFragment,"ProviderProfileFragment")
+        return true
+      }
+      else -> {
+        return false
       }
     }
-    return true
   }
 
   private fun swapFragment(fragment: Fragment, tag: String) {
