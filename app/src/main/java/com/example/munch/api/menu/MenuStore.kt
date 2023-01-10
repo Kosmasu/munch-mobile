@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.munch.api.Retrofit
 import com.example.munch.model.*
 import okhttp3.RequestBody
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 class MenuStore(val context: Context) : MenuAPI {
@@ -34,12 +35,23 @@ class MenuStore(val context: Context) : MenuAPI {
     return menuAPI.fetch(menu_id)
   }
 
-  override suspend fun create(body: RequestBody): Response<String?> {
-    return menuAPI.create(body)
+  override suspend fun create(
+    menu_nama: RequestBody,
+    menu_foto: RequestBody,
+    menu_harga: RequestBody,
+    menu_status: RequestBody,
+  ): Response<String?> {
+    return menuAPI.create(menu_nama, menu_foto, menu_harga, menu_status)
   }
 
-  override suspend fun update(menu_id: ULong, body: RequestBody): Response<String?> {
-    return menuAPI.update(menu_id, body)
+  override suspend fun update(
+    menu_id: ULong,
+    menu_nama: RequestBody,
+    menu_foto: RequestBody,
+    menu_harga: RequestBody,
+    menu_status: RequestBody,
+  ): Response<String?> {
+    return menuAPI.update(menu_id, menu_nama, menu_foto, menu_harga, menu_status)
   }
 
   override suspend fun delete(menu_id: ULong): Response<String?> {
