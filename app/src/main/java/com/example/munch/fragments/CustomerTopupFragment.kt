@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.munch.activities.CustomerHomeActivity
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 
@@ -47,9 +48,8 @@ class CustomerTopupFragment : Fragment() {
                     )
 
                     (context as Activity).runOnUiThread {
-                        binding.etTopupNominal.setText("")
-                        binding.etTopupPassword.setText("")
                         Toast.makeText(requireContext(), "Berhasil topup", Toast.LENGTH_SHORT).show()
+                        (activity as CustomerHomeActivity).supportFragmentManager.popBackStack()
                     }
                 } catch (e: Exception) {
                     Log.e("TOPUP", e.printStackTrace().toString())

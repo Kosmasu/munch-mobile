@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.munch.activities.CustomerHomeActivity
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.FragmentCustomerProfileBinding
@@ -16,7 +17,7 @@ import com.example.munch.model.User
 import kotlinx.coroutines.launch
 
 class CustomerProfileFragment : Fragment() {
-    var _binding: FragmentCustomerProfileBinding? = null
+    private var _binding: FragmentCustomerProfileBinding? = null
     val binding get() = _binding!!
 
     lateinit var authStore : AuthStore
@@ -54,6 +55,10 @@ class CustomerProfileFragment : Fragment() {
                     Toast.makeText(requireContext(), "Error fetch stats", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        binding.btnCustomerGoTopup.setOnClickListener {
+            (activity as CustomerHomeActivity).toTopup()
         }
     }
 
