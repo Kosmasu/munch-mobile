@@ -10,8 +10,10 @@ import android.widget.Toast
 import com.example.munch.R
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
+import com.example.munch.api.user.UserStore
 import com.example.munch.databinding.FragmentProviderProfileBinding
 import kotlinx.coroutines.launch
+import okhttp3.FormBody
 
 
 class ProviderProfileFragment : Fragment() {
@@ -19,10 +21,13 @@ class ProviderProfileFragment : Fragment() {
     private var _binding: FragmentProviderProfileBinding? = null
     val binding get() = _binding!!
     lateinit var authStore: AuthStore
+    lateinit var userStore: UserStore
+    var user_id : ULong? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         authStore = AuthStore.getInstance(requireContext())
+        userStore = UserStore.getInstance(requireContext())
     }
 
     override fun onCreateView(
@@ -40,9 +45,45 @@ class ProviderProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // update profile
+        binding.btnProviderProfileSave.setOnClickListener {
+            val newDesc = binding.etProviderDetailDesc.text.toString()
+            if (newDesc.length > 512) {
+                Toast.makeText(context, "Description too long", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val body = FormBody.Builder()
+                .add("users_desc",binding.etProviderDetailDesc.text.toString())
+                .build()
+            if (user_id != null) {
+                Retrofit.coroutine.launch {
+                    try {
+                        userStore.update(user_id!!, body)
+                        if (activity != null) {
+                            requireActivity().runOnUiThread{
+                                Toast.makeText(
+                                    context,
+                                    "Successfully updated description",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "onViewCreated: API Server error", e)
+                        requireActivity().runOnUiThread {
+                            Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
+
         Retrofit.coroutine.launch {
             try {
                 val profile = authStore.me().data
+                if (profile != null) {
+                    user_id = profile.users_id
+                }
 
                 if (_binding != null){
                     requireActivity().runOnUiThread {
@@ -61,8 +102,6 @@ class ProviderProfileFragment : Fragment() {
                 }
             }
         }
-
-        // TODO: update profile
     }
 
     companion object {
