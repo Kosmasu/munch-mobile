@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 abstract class Retrofit {
   companion object {
@@ -44,6 +45,7 @@ abstract class Retrofit {
         }.build()
 
         _instance = Retrofit.Builder().baseUrl(baseUrl)
+          .addConverterFactory(ScalarsConverterFactory.create())
           .addConverterFactory(GsonConverterFactory.create())
           .client(client)
           .build()

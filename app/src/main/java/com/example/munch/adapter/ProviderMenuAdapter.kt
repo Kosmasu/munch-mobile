@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.munch.R
 import com.example.munch.api.Retrofit
 import com.example.munch.databinding.LayoutCardProviderBinding
 import com.example.munch.model.Menu
@@ -42,8 +43,8 @@ class ProviderMenuAdapter(
 //        Log.d(TAG, "onBindViewHolder: menu_foto = $url")
         Picasso.get()
             .load(url)
-//            .placeholder(R.drawable.user_placeholder)
-//            .error(R.drawable.user_placeholder_error)
+            .placeholder(R.drawable.samplefood)
+            .error(R.drawable.samplefood)
             .resize(230,160)
             .centerCrop()
             .into(holder.image)

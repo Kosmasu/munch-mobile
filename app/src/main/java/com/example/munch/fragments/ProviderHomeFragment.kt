@@ -29,11 +29,11 @@ class ProviderHomeFragment : Fragment() {
     private var _binding: FragmentProviderHomeBinding? = null
     val binding get() = _binding!!
     private lateinit var authStore : AuthStore
-    lateinit var myStat : MyStatResponse
+    private lateinit var myStat : MyStatResponse
     private lateinit var pesananStore: PesananStore
 
-    lateinit var providerNewOrderAdapter: ProviderNewOrderAdapter
-    lateinit var providerDeliveryAdapter: ProviderDeliveryAdapter
+    private lateinit var providerNewOrderAdapter: ProviderNewOrderAdapter
+    private lateinit var providerDeliveryAdapter: ProviderDeliveryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         authStore = AuthStore.getInstance(requireContext())
@@ -125,6 +125,43 @@ class ProviderHomeFragment : Fragment() {
         binding.rvNewOrders.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         providerDeliveryAdapter = ProviderDeliveryAdapter(requireContext(), arrayListOf())
+        providerDeliveryAdapter.onClickListener { popupView, position, pemesanan ->
+            val popUp = PopupMenu(requireContext(), popupView)
+            popUp.menuInflater.inflate(R.menu.menu_popup_delivery, popUp.menu)
+            popUp.setOnMenuItemClickListener{
+                return@setOnMenuItemClickListener when(it.itemId) {
+                    R.id.menu_delivery_detail -> {
+                        // TODO detail delivery
+                        true
+                    }
+                    R.id.menu_delivery_kirim -> {
+                        Retrofit.coroutine.launch {
+                            try {
+                                pesananStore.deliver(pemesanan.pemesanan_id)
+                                requireActivity().runOnUiThread{
+                                    Toast.makeText(
+                                        context,
+                                        "Successfully delivered pesanan",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                updateView()
+                            } catch (e: Exception) {
+                                Log.e(TAG, "onViewCreated: API Server error", e)
+                                requireActivity().runOnUiThread {
+                                    Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            }
+            popUp.show()
+        }
         binding.rvDeliveries.adapter = providerDeliveryAdapter
         binding.rvDeliveries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
@@ -132,7 +169,7 @@ class ProviderHomeFragment : Fragment() {
         updateView()
     }
 
-    fun updateView() {
+    private fun updateView() {
         var newPesanan = listOf<HistoryPemesanan>()
         var pesananAktif = listOf<DetailPemesanan>()
 

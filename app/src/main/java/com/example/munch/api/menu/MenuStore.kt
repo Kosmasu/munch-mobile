@@ -3,9 +3,8 @@ package com.example.munch.api.menu
 import android.content.Context
 import com.example.munch.api.Retrofit
 import com.example.munch.model.*
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Part
-import retrofit2.http.Path
 
 class MenuStore(val context: Context) : MenuAPI {
   private var menuAPI: MenuAPI = Retrofit.getInstance(context).create(MenuAPI::class.java)
@@ -36,12 +35,28 @@ class MenuStore(val context: Context) : MenuAPI {
   }
 
   override suspend fun create(
+    menu_nama: String,
+    menu_foto: MultipartBody.Part,
+    menu_harga: Int,
+    menu_status: String,
+  ): Response<String?> {
+    return menuAPI.create(menu_nama, menu_foto, menu_harga, menu_status)
+  }
+
+  override suspend fun create(
     menu_nama: RequestBody,
-    menu_foto: RequestBody,
+    menu_foto: MultipartBody.Part,
     menu_harga: RequestBody,
     menu_status: RequestBody,
   ): Response<String?> {
     return menuAPI.create(menu_nama, menu_foto, menu_harga, menu_status)
+  }
+
+  override suspend fun create(
+    partMap: Map<String, RequestBody>,
+    photo : MultipartBody.Part
+  ): Response<String?> {
+    return menuAPI.create(partMap,photo)
   }
 
   override suspend fun update(
