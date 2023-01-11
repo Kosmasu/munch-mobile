@@ -30,6 +30,10 @@ class CartStore(val context: Context) : CartAPI {
     return cartAPI.fetchUnpaginated(parameters)
   }
 
+  override suspend fun fetchUnpaginated(): Response<Result<List<Cart>>> {
+    return cartAPI.fetchUnpaginated()
+  }
+
   override suspend fun fetch(cart_id: ULong): Response<Result<Cart>> {
     return cartAPI.fetch(cart_id)
   }
