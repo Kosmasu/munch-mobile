@@ -40,7 +40,7 @@ class CustomerTopupFragment : Fragment() {
             }
             Retrofit.coroutine.launch {
                 try {
-                    authStore.topup(
+                    val response = authStore.topup(
                         FormBody.Builder()
                             .add("topup_amount", binding.etTopupNominal.text.toString())
                             .add("password", binding.etTopupPassword.text.toString())
@@ -48,8 +48,12 @@ class CustomerTopupFragment : Fragment() {
                     )
 
                     (context as Activity).runOnUiThread {
-                        Toast.makeText(requireContext(), "Berhasil topup", Toast.LENGTH_SHORT).show()
-                        (activity as CustomerHomeActivity).supportFragmentManager.popBackStack()
+                        if (response.code() == 200) {
+                            Toast.makeText(requireContext(), "Berhasil topup", Toast.LENGTH_SHORT).show()
+                            (activity as CustomerHomeActivity).supportFragmentManager.popBackStack()
+                        } else {
+                            Toast.makeText(requireContext(), "Error topup", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } catch (e: Exception) {
                     Log.e("TOPUP", e.printStackTrace().toString())
