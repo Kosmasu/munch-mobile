@@ -42,7 +42,7 @@ class AdminHistoryMenuFragment(date_lower: String = "", date_upper: String = "")
         historyStore = HistoryStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryMenu = historyStore.menuUnpaginated(reqMap).response.body()?.data!!
+                listHistoryMenu = historyStore.menuUnpaginated(reqMap).body()?.data!!
 
                 requireActivity().runOnUiThread {
                     menuAdapter = AdminHistoryMenuAdapter(listHistoryMenu)

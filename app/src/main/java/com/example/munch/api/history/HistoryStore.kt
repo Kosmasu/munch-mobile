@@ -3,7 +3,7 @@ package com.example.munch.api.history
 import android.content.Context
 import com.example.munch.api.Retrofit
 import com.example.munch.model.*
-import okhttp3.RequestBody
+import retrofit2.Response
 
 class HistoryStore(val context: Context) : HistoryAPI {
   private var historyAPI: HistoryAPI = Retrofit.getInstance(context).create(HistoryAPI::class.java)
@@ -21,27 +21,27 @@ class HistoryStore(val context: Context) : HistoryAPI {
     }
   }
 
-  override suspend fun logPaginate(parameters: Map<String, String?>): Response<Paginate<List<HistoryLog>>> {
+  override suspend fun logPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<HistoryLog>>>> {
     return historyAPI.logPaginate(parameters)
   }
 
-  override suspend fun logUnpaginated(parameters: Map<String, String?>): Response<List<HistoryLog>> {
+  override suspend fun logUnpaginated(parameters: Map<String, String?>): Response<Result<List<HistoryLog>>> {
     return historyAPI.logUnpaginated(parameters)
   }
 
-  override suspend fun menuPaginate(parameters: Map<String, String?>): Response<Paginate<List<HistoryMenu>>> {
+  override suspend fun menuPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<HistoryMenu>>>> {
     return historyAPI.menuPaginate(parameters)
   }
 
-  override suspend fun menuUnpaginated(parameters: Map<String, String?>): Response<List<HistoryMenu>> {
+  override suspend fun menuUnpaginated(parameters: Map<String, String?>): Response<Result<List<HistoryMenu>>> {
     return historyAPI.menuUnpaginated(parameters)
   }
 
-  override suspend fun topUpPaginate(parameters: Map<String, String?>): Response<Paginate<List<HistoryTopUp>>> {
+  override suspend fun topUpPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<HistoryTopUp>>>> {
     return historyAPI.topUpPaginate(parameters)
   }
 
-  override suspend fun topUpUnpaginated(parameters: Map<String, String?>): Response<List<HistoryTopUp>> {
+  override suspend fun topUpUnpaginated(parameters: Map<String, String?>): Response<Result<List<HistoryTopUp>>> {
     return historyAPI.topUpUnpaginated(parameters)
   }
 }

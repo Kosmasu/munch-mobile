@@ -79,7 +79,7 @@ class ProviderProfileFragment : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                val profile = authStore.me().response.body()?.data
+                val profile = authStore.me().body()?.data
                 if (profile != null) {
                     userId = profile.users_id
                 }

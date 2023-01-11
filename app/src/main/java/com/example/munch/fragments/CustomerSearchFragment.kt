@@ -43,7 +43,7 @@ class CustomerSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                listMenu = menuStore.fetchUnpaginated(reqMap).response.body()?.data!!
+                listMenu = menuStore.fetchUnpaginated(reqMap).body()?.data!!
 
                 (context as Activity).runOnUiThread {
                     println(listMenu)
@@ -67,7 +67,7 @@ class CustomerSearchFragment : Fragment() {
 
             Retrofit.coroutine.launch {
                 try {
-                    listMenu = menuStore.fetchUnpaginated(reqMap).response.body()?.data!!
+                    listMenu = menuStore.fetchUnpaginated(reqMap).body()?.data!!
                     (context as Activity).runOnUiThread {
                         menuAdapter.data = listMenu
                         menuAdapter.notifyDataSetChanged()

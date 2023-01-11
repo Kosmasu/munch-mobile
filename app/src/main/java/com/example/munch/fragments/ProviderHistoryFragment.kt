@@ -102,7 +102,7 @@ class ProviderHistoryFragment : Fragment() {
             Log.d(TAG, "updateHistory: params=$params")
 
             try {
-                val historyPesanan = pesananStore.fetchUnpaginated(params).response.body()?.data!!
+                val historyPesanan = pesananStore.fetchUnpaginated(params).body()?.data!!
                 Log.d(TAG, "updateHistory: history = $historyPesanan")
 
                 if (activity != null) {

@@ -3,6 +3,7 @@ package com.example.munch.api.menu
 import android.content.Context
 import com.example.munch.api.Retrofit
 import com.example.munch.model.*
+import retrofit2.Response
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -22,15 +23,15 @@ class MenuStore(val context: Context) : MenuAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Paginate<List<Menu>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<Menu>>>> {
     return menuAPI.fetchPaginate(parameters)
   }
 
-  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<List<Menu>> {
+  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<Result<List<Menu>>> {
     return menuAPI.fetchUnpaginated(parameters)
   }
 
-  override suspend fun fetch(menu_id: ULong): Response<Menu> {
+  override suspend fun fetch(menu_id: ULong): Response<Result<Menu>> {
     return menuAPI.fetch(menu_id)
   }
 
@@ -39,7 +40,7 @@ class MenuStore(val context: Context) : MenuAPI {
     menu_foto: MultipartBody.Part,
     menu_harga: Int,
     menu_status: String,
-  ): Response<String?> {
+  ): Response<Result<String?>> {
     return menuAPI.create(menu_nama, menu_foto, menu_harga, menu_status)
   }
 
@@ -48,14 +49,14 @@ class MenuStore(val context: Context) : MenuAPI {
     menu_foto: MultipartBody.Part,
     menu_harga: RequestBody,
     menu_status: RequestBody,
-  ): Response<String?> {
+  ): Response<Result<String?>> {
     return menuAPI.create(menu_nama, menu_foto, menu_harga, menu_status)
   }
 
   override suspend fun create(
     partMap: Map<String, RequestBody>,
     photo : MultipartBody.Part
-  ): Response<String?> {
+  ): Response<Result<String?>> {
     return menuAPI.create(partMap,photo)
   }
 
@@ -65,11 +66,11 @@ class MenuStore(val context: Context) : MenuAPI {
     menu_foto: RequestBody,
     menu_harga: RequestBody,
     menu_status: RequestBody,
-  ): Response<String?> {
+  ): Response<Result<String?>> {
     return menuAPI.update(menu_id, menu_nama, menu_foto, menu_harga, menu_status)
   }
 
-  override suspend fun delete(menu_id: ULong): Response<String?> {
+  override suspend fun delete(menu_id: ULong): Response<Result<String?>> {
     return menuAPI.delete(menu_id)
   }
 }

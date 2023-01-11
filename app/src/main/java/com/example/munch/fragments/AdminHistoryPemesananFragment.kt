@@ -44,7 +44,7 @@ class AdminHistoryPemesananFragment(date_lower: String = "", date_upper: String 
         pesananStore = PesananStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).response.body()?.data!!
+                listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).body()?.data!!
 
                 requireActivity().runOnUiThread {
                     pemesananAdapter = AdminHistoryPemesananAdapter(listHistoryPemesanan)

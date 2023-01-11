@@ -42,7 +42,7 @@ class AdminHistoryTopupFragment(date_lower: String = "", date_upper: String = ""
         historyStore = HistoryStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryTopUp = historyStore.topUpUnpaginated(reqMap).response.body()?.data!!
+                listHistoryTopUp = historyStore.topUpUnpaginated(reqMap).body()?.data!!
 
                 requireActivity().runOnUiThread {
                     topupAdapter = AdminHistoryTopupAdapter(listHistoryTopUp)

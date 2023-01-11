@@ -1,6 +1,7 @@
 package com.example.munch.api.auth
 
-import com.example.munch.model.Response
+import com.example.munch.model.Result
+import retrofit2.Response
 import com.example.munch.model.User
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -10,23 +11,23 @@ import retrofit2.http.POST
 
 interface AuthAPI {
   @POST("register")
-  suspend fun register(@Body body: RequestBody): Response<String?>
+  suspend fun register(@Body body: RequestBody): Response<Result<String?>>
 
   @POST("login-api")
-  suspend fun login (@Body body: RequestBody): Response<LoginResponse?>
+  suspend fun login (@Body body: RequestBody): Response<Result<LoginResponse?>>
 
   @GET("me")
-  suspend fun me(): Response<User?>
+  suspend fun me(): Response<Result<User?>>
 
   @GET("mystat")
-  suspend fun myStat(): Response<MyStatResponse?>
+  suspend fun myStat(): Response<Result<MyStatResponse?>>
 
   @GET("mini-me")
-  suspend fun miniMe(): Response<User?>
+  suspend fun miniMe(): Response<Result<User?>>
 
   @PATCH("topup-api")
-  suspend fun topup(@Body body: RequestBody): Response<TopUpResponse?>
+  suspend fun topup(@Body body: RequestBody): Response<Result<TopUpResponse?>>
 
   @POST("logout")
-  suspend fun logout(): Response<String?>
+  suspend fun logout(): Response<Result<String?>>
 }

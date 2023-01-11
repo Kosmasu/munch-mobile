@@ -61,7 +61,7 @@ class DetailPemesananFragment(
 
         Retrofit.coroutine.launch {
             try {
-                pesanan = pesananStore.fetch(pemesanan_id).response.body()?.data
+                pesanan = pesananStore.fetch(pemesanan_id).body()?.data
                 Log.d(TAG, "onViewCreated: pesanan = $pesanan")
             } catch (e : Exception){
                 Log.e(TAG, "onViewCreated: API Server Error", e)

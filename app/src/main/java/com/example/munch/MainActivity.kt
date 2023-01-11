@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
               .add("password", password)
               .build()
           )
-          role = responseLogin.response.body()?.data!!.users_role.toString()
+          role = responseLogin.body()?.data!!.users_role.toString()
 
           runOnUiThread {
             when (role) {

@@ -40,7 +40,7 @@ class CustomerProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                me = authStore.me().response.body()?.data!!
+                me = authStore.me().body()?.data!!
 
                 requireActivity().runOnUiThread {
                     binding.etCustomerDetailNama.text = me.users_nama

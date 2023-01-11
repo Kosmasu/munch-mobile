@@ -51,7 +51,7 @@ class CustomerHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).response.body()?.data!!
+                cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).body()?.data!!
 
                 (context as Activity).runOnUiThread {
                     println("CATERING ANDA : $cateringAnda")
@@ -66,7 +66,7 @@ class CustomerHomeFragment : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).response.body()?.data!!
+                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).body()?.data!!
 
                 (context as Activity).runOnUiThread {
                     println("TOP CATERING : $topCatering")
@@ -81,7 +81,7 @@ class CustomerHomeFragment : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).response.body()?.data!!
+                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).body()?.data!!
 
                 (context as Activity).runOnUiThread {
                     println("ORDER AGAIN : $orderAgain")

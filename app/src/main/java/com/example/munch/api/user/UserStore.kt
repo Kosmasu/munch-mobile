@@ -2,9 +2,9 @@ package com.example.munch.api.user
 
 import android.content.Context
 import com.example.munch.api.Retrofit
-import com.example.munch.model.HistoryLog
 import com.example.munch.model.Paginate
-import com.example.munch.model.Response
+import com.example.munch.model.Result
+import retrofit2.Response
 import com.example.munch.model.User
 import okhttp3.RequestBody
 
@@ -24,39 +24,39 @@ class UserStore(val context: Context) : UserAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Paginate<List<User>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<User>>>> {
     return userAPI.fetchPaginate(parameters)
   }
 
-  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<List<User>> {
+  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<Result<List<User>>> {
     return userAPI.fetchUnpaginated(parameters)
   }
 
-  override suspend fun fetch(users_id: ULong): Response<User> {
+  override suspend fun fetch(users_id: ULong): Response<Result<User>> {
     return userAPI.fetch(users_id)
   }
 
-  override suspend fun update(users_id: ULong, body: RequestBody): Response<Nothing> {
+  override suspend fun update(users_id: ULong, body: RequestBody): Response<Result<Nothing>> {
     return userAPI.update(users_id, body)
   }
 
-  override suspend fun ban(users_id: ULong): Response<Nothing> {
+  override suspend fun ban(users_id: ULong): Response<Result<Nothing>> {
     return userAPI.ban(users_id)
   }
 
-  override suspend fun unban(users_id: ULong): Response<Nothing> {
+  override suspend fun unban(users_id: ULong): Response<Result<Nothing>> {
     return userAPI.unban(users_id)
   }
 
-  override suspend fun delete(users_id: ULong): Response<Nothing> {
+  override suspend fun delete(users_id: ULong): Response<Result<Nothing>> {
     return userAPI.delete(users_id)
   }
 
-  override suspend fun restore(users_id: ULong): Response<Nothing> {
+  override suspend fun restore(users_id: ULong): Response<Result<Nothing>> {
     return userAPI.restore(users_id)
   }
 
-  override suspend fun approveProvider(users_id: ULong): Response<Nothing> {
+  override suspend fun approveProvider(users_id: ULong): Response<Result<Nothing>> {
     return userAPI.approveProvider(users_id)
   }
 }

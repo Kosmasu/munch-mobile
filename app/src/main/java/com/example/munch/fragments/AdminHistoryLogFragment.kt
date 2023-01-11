@@ -42,7 +42,7 @@ class AdminHistoryLogFragment(date_lower: String = "", date_upper: String = "") 
         historyStore = HistoryStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryLog = historyStore.logUnpaginated(reqMap).response.body()?.data!!
+                listHistoryLog = historyStore.logUnpaginated(reqMap).body()?.data!!
 
                 requireActivity().runOnUiThread {
                     logAdapter = AdminHistoryLogAdapter(listHistoryLog)

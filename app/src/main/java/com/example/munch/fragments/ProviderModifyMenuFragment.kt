@@ -158,7 +158,7 @@ class ProviderModifyMenuFragment : Fragment() {
             binding.tvModifyMenuTitle.text = resources.getText(R.string.edit_menu)
             Retrofit.coroutine.launch {
                 try {
-                    menu = menuStore.fetch(menuId!!.toULong()).response.body()?.data
+                    menu = menuStore.fetch(menuId!!.toULong()).body()?.data
                     Log.d(TAG, "onViewCreated: menu = $menu")
                 } catch (e: Exception) {
                     Log.e(TAG, "onViewCreated: API Server Error", e)

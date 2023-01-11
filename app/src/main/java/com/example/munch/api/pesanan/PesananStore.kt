@@ -3,6 +3,7 @@ package com.example.munch.api.pesanan
 import android.content.Context
 import com.example.munch.api.Retrofit
 import com.example.munch.model.*
+import retrofit2.Response
 import okhttp3.RequestBody
 
 class PesananStore(val context: Context) : PesananAPI {
@@ -21,47 +22,47 @@ class PesananStore(val context: Context) : PesananAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Paginate<List<HistoryPemesanan>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<HistoryPemesanan>>>> {
     return pesananAPI.fetchPaginate(parameters)
   }
 
-  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<List<HistoryPemesanan>> {
+  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<Result<List<HistoryPemesanan>>> {
     return pesananAPI.fetchUnpaginated(parameters)
   }
 
-  override suspend fun fetch(pesanan_id: ULong): Response<HistoryPemesanan?> {
+  override suspend fun fetch(pesanan_id: ULong): Response<Result<HistoryPemesanan?>> {
     return pesananAPI.fetch(pesanan_id)
   }
 
-  override suspend fun store(body: RequestBody): Response<String?> {
+  override suspend fun store(body: RequestBody): Response<Result<String?>> {
     return pesananAPI.store(body)
   }
 
-  override suspend fun rate(pesanan_id: ULong, body: RequestBody): Response<String?> {
+  override suspend fun rate(pesanan_id: ULong, body: RequestBody): Response<Result<String?>> {
     return pesananAPI.rate(pesanan_id, body)
   }
 
-  override suspend fun fetchDelivery(parameters: Map<String, String?>): Response<List<DetailPemesanan>> {
+  override suspend fun fetchDelivery(parameters: Map<String, String?>): Response<Result<List<DetailPemesanan>>> {
     return pesananAPI.fetchDelivery(parameters)
   }
 
-  override suspend fun reject(pesanan_id: ULong): Response<String?> {
+  override suspend fun reject(pesanan_id: ULong): Response<Result<String?>> {
     return pesananAPI.reject(pesanan_id)
   }
 
-  override suspend fun accept(pesanan_id: ULong): Response<String?> {
+  override suspend fun accept(pesanan_id: ULong): Response<Result<String?>> {
     return pesananAPI.accept(pesanan_id)
   }
 
-  override suspend fun deliver(detail_id: ULong): Response<String?> {
+  override suspend fun deliver(detail_id: ULong): Response<Result<String?>> {
     return pesananAPI.deliver(detail_id)
   }
 
-  override suspend fun receive(detail_id: ULong): Response<String?> {
+  override suspend fun receive(detail_id: ULong): Response<Result<String?>> {
     return pesananAPI.receive(detail_id)
   }
 
-  override suspend fun pesanCart(): Response<String?> {
+  override suspend fun pesanCart(): Response<Result<String?>> {
     return pesananAPI.pesanCart()
   }
 }

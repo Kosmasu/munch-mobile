@@ -46,7 +46,7 @@ class AdminProviderFragment : Fragment() {
     userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
       try {
-        listProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+        listProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
 
         (requireContext() as Activity).runOnUiThread {
           providerAdapter = AdminUserAdapter(listProvider)
@@ -95,7 +95,7 @@ class AdminProviderFragment : Fragment() {
 
       Retrofit.coroutine.launch {
         try {
-          listProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+          listProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
           (context as Activity).runOnUiThread {
             providerAdapter.data = listProvider
             providerAdapter.notifyDataSetChanged()
@@ -114,7 +114,7 @@ class AdminProviderFragment : Fragment() {
     Retrofit.coroutine.launch {
       try {
         userStore.ban(id)
-        listProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+        listProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
         (context as Activity).runOnUiThread {
           providerAdapter.data = listProvider
           providerAdapter.notifyDataSetChanged()
@@ -131,7 +131,7 @@ class AdminProviderFragment : Fragment() {
     Retrofit.coroutine.launch {
       try {
         userStore.unban(id)
-        listProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+        listProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
         (context as Activity).runOnUiThread {
           providerAdapter.data = listProvider
           providerAdapter.notifyDataSetChanged()

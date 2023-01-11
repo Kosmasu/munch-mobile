@@ -53,7 +53,7 @@ class AdminHomeFragment : Fragment() {
     userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
       try {
-        stats = authStore.myStat().response.body()?.data
+        stats = authStore.myStat().body()?.data
 
         (requireContext() as Activity).runOnUiThread {
           binding.tvRegisteredAccounts.text = "${stats?.providers_count?.let {
@@ -71,7 +71,7 @@ class AdminHomeFragment : Fragment() {
       }
 
       try {
-        listWaitingProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+        listWaitingProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
 
         (requireContext() as Activity).runOnUiThread {
           providerAdapter = AdminUserAdapter(listWaitingProvider)
@@ -109,7 +109,7 @@ class AdminHomeFragment : Fragment() {
     Retrofit.coroutine.launch {
       try {
         userStore.approveProvider(id)
-        listWaitingProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+        listWaitingProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
         (context as Activity).runOnUiThread {
           providerAdapter.data = listWaitingProvider
           providerAdapter.notifyDataSetChanged()

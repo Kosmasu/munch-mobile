@@ -3,7 +3,7 @@ package com.example.munch.api.report
 import android.content.Context
 import com.example.munch.api.Retrofit
 import com.example.munch.model.*
-import okhttp3.RequestBody
+import retrofit2.Response
 
 class ReportStore(val context: Context) : ReportAPI {
   private var reportAPI: ReportAPI = Retrofit.getInstance(context).create(ReportAPI::class.java)
@@ -21,7 +21,7 @@ class ReportStore(val context: Context) : ReportAPI {
     }
   }
 
-  override suspend fun penjualan(): Response<String?> {
+  override suspend fun penjualan(): Response<Result<String?>> {
     return reportAPI.penjualan()
   }
 }

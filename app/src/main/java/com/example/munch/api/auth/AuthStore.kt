@@ -3,7 +3,8 @@ package com.example.munch.api.auth
 import android.content.Context
 import android.util.Log
 import com.example.munch.api.Retrofit
-import com.example.munch.model.Response
+import com.example.munch.model.Result
+import retrofit2.Response
 import com.example.munch.model.User
 import com.example.munch.room.AppDatabase
 import com.example.munch.room.Token
@@ -26,14 +27,14 @@ class AuthStore(val context: Context) : AuthAPI {
     }
 
   }
-  override suspend fun register(body: RequestBody): Response<String?> {
+  override suspend fun register(body: RequestBody): Response<Result<String?>> {
     return authAPI.register(body)
   }
 
-  override suspend fun login(body: RequestBody): Response<LoginResponse?> {
+  override suspend fun login(body: RequestBody): Response<Result<LoginResponse?>> {
     val response = authAPI.login(body)
     Log.d("Login", "login: $response")
-    val data = response.response.body()?.data
+    val data = response.body()!!.data
     if (data?.access_token != null) {
       storeToken(
         context,
@@ -47,23 +48,23 @@ class AuthStore(val context: Context) : AuthAPI {
     return response
   }
 
-  override suspend fun me(): Response<User?> {
+  override suspend fun me(): Response<Result<User?>> {
     return authAPI.me()
   }
 
-  override suspend fun myStat(): Response<MyStatResponse?> {
+  override suspend fun myStat(): Response<Result<MyStatResponse?>> {
     return authAPI.myStat()
   }
 
-  override suspend fun miniMe(): Response<User?> {
+  override suspend fun miniMe(): Response<Result<User?>> {
     return authAPI.miniMe()
   }
 
-  override suspend fun topup(body: RequestBody): Response<TopUpResponse?> {
+  override suspend fun topup(body: RequestBody): Response<Result<TopUpResponse?>> {
     return authAPI.topup(body)
   }
 
-  override suspend fun logout(): Response<String?> {
+  override suspend fun logout(): Response<Result<String?>> {
     val response = authAPI.logout()
     removeToken(context)
     authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)

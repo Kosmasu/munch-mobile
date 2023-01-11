@@ -3,6 +3,7 @@ package com.example.munch.api.cart
 import android.content.Context
 import com.example.munch.api.Retrofit
 import com.example.munch.model.*
+import retrofit2.Response
 import okhttp3.RequestBody
 
 class CartStore(val context: Context) : CartAPI {
@@ -21,31 +22,31 @@ class CartStore(val context: Context) : CartAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Paginate<List<Cart>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<Cart>>>> {
     return cartAPI.fetchPaginate(parameters)
   }
 
-  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<List<Cart>> {
+  override suspend fun fetchUnpaginated(parameters: Map<String, String?>): Response<Result<List<Cart>>> {
     return cartAPI.fetchUnpaginated(parameters)
   }
 
-  override suspend fun fetch(cart_id: ULong): Response<Cart> {
+  override suspend fun fetch(cart_id: ULong): Response<Result<Cart>> {
     return cartAPI.fetch(cart_id)
   }
 
-  override suspend fun create(body: RequestBody): Response<String?> {
+  override suspend fun create(body: RequestBody): Response<Result<String?>> {
     return cartAPI.create(body)
   }
 
-  override suspend fun update(cart_id: ULong, body: RequestBody): Response<String?> {
+  override suspend fun update(cart_id: ULong, body: RequestBody): Response<Result<String?>> {
     return cartAPI.update(cart_id, body)
   }
 
-  override suspend fun delete(cart_id: ULong): Response<String?> {
+  override suspend fun delete(cart_id: ULong): Response<Result<String?>> {
     return cartAPI.delete(cart_id)
   }
 
-  override suspend fun clear(): Response<String?> {
+  override suspend fun clear(): Response<Result<String?>> {
     return cartAPI.clear()
   }
 }

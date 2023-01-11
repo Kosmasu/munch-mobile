@@ -48,7 +48,7 @@ class AdminCustomerFragment : Fragment() {
     userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
       try {
-        listCustomer = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+        listCustomer = userStore.fetchUnpaginated(reqMap).body()?.data!!
 
         (requireContext() as Activity).runOnUiThread{
           customerAdapter = AdminUserAdapter(listCustomer)
@@ -95,7 +95,7 @@ class AdminCustomerFragment : Fragment() {
 
       Retrofit.coroutine.launch {
         try {
-          listCustomer = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+          listCustomer = userStore.fetchUnpaginated(reqMap).body()?.data!!
           (context as Activity).runOnUiThread {
             customerAdapter.data = listCustomer
             customerAdapter.notifyDataSetChanged()
@@ -113,7 +113,7 @@ class AdminCustomerFragment : Fragment() {
     Retrofit.coroutine.launch {
       try {
         userStore.ban(id)
-        listCustomer = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+        listCustomer = userStore.fetchUnpaginated(reqMap).body()?.data!!
         (context as Activity).runOnUiThread {
           customerAdapter.data = listCustomer
           customerAdapter.notifyDataSetChanged()
@@ -131,7 +131,7 @@ class AdminCustomerFragment : Fragment() {
     Retrofit.coroutine.launch {
       try {
         userStore.unban(id)
-        listCustomer = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
+        listCustomer = userStore.fetchUnpaginated(reqMap).body()?.data!!
         (context as Activity).runOnUiThread {
           customerAdapter.data = listCustomer
           customerAdapter.notifyDataSetChanged()
