@@ -11,7 +11,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <EditText
@@ -33,15 +32,23 @@
             android:layout_margin="3dp"
             android:background="@drawable/rounded_border_green"
             android:gravity="center"
+            android:padding="0dp"
             app:backgroundTint="@null"
             app:icon="@drawable/vector_search"
-            app:iconGravity="start"
+            app:iconGravity="textEnd"
             app:iconPadding="0dp"
             app:iconTint="#7CB342" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/spinnerSearchFilter"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
@@ -51,10 +58,10 @@
 
         <Spinner
             android:id="@+id/spinnerSearchSort"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:background="@drawable/rounded_border_green"
             android:entries="@array/customer_search_sort"
             android:padding="10dp" />
