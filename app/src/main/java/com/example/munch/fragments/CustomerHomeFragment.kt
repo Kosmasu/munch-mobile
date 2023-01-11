@@ -12,6 +12,7 @@ import com.example.munch.api.Retrofit
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.api.user.UserStore
 import com.example.munch.databinding.FragmentCustomerHomeBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.DetailPemesanan
 import com.example.munch.model.HistoryPemesanan
 import com.example.munch.model.User
@@ -53,13 +54,21 @@ class CustomerHomeFragment : Fragment() {
             try {
                 cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).body()?.data!!
 
-                (context as Activity).runOnUiThread {
-                    println("CATERING ANDA : $cateringAnda")
+                if (isSafeFragment()) {
+                    (context as Activity).runOnUiThread {
+                        println("CATERING ANDA : $cateringAnda")
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("cateringAnda", "cateringAnda", e)
-                (context as Activity).runOnUiThread {
-                    Toast.makeText(requireContext(), "Error fetching cateringAnda", Toast.LENGTH_SHORT).show()
+                if (isSafeFragment()) {
+                    (context as Activity).runOnUiThread {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error fetching cateringAnda",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }

@@ -12,6 +12,7 @@ import com.example.munch.adapter.AdminHistoryMenuAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.history.HistoryStore
 import com.example.munch.databinding.FragmentAdminHistoryMenuBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.HistoryMenu
 import kotlinx.coroutines.launch
 
@@ -44,16 +45,27 @@ class AdminHistoryMenuFragment(date_lower: String = "", date_upper: String = "")
             try {
                 listHistoryMenu = historyStore.menuUnpaginated(reqMap).body()?.data!!
 
-                requireActivity().runOnUiThread {
-                    menuAdapter = AdminHistoryMenuAdapter(listHistoryMenu)
-                    binding.rvAdminHistoryMenu.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-                    binding.rvAdminHistoryMenu.adapter = menuAdapter
-                    binding.rvAdminHistoryMenu.layoutManager = LinearLayoutManager(requireContext())
-                    menuAdapter.notifyDataSetChanged()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        menuAdapter = AdminHistoryMenuAdapter(listHistoryMenu)
+                        binding.rvAdminHistoryMenu.addItemDecoration(
+                            DividerItemDecoration(
+                                requireContext(),
+                                DividerItemDecoration.VERTICAL
+                            )
+                        )
+                        binding.rvAdminHistoryMenu.adapter = menuAdapter
+                        binding.rvAdminHistoryMenu.layoutManager =
+                            LinearLayoutManager(requireContext())
+                        menuAdapter.notifyDataSetChanged()
+                    }
                 }
             } catch (e: Exception) {
-                requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), "Check Date Again", Toast.LENGTH_SHORT).show()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(requireContext(), "Check Date Again", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             }
         }

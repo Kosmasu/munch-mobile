@@ -14,6 +14,7 @@ import com.example.munch.adapter.CustomerSearchAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.menu.MenuStore
 import com.example.munch.databinding.FragmentCustomerSearchBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.Menu
 import kotlinx.coroutines.launch
 
@@ -68,13 +69,22 @@ class CustomerSearchFragment : Fragment() {
             Retrofit.coroutine.launch {
                 try {
                     listMenu = menuStore.fetchUnpaginated(reqMap).body()?.data!!
-                    (context as Activity).runOnUiThread {
-                        menuAdapter.data = listMenu
-                        menuAdapter.notifyDataSetChanged()
+
+                    if (isSafeFragment()) {
+                        (context as Activity).runOnUiThread {
+                            menuAdapter.data = listMenu
+                            menuAdapter.notifyDataSetChanged()
+                        }
                     }
                 } catch (e: Exception) {
-                    (context as Activity).runOnUiThread {
-                        Toast.makeText(requireContext(), "Error fetching menu", Toast.LENGTH_SHORT).show()
+                    if (isSafeFragment()) {
+                        (context as Activity).runOnUiThread {
+                            Toast.makeText(
+                                requireContext(),
+                                "Error fetching menu",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             }

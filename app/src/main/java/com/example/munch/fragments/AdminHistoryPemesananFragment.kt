@@ -8,12 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.munch.R
 import com.example.munch.activities.AdminHomeActivity
 import com.example.munch.adapter.AdminHistoryPemesananAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.databinding.FragmentAdminHistoryPemesananBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.HistoryPemesanan
 import kotlinx.coroutines.launch
 
@@ -46,20 +46,30 @@ class AdminHistoryPemesananFragment(date_lower: String = "", date_upper: String 
             try {
                 listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).body()?.data!!
 
-                requireActivity().runOnUiThread {
-                    pemesananAdapter = AdminHistoryPemesananAdapter(listHistoryPemesanan)
-                    binding.rvAdminHistoryPemesanan.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-                    binding.rvAdminHistoryPemesanan.adapter = pemesananAdapter
-                    binding.rvAdminHistoryPemesanan.layoutManager = LinearLayoutManager(requireContext())
-                    pemesananAdapter.notifyDataSetChanged()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        pemesananAdapter = AdminHistoryPemesananAdapter(listHistoryPemesanan)
+                        binding.rvAdminHistoryPemesanan.addItemDecoration(
+                            DividerItemDecoration(
+                                requireContext(),
+                                DividerItemDecoration.VERTICAL
+                            )
+                        )
+                        binding.rvAdminHistoryPemesanan.adapter = pemesananAdapter
+                        binding.rvAdminHistoryPemesanan.layoutManager =
+                            LinearLayoutManager(requireContext())
+                        pemesananAdapter.notifyDataSetChanged()
 
-                    pemesananAdapter.onClickListener = fun (pemesanan: HistoryPemesanan) {
-                        (requireActivity() as AdminHomeActivity).toDetail(pemesanan.pemesanan_id)
+                        pemesananAdapter.onClickListener = fun(pemesanan: HistoryPemesanan) {
+                            (requireActivity() as AdminHomeActivity).toDetail(pemesanan.pemesanan_id)
+                        }
                     }
                 }
             } catch (e: Exception) {
-                requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), "Check Date Again", Toast.LENGTH_SHORT).show()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(requireContext(), "Check Date Again", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

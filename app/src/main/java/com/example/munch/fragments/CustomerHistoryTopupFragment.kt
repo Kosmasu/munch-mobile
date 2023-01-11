@@ -12,6 +12,7 @@ import com.example.munch.adapter.CustomerHistoryTopupAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.history.HistoryStore
 import com.example.munch.databinding.FragmentCustomerHistoryTopupBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.HistoryTopUp
 import kotlinx.coroutines.launch
 
@@ -43,16 +44,27 @@ class CustomerHistoryTopupFragment(date_lower: String = "", date_upper: String =
             try {
                 listHistoryTopup = historyStore.topUpUnpaginated(reqMap).body()?.data!!
 
-                requireActivity().runOnUiThread {
-                    topupAdapter = CustomerHistoryTopupAdapter(listHistoryTopup)
-                    binding.rvCustomerHistoryTopup.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-                    binding.rvCustomerHistoryTopup.adapter = topupAdapter
-                    binding.rvCustomerHistoryTopup.layoutManager = LinearLayoutManager(requireContext())
-                    topupAdapter.notifyDataSetChanged()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        topupAdapter = CustomerHistoryTopupAdapter(listHistoryTopup)
+                        binding.rvCustomerHistoryTopup.addItemDecoration(
+                            DividerItemDecoration(
+                                requireContext(),
+                                DividerItemDecoration.VERTICAL
+                            )
+                        )
+                        binding.rvCustomerHistoryTopup.adapter = topupAdapter
+                        binding.rvCustomerHistoryTopup.layoutManager =
+                            LinearLayoutManager(requireContext())
+                        topupAdapter.notifyDataSetChanged()
+                    }
                 }
             } catch (e: Exception) {
-                requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), "Error fetch topup", Toast.LENGTH_SHORT).show()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(requireContext(), "Error fetch topup", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             }
         }

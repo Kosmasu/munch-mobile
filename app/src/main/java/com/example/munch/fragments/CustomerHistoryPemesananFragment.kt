@@ -14,6 +14,7 @@ import com.example.munch.adapter.CustomerHistoryPemesananAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.databinding.FragmentCustomerHistoryPemesananBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.HistoryPemesanan
 import kotlinx.coroutines.launch
 
@@ -45,20 +46,34 @@ class CustomerHistoryPemesananFragment(date_lower: String = "", date_upper: Stri
             try {
                 listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).body()?.data!!
 
-                requireActivity().runOnUiThread {
-                    pemesananAdapter = CustomerHistoryPemesananAdapter(listHistoryPemesanan)
-                    binding.rvCustomerHistoryPemesanan.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-                    binding.rvCustomerHistoryPemesanan.adapter = pemesananAdapter
-                    binding.rvCustomerHistoryPemesanan.layoutManager = LinearLayoutManager(requireContext())
-                    pemesananAdapter.notifyDataSetChanged()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        pemesananAdapter = CustomerHistoryPemesananAdapter(listHistoryPemesanan)
+                        binding.rvCustomerHistoryPemesanan.addItemDecoration(
+                            DividerItemDecoration(
+                                requireContext(),
+                                DividerItemDecoration.VERTICAL
+                            )
+                        )
+                        binding.rvCustomerHistoryPemesanan.adapter = pemesananAdapter
+                        binding.rvCustomerHistoryPemesanan.layoutManager =
+                            LinearLayoutManager(requireContext())
+                        pemesananAdapter.notifyDataSetChanged()
 
-                    pemesananAdapter.onClickListener = fun (pemesanan: HistoryPemesanan) {
-                        (activity as CustomerHomeActivity).toDetail(pemesanan.pemesanan_id)
+                        pemesananAdapter.onClickListener = fun(pemesanan: HistoryPemesanan) {
+                            (activity as CustomerHomeActivity).toDetail(pemesanan.pemesanan_id)
+                        }
                     }
                 }
             } catch (e: Exception) {
-                requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), "Error fetch pemesanan", Toast.LENGTH_SHORT).show()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error fetch pemesanan",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }

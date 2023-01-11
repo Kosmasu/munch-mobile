@@ -13,6 +13,7 @@ import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 
 import com.example.munch.databinding.FragmentCustomerTopupBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import kotlinx.coroutines.launch
 import okhttp3.FormBody
 
@@ -47,18 +48,28 @@ class CustomerTopupFragment : Fragment() {
                             .build()
                     )
 
-                    (context as Activity).runOnUiThread {
-                        if (response.code() == 200) {
-                            Toast.makeText(requireContext(), "Berhasil topup", Toast.LENGTH_SHORT).show()
-                            (activity as CustomerHomeActivity).supportFragmentManager.popBackStack()
-                        } else {
-                            Toast.makeText(requireContext(), "Error topup", Toast.LENGTH_SHORT).show()
+                    if (isSafeFragment()) {
+                        (context as Activity).runOnUiThread {
+                            if (response.code() == 200) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Berhasil topup",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                (activity as CustomerHomeActivity).supportFragmentManager.popBackStack()
+                            } else {
+                                Toast.makeText(requireContext(), "Error topup", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
                     }
                 } catch (e: Exception) {
                     Log.e("TOPUP", e.printStackTrace().toString())
-                    (context as Activity).runOnUiThread {
-                        Toast.makeText(requireContext(), "Error topup", Toast.LENGTH_SHORT).show()
+                    if (isSafeFragment()) {
+                        (context as Activity).runOnUiThread {
+                            Toast.makeText(requireContext(), "Error topup", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
                 }
             }
