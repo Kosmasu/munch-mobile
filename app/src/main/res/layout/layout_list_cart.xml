@@ -1,58 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rounded_border_solid"
-    android:orientation="vertical"
-    android:padding="5dp">
+    android:background="@drawable/rounded_border_light"
+    android:gravity="center"
+    android:padding="4dp">
 
     <TextView
-        android:id="@+id/tvListCart_Provider"
+        android:id="@+id/tvCartListProvider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Angelo Sopper"
+        android:layout_margin="2dp"
+        android:layout_weight="5"
+        android:padding="4dp"
+        android:text="Toko pak joko"
         android:textColor="#000000"
-        android:textSize="28sp"
-        android:textStyle="normal" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvListCart_ListPesanan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tvListCart_Total"
+        android:id="@+id/tvCartListTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Total: Rp. 69.420,00 "
+        android:layout_margin="2dp"
+        android:layout_weight="5"
+        android:padding="4dp"
+        android:text="Rp. 69.420,00"
         android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="normal" />
-
-    <TextView
-        android:id="@+id/tvListCart_Jumlah"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Jumlah Pesanan: 5"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="normal" />
+        android:textSize="16sp" />
 
     <Button
-        android:id="@+id/btnListCartPesan"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnCartAction"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_margin="18dp"
-        android:background="@drawable/rounded_green_borderless"
-        android:ems="10"
-        android:text="Pesan"
+        android:layout_margin="2dp"
+        android:layout_weight="6"
+        android:background="@drawable/rounded_orange_borderless"
+        android:padding="0dp"
+        android:text="Details"
         android:textColor="#000000"
         app:backgroundTint="@null" />
 </LinearLayout>

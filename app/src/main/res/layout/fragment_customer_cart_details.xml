@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_border_solid"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".fragments.CustomerCartDetailsFragment">
+
+    <TextView
+        android:id="@+id/tvListCart_Provider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Angelo Sopper"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        android:textStyle="normal" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListCart_ListPesanan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tvListCart_Total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Total: Rp. 69.420,00 "
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tvListCart_Jumlah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Jumlah Pesanan: 5"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btnListCartPesan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="18dp"
+        android:background="@drawable/rounded_green_borderless"
+        android:ems="10"
+        android:text="Pesan"
+        android:textColor="#000000"
+        app:backgroundTint="@null" />
+
+</LinearLayout>
