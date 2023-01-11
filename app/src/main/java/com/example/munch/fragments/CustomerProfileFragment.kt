@@ -12,6 +12,7 @@ import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.FragmentCustomerProfileBinding
 import com.example.munch.helpers.CurrencyUtils.toRupiah
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.User
 import kotlinx.coroutines.launch
 
@@ -42,16 +43,21 @@ class CustomerProfileFragment : Fragment() {
             try {
                 me = authStore.me().body()?.data!!
 
-                requireActivity().runOnUiThread {
-                    binding.etCustomerDetailNama.text = me.users_nama
-                    binding.etCustomerDetailSaldo.text = "${me.users_saldo!!.toRupiah()},00"
-                    binding.etCustomerDetailEmail.text = me.users_email
-                    binding.etCustomerDetailNotel.text = me.users_telepon
-                    binding.etCustomerDetailAlamat.text = me.users_alamat
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        binding.etCustomerDetailNama.text = me.users_nama
+                        binding.etCustomerDetailSaldo.text = "${me.users_saldo!!.toRupiah()},00"
+                        binding.etCustomerDetailEmail.text = me.users_email
+                        binding.etCustomerDetailNotel.text = me.users_telepon
+                        binding.etCustomerDetailAlamat.text = me.users_alamat
+                    }
                 }
             } catch (e: Exception) {
-                requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), "Error fetch stats", Toast.LENGTH_SHORT).show()
+                if (isSafeFragment()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(requireContext(), "Error fetch stats", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             }
         }

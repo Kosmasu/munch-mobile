@@ -16,6 +16,7 @@ import com.example.munch.adapter.AdminUserAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.user.UserStore
 import com.example.munch.databinding.FragmentAdminProviderBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.User
 import kotlinx.coroutines.launch
 
@@ -48,44 +49,53 @@ class AdminProviderFragment : Fragment() {
       try {
         listProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
 
-        (requireContext() as Activity).runOnUiThread {
-          providerAdapter = AdminUserAdapter(listProvider)
-          binding.rvListProvider.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-          binding.rvListProvider.adapter = providerAdapter
-          binding.rvListProvider.layoutManager = LinearLayoutManager(requireContext())
-          providerAdapter.notifyDataSetChanged()
+        if (isSafeFragment()) {
+          (requireContext() as Activity).runOnUiThread {
+            providerAdapter = AdminUserAdapter(listProvider)
+            binding.rvListProvider.addItemDecoration(
+              DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+              )
+            )
+            binding.rvListProvider.adapter = providerAdapter
+            binding.rvListProvider.layoutManager = LinearLayoutManager(requireContext())
+            providerAdapter.notifyDataSetChanged()
 
-          providerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
-            val popUp = PopupMenu(requireContext(), it)
-            popUp.menuInflater.inflate(R.menu.menu_popup_ban_unban, popUp.menu)
-            if (user.users_status == "aktif") {
-              popUp.menu.removeItem(R.id.menu_popup_unban)
-            } else if (user.users_status == "banned") {
-              popUp.menu.removeItem(R.id.menu_popup_ban)
-            }
-            popUp.setOnMenuItemClickListener {
-              return@setOnMenuItemClickListener when(it.itemId) {
-                R.id.menu_popup_ban -> {
-                  ban(user.users_id, requireContext())
-                  true
-                }
-                R.id.menu_popup_unban -> {
-                  unban(user.users_id, requireContext())
-                  true
-                }
-                else -> {
-                  false
+            providerAdapter.onClickListener = fun(it: View, position: Int, user: User) {
+              val popUp = PopupMenu(requireContext(), it)
+              popUp.menuInflater.inflate(R.menu.menu_popup_ban_unban, popUp.menu)
+              if (user.users_status == "aktif") {
+                popUp.menu.removeItem(R.id.menu_popup_unban)
+              } else if (user.users_status == "banned") {
+                popUp.menu.removeItem(R.id.menu_popup_ban)
+              }
+              popUp.setOnMenuItemClickListener {
+                return@setOnMenuItemClickListener when (it.itemId) {
+                  R.id.menu_popup_ban -> {
+                    ban(user.users_id, requireContext())
+                    true
+                  }
+                  R.id.menu_popup_unban -> {
+                    unban(user.users_id, requireContext())
+                    true
+                  }
+                  else -> {
+                    false
+                  }
                 }
               }
-            }
-            if (user.users_status != "menunggu") {
-              popUp.show()
+              if (user.users_status != "menunggu") {
+                popUp.show()
+              }
             }
           }
         }
       } catch (e: Exception) {
-        (requireContext() as Activity).runOnUiThread {
-          Toast.makeText(requireContext(), "Error fetching provider", Toast.LENGTH_SHORT).show()
+        if (isSafeFragment()) {
+          (requireContext() as Activity).runOnUiThread {
+            Toast.makeText(requireContext(), "Error fetching provider", Toast.LENGTH_SHORT).show()
+          }
         }
       }
     }

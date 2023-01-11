@@ -19,6 +19,7 @@ import com.example.munch.api.auth.AuthStore
 import com.example.munch.api.auth.MyStatResponse
 import com.example.munch.api.user.UserStore
 import com.example.munch.databinding.FragmentAdminHomeBinding
+import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.User
 import kotlinx.coroutines.launch
 
@@ -55,18 +56,24 @@ class AdminHomeFragment : Fragment() {
       try {
         stats = authStore.myStat().body()?.data
 
-        (requireContext() as Activity).runOnUiThread {
-          binding.tvRegisteredAccounts.text = "${stats?.providers_count?.let {
-            stats?.customers_count?.plus(
-              it
-            )
-          }} Accounts"
-          binding.tvCustomers.text = "${stats?.customers_count} Accounts"
-          binding.tvProviders.text = "${stats?.providers_count} Accounts"
+        if (isSafeFragment()) {
+          (requireContext() as Activity).runOnUiThread {
+            binding.tvRegisteredAccounts.text = "${
+              stats?.providers_count?.let {
+                stats?.customers_count?.plus(
+                  it
+                )
+              }
+            } Accounts"
+            binding.tvCustomers.text = "${stats?.customers_count} Accounts"
+            binding.tvProviders.text = "${stats?.providers_count} Accounts"
+          }
         }
       } catch (e: Exception) {
-        (requireContext() as Activity).runOnUiThread {
-          Toast.makeText(requireContext(), "Error fetching stats", Toast.LENGTH_SHORT).show()
+        if (isSafeFragment()) {
+          (requireContext() as Activity).runOnUiThread {
+            Toast.makeText(requireContext(), "Error fetching stats", Toast.LENGTH_SHORT).show()
+          }
         }
       }
 
