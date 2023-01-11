@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,7 +43,7 @@ class CustomerHistoryPemesananFragment(date_lower: String = "", date_upper: Stri
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).data
+                listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).response.body()?.data!!
 
                 requireActivity().runOnUiThread {
                     pemesananAdapter = CustomerHistoryPemesananAdapter(listHistoryPemesanan)

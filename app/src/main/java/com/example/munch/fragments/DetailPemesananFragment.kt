@@ -19,7 +19,9 @@ import com.example.munch.model.DetailPemesanan
 import com.example.munch.model.HistoryPemesanan
 import kotlinx.coroutines.launch
 
-class DetailPemesananFragment(var pemesanan_id: ULong) : Fragment() {
+class DetailPemesananFragment(
+    private var pemesanan_id: ULong
+) : Fragment() {
     private val TAG = "DetailPemesananFragment"
     private var _binding: FragmentDetailPemesananBinding? = null
     val binding get() = _binding!!
@@ -59,7 +61,7 @@ class DetailPemesananFragment(var pemesanan_id: ULong) : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                pesanan = pesananStore.fetch(pemesanan_id!!).data
+                pesanan = pesananStore.fetch(pemesanan_id).response.body()?.data
                 Log.d(TAG, "onViewCreated: pesanan = $pesanan")
             } catch (e : Exception){
                 Log.e(TAG, "onViewCreated: API Server Error", e)

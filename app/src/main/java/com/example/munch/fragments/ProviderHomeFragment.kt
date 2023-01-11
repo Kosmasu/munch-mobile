@@ -175,13 +175,13 @@ class ProviderHomeFragment : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                myStat = authStore.myStat().data!!
+                myStat = authStore.myStat().response.body()?.data!!
 
 //                val params = mapOf("pemesanan_status" to "menunggu", "sort" to mapOf("column" to "created_at", "type" to "asc"))
                 val paramNewOrder = mapOf("pemesanan_status" to "menunggu")
                 Log.d(TAG, "onViewCreated: $paramNewOrder")
 
-                newPesanan = pesananStore.fetchUnpaginated(paramNewOrder).data
+                newPesanan = pesananStore.fetchUnpaginated(paramNewOrder).response.body()?.data!!
                 Log.d(TAG, "onViewCreated: newOrder= $newPesanan")
 
 
@@ -189,7 +189,7 @@ class ProviderHomeFragment : Fragment() {
                 val paramPesananAktif = mapOf("month" to date.monthValue.toString(), "year" to date.year.toString())
                 Log.d(TAG, "onViewCreated: $paramPesananAktif")
 
-                pesananAktif = pesananStore.fetchDelivery(paramPesananAktif).data
+                pesananAktif = pesananStore.fetchDelivery(paramPesananAktif).response.body()?.data!!
                 Log.d(TAG, "onViewCreated: delivery= $pesananAktif")
 
 

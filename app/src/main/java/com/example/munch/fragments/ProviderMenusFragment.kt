@@ -115,13 +115,13 @@ class ProviderMenusFragment : Fragment() {
         val term = binding.etSearchMenus.text.toString()
         Retrofit.coroutine.launch {
             try {
-                val me = authStore.miniMe().data
+                val me = authStore.miniMe().response.body()?.data
                 val menus = menuStore.fetchUnpaginated(
                     mapOf(
                         "menu_nama" to term,
                         "provider_id" to me!!.users_id.toString()
                     )
-                ).data
+                ).response.body()?.data!!
                 Log.d(TAG, "getMenu: menu=$menus")
 
                 if (_binding != null) {

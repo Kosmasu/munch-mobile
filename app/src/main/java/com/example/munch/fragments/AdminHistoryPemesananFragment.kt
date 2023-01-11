@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,7 +18,7 @@ import com.example.munch.model.HistoryPemesanan
 import kotlinx.coroutines.launch
 
 class AdminHistoryPemesananFragment(date_lower: String = "", date_upper: String = "") : Fragment() {
-    var _binding: FragmentAdminHistoryPemesananBinding? = null
+    private var _binding: FragmentAdminHistoryPemesananBinding? = null
     val binding get() = _binding!!
 
     var reqMap : Map<String, String> = mapOf("date_lower" to date_lower, "date_upper" to date_upper)
@@ -34,7 +33,7 @@ class AdminHistoryPemesananFragment(date_lower: String = "", date_upper: String 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAdminHistoryPemesananBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,7 +44,7 @@ class AdminHistoryPemesananFragment(date_lower: String = "", date_upper: String 
         pesananStore = PesananStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).data
+                listHistoryPemesanan = pesananStore.fetchUnpaginated(reqMap).response.body()?.data!!
 
                 requireActivity().runOnUiThread {
                     pemesananAdapter = AdminHistoryPemesananAdapter(listHistoryPemesanan)

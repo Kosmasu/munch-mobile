@@ -1,6 +1,5 @@
 package com.example.munch.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,7 @@ import com.example.munch.model.HistoryTopUp
 import kotlinx.coroutines.launch
 
 class AdminHistoryTopupFragment(date_lower: String = "", date_upper: String = "") : Fragment() {
-    var _binding: FragmentAdminHistoryTopupBinding? = null
+    private var _binding: FragmentAdminHistoryTopupBinding? = null
     val binding get() = _binding!!
 
     var reqMap : Map<String, String> = mapOf("date_lower" to date_lower, "date_upper" to date_upper)
@@ -32,7 +31,7 @@ class AdminHistoryTopupFragment(date_lower: String = "", date_upper: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAdminHistoryTopupBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,7 +42,7 @@ class AdminHistoryTopupFragment(date_lower: String = "", date_upper: String = ""
         historyStore = HistoryStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryTopUp = historyStore.topUpUnpaginated(reqMap).data
+                listHistoryTopUp = historyStore.topUpUnpaginated(reqMap).response.body()?.data!!
 
                 requireActivity().runOnUiThread {
                     topupAdapter = AdminHistoryTopupAdapter(listHistoryTopUp)

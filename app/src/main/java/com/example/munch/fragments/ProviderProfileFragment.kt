@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.munch.R
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.api.user.UserStore
@@ -22,7 +21,7 @@ class ProviderProfileFragment : Fragment() {
     val binding get() = _binding!!
     lateinit var authStore: AuthStore
     lateinit var userStore: UserStore
-    var user_id : ULong? = null
+    var userId : ULong? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +54,10 @@ class ProviderProfileFragment : Fragment() {
             val body = FormBody.Builder()
                 .add("users_desc",binding.etProviderDetailDesc.text.toString())
                 .build()
-            if (user_id != null) {
+            if (userId != null) {
                 Retrofit.coroutine.launch {
                     try {
-                        userStore.update(user_id!!, body)
+                        userStore.update(userId!!, body)
                         if (activity != null) {
                             requireActivity().runOnUiThread{
                                 Toast.makeText(
@@ -80,9 +79,9 @@ class ProviderProfileFragment : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                val profile = authStore.me().data
+                val profile = authStore.me().response.body()?.data
                 if (profile != null) {
-                    user_id = profile.users_id
+                    userId = profile.users_id
                 }
 
                 if (_binding != null){

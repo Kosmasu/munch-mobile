@@ -20,7 +20,7 @@ import com.example.munch.model.User
 import kotlinx.coroutines.launch
 
 class AdminProviderFragment : Fragment() {
-  var _binding: FragmentAdminProviderBinding? = null
+  private var _binding: FragmentAdminProviderBinding? = null
   val binding get() = _binding!!
 
   var reqMap : Map<String, String> = mapOf("users_nama" to "", "users_role" to "provider")
@@ -35,7 +35,7 @@ class AdminProviderFragment : Fragment() {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?,
-  ): View? {
+  ): View {
     _binding = FragmentAdminProviderBinding.inflate(inflater, container, false)
     return binding.root
   }
@@ -46,7 +46,7 @@ class AdminProviderFragment : Fragment() {
     userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
       try {
-        listProvider = userStore.fetchUnpaginated(reqMap).data
+        listProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
 
         (requireContext() as Activity).runOnUiThread {
           providerAdapter = AdminUserAdapter(listProvider)
@@ -95,7 +95,7 @@ class AdminProviderFragment : Fragment() {
 
       Retrofit.coroutine.launch {
         try {
-          listProvider = userStore.fetchUnpaginated(reqMap).data
+          listProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
           (context as Activity).runOnUiThread {
             providerAdapter.data = listProvider
             providerAdapter.notifyDataSetChanged()
@@ -114,7 +114,7 @@ class AdminProviderFragment : Fragment() {
     Retrofit.coroutine.launch {
       try {
         userStore.ban(id)
-        listProvider = userStore.fetchUnpaginated(reqMap).data
+        listProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
         (context as Activity).runOnUiThread {
           providerAdapter.data = listProvider
           providerAdapter.notifyDataSetChanged()
@@ -131,7 +131,7 @@ class AdminProviderFragment : Fragment() {
     Retrofit.coroutine.launch {
       try {
         userStore.unban(id)
-        listProvider = userStore.fetchUnpaginated(reqMap).data
+        listProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
         (context as Activity).runOnUiThread {
           providerAdapter.data = listProvider
           providerAdapter.notifyDataSetChanged()

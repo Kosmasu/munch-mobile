@@ -22,13 +22,13 @@ class DetailMenuFragment : Fragment() {
     private var _binding: FragmentDetailMenuBinding? = null
     val binding get() = _binding!!
 
-    private var menu_id: Long? = null
+    private var menuId: Long? = null
     private lateinit var menuStore: MenuStore
     private var menu : Menu? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            menu_id = it.getLong("menu_id")
+            menuId = it.getLong("menu_id")
         }
         menuStore = MenuStore.getInstance(requireContext())
     }
@@ -57,7 +57,7 @@ class DetailMenuFragment : Fragment() {
         binding.btnMenuDelete.setOnClickListener {
             Retrofit.coroutine.launch {
                 try {
-                    menuStore.delete(menu_id!!.toULong())
+                    menuStore.delete(menuId!!.toULong())
 
                     requireActivity().runOnUiThread {
                         Toast.makeText(context, "menu successfully deleted", Toast.LENGTH_SHORT).show()
@@ -85,10 +85,10 @@ class DetailMenuFragment : Fragment() {
         getMenu()
     }
 
-    fun getMenu() {
+    private fun getMenu() {
         Retrofit.coroutine.launch {
             try {
-                menu = menuStore.fetch(menu_id!!.toULong()).data
+                menu = menuStore.fetch(menuId!!.toULong()).response.body()?.data
                 Log.d(TAG, "onViewCreated: menu = $menu")
             } catch (e: Exception) {
                 Log.e(TAG, "onViewCreated: API Server Error", e)

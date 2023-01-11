@@ -19,12 +19,11 @@ import com.example.munch.api.auth.AuthStore
 import com.example.munch.api.auth.MyStatResponse
 import com.example.munch.api.user.UserStore
 import com.example.munch.databinding.FragmentAdminHomeBinding
-import com.example.munch.model.Response
 import com.example.munch.model.User
 import kotlinx.coroutines.launch
 
 class AdminHomeFragment : Fragment() {
-  var _binding: FragmentAdminHomeBinding? = null
+  private var _binding: FragmentAdminHomeBinding? = null
   val binding get() = _binding!!
 
   var reqMap : Map<String, String> = mapOf("users_role" to "provider", "users_status" to "menunggu")
@@ -41,7 +40,7 @@ class AdminHomeFragment : Fragment() {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?,
-  ): View? {
+  ): View {
     _binding = FragmentAdminHomeBinding.inflate(inflater, container, false)
     return binding.root
   }
@@ -54,7 +53,7 @@ class AdminHomeFragment : Fragment() {
     userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
       try {
-        stats = authStore.myStat().data
+        stats = authStore.myStat().response.body()?.data
 
         (requireContext() as Activity).runOnUiThread {
           binding.tvRegisteredAccounts.text = "${stats?.providers_count?.let {
@@ -72,7 +71,7 @@ class AdminHomeFragment : Fragment() {
       }
 
       try {
-        listWaitingProvider = userStore.fetchUnpaginated(reqMap).data
+        listWaitingProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
 
         (requireContext() as Activity).runOnUiThread {
           providerAdapter = AdminUserAdapter(listWaitingProvider)
@@ -110,7 +109,7 @@ class AdminHomeFragment : Fragment() {
     Retrofit.coroutine.launch {
       try {
         userStore.approveProvider(id)
-        listWaitingProvider = userStore.fetchUnpaginated(reqMap).data
+        listWaitingProvider = userStore.fetchUnpaginated(reqMap).response.body()?.data!!
         (context as Activity).runOnUiThread {
           providerAdapter.data = listWaitingProvider
           providerAdapter.notifyDataSetChanged()

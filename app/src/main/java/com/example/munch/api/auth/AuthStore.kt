@@ -1,12 +1,12 @@
 package com.example.munch.api.auth
 
 import android.content.Context
+import android.util.Log
 import com.example.munch.api.Retrofit
 import com.example.munch.model.Response
 import com.example.munch.model.User
 import com.example.munch.room.AppDatabase
 import com.example.munch.room.Token
-import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 
 class AuthStore(val context: Context) : AuthAPI {
@@ -32,8 +32,16 @@ class AuthStore(val context: Context) : AuthAPI {
 
   override suspend fun login(body: RequestBody): Response<LoginResponse?> {
     val response = authAPI.login(body)
-    if (response.data != null && response.data.access_token != null) {
-      storeToken(context, Token(response.data.users_id.toInt(), response.data.access_token))
+    Log.d("Login", "login: $response")
+    val data = response.response.body()?.data
+    if (data?.access_token != null) {
+      storeToken(
+        context,
+        Token(
+          data.users_id.toInt(),
+          data.access_token.toString()
+        )
+      )
     }
     authAPI = Retrofit.resetInstance(context).create(AuthAPI::class.java)
     return response

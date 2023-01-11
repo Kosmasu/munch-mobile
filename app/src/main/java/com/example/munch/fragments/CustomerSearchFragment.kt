@@ -13,9 +13,7 @@ import com.example.munch.R
 import com.example.munch.adapter.CustomerSearchAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.menu.MenuStore
-import com.example.munch.databinding.FragmentCustomerProfileBinding
 import com.example.munch.databinding.FragmentCustomerSearchBinding
-import com.example.munch.model.HistoryPemesanan
 import com.example.munch.model.Menu
 import kotlinx.coroutines.launch
 
@@ -45,7 +43,7 @@ class CustomerSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                listMenu = menuStore.fetchUnpaginated(reqMap).data
+                listMenu = menuStore.fetchUnpaginated(reqMap).response.body()?.data!!
 
                 (context as Activity).runOnUiThread {
                     println(listMenu)
@@ -69,7 +67,7 @@ class CustomerSearchFragment : Fragment() {
 
             Retrofit.coroutine.launch {
                 try {
-                    listMenu = menuStore.fetchUnpaginated(reqMap).data
+                    listMenu = menuStore.fetchUnpaginated(reqMap).response.body()?.data!!
                     (context as Activity).runOnUiThread {
                         menuAdapter.data = listMenu
                         menuAdapter.notifyDataSetChanged()

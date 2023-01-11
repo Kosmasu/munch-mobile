@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.munch.api.Retrofit
-import com.example.munch.api.history.HistoryStore
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.api.user.UserStore
 import com.example.munch.databinding.FragmentCustomerHomeBinding
@@ -52,7 +51,7 @@ class CustomerHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).data
+                cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).response.body()?.data!!
 
                 (context as Activity).runOnUiThread {
                     println("CATERING ANDA : $cateringAnda")
@@ -67,7 +66,7 @@ class CustomerHomeFragment : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).data
+                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).response.body()?.data!!
 
                 (context as Activity).runOnUiThread {
                     println("TOP CATERING : $topCatering")
@@ -82,7 +81,7 @@ class CustomerHomeFragment : Fragment() {
 
         Retrofit.coroutine.launch {
             try {
-                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).data
+                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).response.body()?.data!!
 
                 (context as Activity).runOnUiThread {
                     println("ORDER AGAIN : $orderAgain")

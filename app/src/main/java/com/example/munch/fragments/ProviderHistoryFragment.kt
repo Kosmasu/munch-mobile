@@ -88,7 +88,7 @@ class ProviderHistoryFragment : Fragment() {
         updateHistory()
     }
 
-    fun updateHistory() {
+    private fun updateHistory() {
         val dateStart = binding.etDateMinPemesanan
         val dateEnd = binding.etDateMaxPemesanan
         Retrofit.coroutine.launch {
@@ -102,7 +102,7 @@ class ProviderHistoryFragment : Fragment() {
             Log.d(TAG, "updateHistory: params=$params")
 
             try {
-                val historyPesanan = pesananStore.fetchUnpaginated(params).data
+                val historyPesanan = pesananStore.fetchUnpaginated(params).response.body()?.data!!
                 Log.d(TAG, "updateHistory: history = $historyPesanan")
 
                 if (activity != null) {

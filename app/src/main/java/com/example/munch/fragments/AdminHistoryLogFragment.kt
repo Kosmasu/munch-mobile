@@ -1,6 +1,5 @@
 package com.example.munch.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +42,7 @@ class AdminHistoryLogFragment(date_lower: String = "", date_upper: String = "") 
         historyStore = HistoryStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryLog = historyStore.logUnpaginated(reqMap).data
+                listHistoryLog = historyStore.logUnpaginated(reqMap).response.body()?.data!!
 
                 requireActivity().runOnUiThread {
                     logAdapter = AdminHistoryLogAdapter(listHistoryLog)

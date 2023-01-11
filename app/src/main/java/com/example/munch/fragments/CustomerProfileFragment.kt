@@ -11,7 +11,6 @@ import com.example.munch.activities.CustomerHomeActivity
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.FragmentCustomerProfileBinding
-import com.example.munch.helpers.CurrencyUtils
 import com.example.munch.helpers.CurrencyUtils.toRupiah
 import com.example.munch.model.User
 import kotlinx.coroutines.launch
@@ -41,7 +40,7 @@ class CustomerProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                me = authStore.me().data!!
+                me = authStore.me().response.body()?.data!!
 
                 requireActivity().runOnUiThread {
                     binding.etCustomerDetailNama.text = me.users_nama

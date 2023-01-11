@@ -41,7 +41,7 @@ class CustomerHistoryTopupFragment(date_lower: String = "", date_upper: String =
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                listHistoryTopup = historyStore.topUpUnpaginated(reqMap).data
+                listHistoryTopup = historyStore.topUpUnpaginated(reqMap).response.body()?.data!!
 
                 requireActivity().runOnUiThread {
                     topupAdapter = CustomerHistoryTopupAdapter(listHistoryTopup)

@@ -1,6 +1,5 @@
 package com.example.munch.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.munch.adapter.AdminHistoryLogAdapter
 import com.example.munch.adapter.AdminHistoryMenuAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.history.HistoryStore
@@ -33,7 +31,7 @@ class AdminHistoryMenuFragment(date_lower: String = "", date_upper: String = "")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAdminHistoryMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -44,7 +42,7 @@ class AdminHistoryMenuFragment(date_lower: String = "", date_upper: String = "")
         historyStore = HistoryStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryMenu = historyStore.menuUnpaginated(reqMap).data
+                listHistoryMenu = historyStore.menuUnpaginated(reqMap).response.body()?.data!!
 
                 requireActivity().runOnUiThread {
                     menuAdapter = AdminHistoryMenuAdapter(listHistoryMenu)
