@@ -2,6 +2,7 @@ package com.example.munch.fragments
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,8 @@ class CustomerHomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pesananStore = PesananStore.getInstance(requireContext())
+        userStore = UserStore.getInstance(requireContext())
     }
 
     override fun onCreateView(
@@ -50,20 +53,46 @@ class CustomerHomeFragment : Fragment() {
         Retrofit.coroutine.launch {
             try {
                 cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).data
-                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).data
-                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).data
 
                 (context as Activity).runOnUiThread {
                     println("CATERING ANDA : $cateringAnda")
+                }
+            } catch (e: Exception) {
+                Log.e("cateringAnda", "cateringAnda", e)
+                (context as Activity).runOnUiThread {
+                    Toast.makeText(requireContext(), "Error fetching cateringAnda", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        Retrofit.coroutine.launch {
+            try {
+                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).data
+
+                (context as Activity).runOnUiThread {
                     println("TOP CATERING : $topCatering")
+                }
+            } catch (e: Exception) {
+                Log.e("topCatering", "topCatering", e)
+                (context as Activity).runOnUiThread {
+                    Toast.makeText(requireContext(), "Error fetching topCatering", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        Retrofit.coroutine.launch {
+            try {
+                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).data
+
+                (context as Activity).runOnUiThread {
                     println("ORDER AGAIN : $orderAgain")
                 }
             } catch (e: Exception) {
+                Log.e("orderAgain", "orderAgain", e)
                 (context as Activity).runOnUiThread {
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error fetching orderAgain", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
     }
 

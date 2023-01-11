@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.munch.R
+import com.example.munch.activities.CustomerHomeActivity
 import com.example.munch.adapter.CustomerHistoryPemesananAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.pesanan.PesananStore
@@ -52,20 +53,8 @@ class CustomerHistoryPemesananFragment(date_lower: String = "", date_upper: Stri
                     binding.rvCustomerHistoryPemesanan.layoutManager = LinearLayoutManager(requireContext())
                     pemesananAdapter.notifyDataSetChanged()
 
-                    pemesananAdapter.onClickListener = fun (it: View, position: Int, pemesanan: HistoryPemesanan) {
-                        val popUp = PopupMenu(requireContext(), it)
-                        popUp.menuInflater.inflate(R.menu.menu_popup_detailonly, popUp.menu)
-                        popUp.setOnMenuItemClickListener {
-                            return@setOnMenuItemClickListener when(it.itemId) {
-                                R.id.menu_detail_only -> {
-                                    true
-                                }
-                                else -> {
-                                    false
-                                }
-                            }
-                        }
-                        popUp.show()
+                    pemesananAdapter.onClickListener = fun (pemesanan: HistoryPemesanan) {
+                        (activity as CustomerHomeActivity).toDetail(pemesanan.pemesanan_id)
                     }
                 }
             } catch (e: Exception) {

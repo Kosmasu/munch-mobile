@@ -15,9 +15,9 @@ class DetailPemesananAdapter(
     private val TAG = "DetailPemesananAdapter"
 
     inner class DetailPemesananHolder(binding: LayoutListTabel3Binding) : RecyclerView.ViewHolder(binding.root){
-        val tanggal = binding.tvTabelKolom1
+        val jumlah = binding.tvTabelKolom1
         val namaMenu = binding.tvTabelKolom2
-        val jumlah = binding.tvTabelKolom3
+        val tanggal = binding.tvTabelKolom3
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailPemesananHolder {
@@ -28,9 +28,9 @@ class DetailPemesananAdapter(
     override fun onBindViewHolder(holder: DetailPemesananHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: detailPesanan = ${detailList[position]}")
 
-        holder.tanggal.text = detailList[position]?.detail_tanggal.toString()
-        holder.namaMenu.text = detailList[position]?.menu?.menu_nama.toString()
         holder.jumlah.text = detailList[position]?.detail_jumlah.toString()
+        holder.namaMenu.text = detailList[position]?.menu?.menu_nama.toString()
+        holder.tanggal.text = detailList[position]?.detail_tanggal.toString()
     }
 
     override fun getItemCount(): Int {

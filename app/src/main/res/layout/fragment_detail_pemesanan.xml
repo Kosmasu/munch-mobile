@@ -17,7 +17,7 @@
             android:id="@+id/tvPemesananTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="History Pemesanan Detail"
+            android:text="Detail Pemesanan"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="normal" />
@@ -64,7 +64,7 @@
                 android:layout_weight="3"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="69 Desember 2022"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -104,7 +104,7 @@
                 android:layout_weight="3"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="Joko"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -143,7 +143,7 @@
                 android:layout_weight="3"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="Paijo"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -182,7 +182,7 @@
                 android:layout_weight="3"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="Jalan jalan apa hayo"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -221,7 +221,7 @@
                 android:layout_weight="3"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="69420"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -260,7 +260,7 @@
                 android:layout_weight="3"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="69"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -299,7 +299,7 @@
                 android:layout_weight="3"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="Rp. 69.420.000,00"
+                android:text="Rp0,00"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -338,7 +338,7 @@
                 android:layout_weight="3"
                 android:paddingStart="3sp"
                 android:scrollHorizontally="true"
-                android:text="Terkirim"
+                android:text="-"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -363,7 +363,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2sp"
                     android:layout_weight="1"
-                    android:text="Tanggal"
+                    android:gravity="center"
+                    android:text="Jumlah"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="normal" />
@@ -372,7 +373,8 @@
                     android:id="@+id/tv_ODHeader2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="4"
+                    android:gravity="center"
                     android:text="Nama Menu"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -382,8 +384,9 @@
                     android:id="@+id/tv_ODHeader3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Jumlah"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:text="Tanggal"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="normal" />
