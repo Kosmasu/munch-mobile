@@ -26,7 +26,7 @@ class CustomerSearchAdapter(
         val item = data[position]
 
 //        holder.ivFoto.setImageResource()
-        holder.tvProvider.text = item.users_id.toString()
+        holder.tvProvider.text = item.users?.users_nama.toString()
         holder.tvNama.text = item.menu_nama
         holder.tvHarga.text = "${item.menu_harga?.toRupiah()},00"
     }
