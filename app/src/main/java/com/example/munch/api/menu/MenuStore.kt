@@ -23,7 +23,7 @@ class MenuStore(val context: Context) : MenuAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<Menu>>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<Menu>>> {
     return menuAPI.fetchPaginate(parameters)
   }
 

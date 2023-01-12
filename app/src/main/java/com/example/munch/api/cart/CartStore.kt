@@ -22,7 +22,7 @@ class CartStore(val context: Context) : CartAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<HeaderCart>>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<HeaderCart>>> {
     return cartAPI.fetchPaginate(parameters)
   }
 

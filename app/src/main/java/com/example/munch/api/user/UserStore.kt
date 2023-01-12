@@ -24,7 +24,7 @@ class UserStore(val context: Context) : UserAPI {
     }
   }
 
-  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<User>>>> {
+  override suspend fun fetchPaginate(parameters: Map<String, String?>): Response<Result<Paginate<User>>> {
     return userAPI.fetchPaginate(parameters)
   }
 

@@ -21,7 +21,7 @@ class HistoryStore(val context: Context) : HistoryAPI {
     }
   }
 
-  override suspend fun logPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<HistoryLog>>>> {
+  override suspend fun logPaginate(parameters: Map<String, String?>): Response<Result<Paginate<HistoryLog>>> {
     return historyAPI.logPaginate(parameters)
   }
 
@@ -29,7 +29,7 @@ class HistoryStore(val context: Context) : HistoryAPI {
     return historyAPI.logUnpaginated(parameters)
   }
 
-  override suspend fun menuPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<HistoryMenu>>>> {
+  override suspend fun menuPaginate(parameters: Map<String, String?>): Response<Result<Paginate<HistoryMenu>>> {
     return historyAPI.menuPaginate(parameters)
   }
 
@@ -37,7 +37,7 @@ class HistoryStore(val context: Context) : HistoryAPI {
     return historyAPI.menuUnpaginated(parameters)
   }
 
-  override suspend fun topUpPaginate(parameters: Map<String, String?>): Response<Result<Paginate<List<HistoryTopUp>>>> {
+  override suspend fun topUpPaginate(parameters: Map<String, String?>): Response<Result<Paginate<HistoryTopUp>>> {
     return historyAPI.topUpPaginate(parameters)
   }
 

@@ -55,13 +55,19 @@ class CustomerHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
+//                val temp = pesananStore.fetchDelivery(reqMapCateringAnda)
+//                println("temp:" + temp)
                 cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).body()?.data!!
                 Log.d(TAG, "CATERING ANDA: $cateringAnda")
 
 //                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).body()?.data!!
 //                Log.d(TAG, "TOP CATERING: $topCatering")
 
-                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).body()?.data!!
+                println("fetching history pemesanan")
+                val temp = pesananStore.fetchPaginate(reqMapOrderAgain).body()?.data!!
+                println("temp:" + temp)
+
+//                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).body()?.data!!
                 Log.d(TAG, "ORDER AGAIN: $orderAgain")
 
                 if (isSafeFragment()) {
