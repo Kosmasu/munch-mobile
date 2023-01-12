@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,9 @@ class CustomerSearchFragment : Fragment() {
     private var _binding: FragmentCustomerSearchBinding? = null
     val binding get() = _binding!!
 
-    var reqMap : Map<String, String> = mapOf("menu_nama" to "", "menu_status" to "tersedia")
+    var column = "menu_nama"
+    var type = "asc"
+
     lateinit var menuStore : MenuStore
     lateinit var menuAdapter : CustomerSearchAdapter
     var listMenu : List<Menu> = listOf()
@@ -44,49 +47,64 @@ class CustomerSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-                listMenu = menuStore.fetchUnpaginated(reqMap).body()?.data!!
+                filter()
 
-                (context as Activity).runOnUiThread {
-                    println(listMenu)
-                    menuAdapter = CustomerSearchAdapter(listMenu)
-                    binding.rvCustomerSearch.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-                    binding.rvCustomerSearch.adapter = menuAdapter
-                    binding.rvCustomerSearch.layoutManager = LinearLayoutManager(requireContext())
-                    menuAdapter.notifyDataSetChanged()
+                if (isSafeFragment()) {
+                    (context as Activity).runOnUiThread {
+                        menuAdapter = CustomerSearchAdapter(listMenu)
+                        binding.rvCustomerSearch.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+                        binding.rvCustomerSearch.adapter = menuAdapter
+                        binding.rvCustomerSearch.layoutManager = LinearLayoutManager(requireContext())
+                        menuAdapter.notifyDataSetChanged()
 
-                    menuAdapter.onClickListener = fun (menu: Menu) {
-                        Toast.makeText(requireContext(), "$menu", Toast.LENGTH_SHORT).show()
+                        menuAdapter.onClickListener = fun (menu: Menu) {
+                            Toast.makeText(requireContext(), "$menu", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error fetching menu", Toast.LENGTH_SHORT).show()
+                if (isSafeFragment()) {
+                    (context as Activity).runOnUiThread {
+                        Toast.makeText(requireContext(), "Error fetching menu", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
             }
         }
 
         binding.btnCustomerDoSearch.setOnClickListener {
-            reqMap = mapOf("menu_nama" to binding.etCustomerSearch.text.toString(), "menu_status" to "tersedia")
-
             Retrofit.coroutine.launch {
-                try {
-                    listMenu = menuStore.fetchUnpaginated(reqMap).body()?.data!!
+                filter()
+            }
+        }
 
-                    if (isSafeFragment()) {
-                        (context as Activity).runOnUiThread {
-                            menuAdapter.data = listMenu
-                            menuAdapter.notifyDataSetChanged()
-                        }
+        binding.spinnerSearchFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when (position) {
+                    0 -> {
+                        column = "menu_nama"
                     }
-                } catch (e: Exception) {
-                    if (isSafeFragment()) {
-                        (context as Activity).runOnUiThread {
-                            Toast.makeText(
-                                requireContext(),
-                                "Error fetching menu",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                    1 -> {
+                        column = "menu_harga"
                     }
                 }
+                filter()
+            }
+        }
+
+        binding.spinnerSearchSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when (position) {
+                    0 -> {
+                        type = "asc"
+                    }
+                    1 -> {
+                        type = "desc"
+                    }
+                }
+                filter()
             }
         }
     }
@@ -94,5 +112,31 @@ class CustomerSearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun filter() {
+        val reqMap : Map<String, String> = mapOf("menu_nama" to binding.etCustomerSearch.text.toString(), "menu_status" to "tersedia", "sort_column" to column, "sort_type" to type)
+        Retrofit.coroutine.launch {
+            try {
+                listMenu = menuStore.fetchUnpaginated(reqMap).body()?.data!!
+
+                if (isSafeFragment()) {
+                    (context as Activity).runOnUiThread {
+                        menuAdapter.data = listMenu
+                        menuAdapter.notifyDataSetChanged()
+                    }
+                }
+            } catch (e: Exception) {
+                if (isSafeFragment()) {
+                    (context as Activity).runOnUiThread {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error fetching menu",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 }
