@@ -8,6 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.munch.adapter.CustomerHistoryPemesananAdapter
+import com.example.munch.adapter.CustomerUserAdapter
+import com.example.munch.adapter.DetailPemesananAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.api.user.UserStore
@@ -26,16 +31,16 @@ class CustomerHomeFragment : Fragment() {
 
     val date = LocalDate.now()
     var reqMapCateringAnda : Map<String, String> = mapOf("month" to date.monthValue.toString(), "year" to date.year.toString(), "detail_status" to "terkirim")
-    var reqMapTopCatering : Map<String, Any> = mapOf("batch_size" to "5", "sort" to mapOf("column" to "users_rating", "type" to "desc"))
+    var reqMapTopCatering : Map<String, String> = mapOf("batch_size" to "5", "sort_column" to "users_rating", "sort_type" to "desc")
     var reqMapOrderAgain : Map<String, String> = mapOf("batch_size" to "5", "pemesanan_status" to "selesai")
     lateinit var pesananStore : PesananStore
     lateinit var userStore : UserStore
-//    lateinit var detailAdapter : CustomerDetailPemesananAdapter
-//    lateinit var userAdapter : CustomerUserAdapter
-//    lateinit var historyAdapter : CustomerHistoryPemesananAdapter
-    var cateringAnda : List<DetailPemesanan> = listOf()
+    lateinit var detailAdapter : DetailPemesananAdapter
+    lateinit var userAdapter : CustomerUserAdapter
+    lateinit var historyAdapter : CustomerHistoryPemesananAdapter
+    var cateringAnda : ArrayList<DetailPemesanan?> = arrayListOf()
     var topCatering : List<User> = listOf()
-    var orderAgain : List<HistoryPemesanan> = listOf()
+    var orderAgain : List<HistoryPemesanan?> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,24 +60,54 @@ class CustomerHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Retrofit.coroutine.launch {
             try {
-//                val temp = pesananStore.fetchDelivery(reqMapCateringAnda)
-//                println("temp:" + temp)
-                cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).body()?.data!!
+                cateringAnda = (pesananStore.fetchDelivery(reqMapCateringAnda).body()?.data as ArrayList<DetailPemesanan?>)
                 Log.d(TAG, "CATERING ANDA: $cateringAnda")
 
-//                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).body()?.data!!
-//                Log.d(TAG, "TOP CATERING: $topCatering")
+                topCatering = userStore.fetchPaginate(reqMapTopCatering).body()?.data?.data!!
+                Log.d(TAG, "TOP CATERING: $topCatering")
 
-                println("fetching history pemesanan")
-                val temp = pesananStore.fetchPaginate(reqMapOrderAgain).body()?.data!!
-                println("temp:" + temp)
-
-//                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).body()?.data!!
+                orderAgain = pesananStore.fetchPaginate(reqMapOrderAgain).body()?.data?.data!!
                 Log.d(TAG, "ORDER AGAIN: $orderAgain")
 
                 if (isSafeFragment()) {
                     (context as Activity).runOnUiThread {
+                        //CATERING ANDA
+                        detailAdapter = DetailPemesananAdapter(requireActivity(), cateringAnda)
+                        binding.rvCusMyOrder.adapter = detailAdapter
+                        binding.rvCusMyOrder.layoutManager = LinearLayoutManager(requireContext())
+                        detailAdapter.notifyDataSetChanged()
 
+                        //TOP CATERING
+                        userAdapter = CustomerUserAdapter(topCatering)
+                        binding.rvCusTop.addItemDecoration(
+                            DividerItemDecoration(
+                                requireContext(),
+                                DividerItemDecoration.HORIZONTAL
+                            )
+                        )
+                        binding.rvCusTop.adapter = userAdapter
+                        binding.rvCusTop.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                        userAdapter.notifyDataSetChanged()
+
+                        userAdapter.onClickListener = fun (user: User) {
+                            Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
+                        }
+
+                        //ORDER AGAIN
+                        historyAdapter = CustomerHistoryPemesananAdapter(orderAgain as List<HistoryPemesanan>)
+                        binding.rvCusOrderAgain.addItemDecoration(
+                            DividerItemDecoration(
+                                requireContext(),
+                                DividerItemDecoration.VERTICAL
+                            )
+                        )
+                        binding.rvCusOrderAgain.adapter = historyAdapter
+                        binding.rvCusOrderAgain.layoutManager = LinearLayoutManager(requireContext())
+                        historyAdapter.notifyDataSetChanged()
+
+                        historyAdapter.onClickListener = fun (pemesanan: HistoryPemesanan) {
+                            Toast.makeText(requireContext(), pemesanan.toString(), Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             } catch (e: Exception) {
