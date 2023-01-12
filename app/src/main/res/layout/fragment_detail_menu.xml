@@ -171,9 +171,9 @@
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_orange_borderless"
-                    android:backgroundTint="#43A047"
                     android:text="Edit Details"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    app:backgroundTint="@null" />
 
                 <Button
                     android:id="@+id/btnMenuDelete"
@@ -182,8 +182,8 @@
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_red_borderless"
-                    android:backgroundTint="#E53935"
                     android:text="Delete Menu"
+                    app:backgroundTint="@null"
                     android:textColor="#000000" />
             </LinearLayout>
         </LinearLayout>

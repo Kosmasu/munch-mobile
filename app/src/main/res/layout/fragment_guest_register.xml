@@ -66,54 +66,72 @@
             android:layout_width="345dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_border_light"
             android:ems="10"
             android:hint="Nama"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:minHeight="45dp"
+            android:paddingStart="4dp" />
 
         <EditText
             android:id="@+id/etRegisterEmail"
             android:layout_width="345dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_border_light"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:minHeight="45dp"
+            android:paddingStart="4dp" />
 
         <EditText
             android:id="@+id/etRegisterPassword"
             android:layout_width="345dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_border_light"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:minHeight="45dp"
+            android:paddingStart="4dp" />
 
         <EditText
             android:id="@+id/etRegisterConfirmPassword"
             android:layout_width="345dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_border_light"
             android:ems="10"
             android:hint="Confirm Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:minHeight="45dp"
+            android:paddingStart="4dp" />
 
         <EditText
             android:id="@+id/etRegisterAlamat"
             android:layout_width="345dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_border_light"
             android:ems="10"
             android:hint="Alamat"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:minHeight="45dp"
+            android:paddingStart="4dp" />
 
         <EditText
             android:id="@+id/etRegisterNomorTelepon"
             android:layout_width="345dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_border_light"
             android:ems="10"
             android:hint="Nomor Telepon"
-            android:inputType="numberSigned" />
+            android:inputType="numberSigned"
+            android:minHeight="45dp"
+            android:paddingStart="4dp" />
 
         <TextView
             android:id="@+id/textView3"
