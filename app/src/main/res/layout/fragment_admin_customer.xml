@@ -28,6 +28,7 @@
                 android:id="@+id/textView69"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="3dp"
                 android:layout_weight="1"
                 android:text="List Customer"
                 android:textColor="@color/text_black"
@@ -41,21 +42,28 @@
 
                 <EditText
                     android:id="@+id/etSearchCustomer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Search"
-                    android:inputType="textPersonName" />
+                    android:background="@drawable/rounded_border_light"
+                    android:ems="16"
+                    android:hint="Search..."
+                    android:inputType="textPersonName"
+                    android:paddingStart="5dp"
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/btnSearchCustomer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_border_solid"
+                    android:background="@drawable/rounded_green_borderless"
                     android:gravity="center"
+                    app:backgroundTint="@null"
                     app:icon="@drawable/vector_search"
+                    app:iconGravity="textEnd"
                     app:iconPadding="0dp" />
 
             </LinearLayout>
