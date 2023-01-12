@@ -19,7 +19,7 @@ class ProviderMenuAdapter(
 
     inner class MenuHolder(binding : LayoutCardProviderBinding) : RecyclerView.ViewHolder(binding.root){
         val image = binding.imageView
-        val caption = binding.tvNamaProvider
+        val caption = binding.tvNamaMenuProvider
         init {
             binding.root.setOnClickListener {
                 onClickListener?.invoke(it, adapterPosition, menuList[adapterPosition])
