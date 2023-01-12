@@ -21,19 +21,6 @@
         app:layout_constraintVertical_bias="0.927" />
 
     <TextView
-        android:id="@+id/tv_toRegister2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login Now!"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.916"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.928" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -151,7 +138,10 @@
             android:id="@+id/btnRegister"
             android:layout_width="345dp"
             android:layout_height="wrap_content"
-            android:text="Register" />
+            android:background="@drawable/rounded_green_borderless"
+            android:text="Register"
+            app:backgroundTint="@null"
+            android:textColor="#000000" />
     </LinearLayout>
 
     <ImageView

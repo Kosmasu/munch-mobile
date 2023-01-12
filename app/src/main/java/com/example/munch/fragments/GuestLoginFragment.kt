@@ -1,5 +1,6 @@
 package com.example.munch.fragments
 
+import android.graphics.Paint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +24,8 @@ class GuestLoginFragment(
     savedInstanceState: Bundle?,
   ): View? {
     _binding = FragmentGuestLoginBinding.inflate(inflater, container, false)
+
+
     binding.btnLogin.setOnClickListener {
       if (
         binding.etLoginEmail.text.isEmpty()
