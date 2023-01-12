@@ -17,13 +17,16 @@ import com.example.munch.model.DetailPemesanan
 import com.example.munch.model.HistoryPemesanan
 import com.example.munch.model.User
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class CustomerHomeFragment : Fragment() {
+    private val TAG = "CustomerHomeFragment"
     private var _binding: FragmentCustomerHomeBinding? = null
     val binding get() = _binding!!
 
-    var reqMapCateringAnda : Map<String, String> = mapOf("month" to "1", "year" to "2023", "detail_status" to "terkirim")
-    var reqMapTopCatering : Map<String, String> = mapOf("batch_size" to "5", "sort.column" to "users_rating", "sort.type" to "desc")
+    val date = LocalDate.now()
+    var reqMapCateringAnda : Map<String, String> = mapOf("month" to date.monthValue.toString(), "year" to date.year.toString(), "detail_status" to "terkirim")
+    var reqMapTopCatering : Map<String, Any> = mapOf("batch_size" to "5", "sort" to mapOf("column" to "users_rating", "type" to "desc"))
     var reqMapOrderAgain : Map<String, String> = mapOf("batch_size" to "5", "pemesanan_status" to "selesai")
     lateinit var pesananStore : PesananStore
     lateinit var userStore : UserStore
@@ -53,52 +56,29 @@ class CustomerHomeFragment : Fragment() {
         Retrofit.coroutine.launch {
             try {
                 cateringAnda = pesananStore.fetchDelivery(reqMapCateringAnda).body()?.data!!
+                Log.d(TAG, "CATERING ANDA: $cateringAnda")
+
+//                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).body()?.data!!
+//                Log.d(TAG, "TOP CATERING: $topCatering")
+
+                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).body()?.data!!
+                Log.d(TAG, "ORDER AGAIN: $orderAgain")
 
                 if (isSafeFragment()) {
                     (context as Activity).runOnUiThread {
-                        println("CATERING ANDA : $cateringAnda")
+
                     }
                 }
             } catch (e: Exception) {
-                Log.e("cateringAnda", "cateringAnda", e)
+                Log.e(TAG, "ERROR", e)
                 if (isSafeFragment()) {
                     (context as Activity).runOnUiThread {
                         Toast.makeText(
                             requireContext(),
-                            "Error fetching cateringAnda",
+                            "Error fetching data",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }
-            }
-        }
-
-        Retrofit.coroutine.launch {
-            try {
-                topCatering = userStore.fetchUnpaginated(reqMapTopCatering).body()?.data!!
-
-                (context as Activity).runOnUiThread {
-                    println("TOP CATERING : $topCatering")
-                }
-            } catch (e: Exception) {
-                Log.e("topCatering", "topCatering", e)
-                (context as Activity).runOnUiThread {
-                    Toast.makeText(requireContext(), "Error fetching topCatering", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        Retrofit.coroutine.launch {
-            try {
-                orderAgain = pesananStore.fetchUnpaginated(reqMapOrderAgain).body()?.data!!
-
-                (context as Activity).runOnUiThread {
-                    println("ORDER AGAIN : $orderAgain")
-                }
-            } catch (e: Exception) {
-                Log.e("orderAgain", "orderAgain", e)
-                (context as Activity).runOnUiThread {
-                    Toast.makeText(requireContext(), "Error fetching orderAgain", Toast.LENGTH_SHORT).show()
                 }
             }
         }
