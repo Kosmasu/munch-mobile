@@ -11,6 +11,8 @@ data class Cart(
   val cart_jumlah: Int?,
   val cart_total: Long?,
   val cart_tanggal: LocalDateTime?,
+  val menu: Menu?,
+  val customer: User?,
   val created_at: Timestamp?,
   val updated_at: Timestamp?,
 )
