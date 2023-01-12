@@ -13,13 +13,13 @@ import retrofit2.http.QueryMap
 
 interface CartAPI {
   @GET("cart")
-  suspend fun fetchPaginate(@QueryMap parameters: Map<String, String?>): Response<Result<Paginate<List<Cart>>>>
+  suspend fun fetchPaginate(@QueryMap parameters: Map<String, String?>): Response<Result<Paginate<List<HeaderCart>>>>
 
   @GET("cart")
-  suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String?>): Response<Result<List<Cart>>>
+  suspend fun fetchUnpaginated(@QueryMap parameters: Map<String, String?>): Response<Result<List<HeaderCart>>>
 
   @GET("cart")
-  suspend fun fetchUnpaginated(): Response<Result<List<Cart>>>
+  suspend fun fetchUnpaginated(): Response<Result<List<HeaderCart>>>
 
   @GET("cart/{cart_id}")
   suspend fun fetch(@Path("cart_id") cart_id: ULong): Response<Result<Cart>>
