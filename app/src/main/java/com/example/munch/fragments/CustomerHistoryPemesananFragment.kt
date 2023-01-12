@@ -61,7 +61,7 @@ class CustomerHistoryPemesananFragment(date_lower: String = "", date_upper: Stri
                         pemesananAdapter.notifyDataSetChanged()
 
                         pemesananAdapter.onClickListener = fun(pemesanan: HistoryPemesanan) {
-                            (activity as CustomerHomeActivity).toDetail(pemesanan.pemesanan_id)
+                            (activity as CustomerHomeActivity).toDetailPemesanan(pemesanan.pemesanan_id)
                         }
                     }
                 }

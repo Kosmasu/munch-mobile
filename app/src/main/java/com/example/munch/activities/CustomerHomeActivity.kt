@@ -10,6 +10,7 @@ import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityCustomerHomeBinding
 import com.example.munch.fragments.*
+import com.example.munch.model.HeaderCart
 import kotlinx.coroutines.launch
 
 class CustomerHomeActivity : AppCompatActivity() {
@@ -106,11 +107,20 @@ class CustomerHomeActivity : AppCompatActivity() {
     }
   }
 
-  fun toDetail(pemesanan_id: ULong) {
+  fun toDetailPemesanan(pemesanan_id: ULong) {
     supportFragmentManager.beginTransaction().apply {
       replace(binding.flFragmentCustomer.id, DetailPemesananFragment(pemesanan_id), "CustomerDetailHistoryFragment")
       setReorderingAllowed(true)
       addToBackStack("CustomerDetailHistoryFragment")
+      commit()
+    }
+  }
+
+  fun toDetailCart(cart: HeaderCart) {
+    supportFragmentManager.beginTransaction().apply {
+      replace(binding.flFragmentCustomer.id, CustomerCartDetailsFragment(cart), "CustomerCartDetailsFragment")
+      setReorderingAllowed(true)
+      addToBackStack("CustomerCartDetailsFragment")
       commit()
     }
   }
