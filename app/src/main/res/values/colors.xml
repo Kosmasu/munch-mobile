@@ -9,6 +9,7 @@
     <color name="text_black">#111111</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bg">#E6E6E6</color>
+    <color name="nav">#CDCDCD</color>
     <color name="ijo">#7CB342</color>
     <color name="merah">#E53935</color>
     <color name="oren">#FFB300</color>
