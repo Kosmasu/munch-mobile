@@ -11,7 +11,7 @@ import com.example.munch.databinding.FragmentCustomerMenuPesanBinding
 import java.util.*
 
 
-class CustomerMenuPesanFragment : Fragment() {
+class CustomerMenuPesanFragment(private var provider_id : ULong) : Fragment() {
     var _binding: FragmentCustomerMenuPesanBinding? = null
     val binding get() = _binding!!
 
