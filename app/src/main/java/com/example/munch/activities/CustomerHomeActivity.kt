@@ -124,4 +124,13 @@ class CustomerHomeActivity : AppCompatActivity() {
       commit()
     }
   }
+
+  fun toPesan(provider_id: ULong) {
+    supportFragmentManager.beginTransaction().apply {
+      replace(binding.flFragmentCustomer.id, CustomerMenuPesanFragment(provider_id), "CustomerMenuPesanFragment")
+      setReorderingAllowed(true)
+      addToBackStack("CustomerMenuPesanFragment")
+      commit()
+    }
+  }
 }

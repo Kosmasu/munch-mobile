@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.munch.R
+import com.example.munch.activities.CustomerHomeActivity
 import com.example.munch.adapter.CustomerHistoryPemesananAdapter
 import com.example.munch.adapter.CustomerUserAdapter
 import com.example.munch.adapter.DetailPemesananAdapter
@@ -77,6 +80,19 @@ class CustomerHomeFragment : Fragment() {
                         binding.rvCusMyOrder.layoutManager = LinearLayoutManager(requireContext())
                         detailAdapter.notifyDataSetChanged()
 
+//                        detailAdapter.onClickListener = fun (detail: DetailPemesanan) {
+//                            val popUp = PopupMenu(requireContext(), it)
+//                            popUp.menuInflater.inflate(R.menu.menu_popup_delivery)
+//                            popUp.setOnMenuItemClickListener {
+//                                return@setOnMenuItemClickListener when(it.itemId) {
+//                                    else -> {
+//                                        false
+//                                    }
+//                                }
+//                            }
+//                            popUp.show()
+//                        }
+
                         //TOP CATERING
                         userAdapter = CustomerUserAdapter(topCatering)
                         binding.rvCusTop.addItemDecoration(
@@ -90,7 +106,7 @@ class CustomerHomeFragment : Fragment() {
                         userAdapter.notifyDataSetChanged()
 
                         userAdapter.onClickListener = fun (user: User) {
-                            Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
+                            (activity as CustomerHomeActivity).toPesan(user.users_id)
                         }
 
                         //ORDER AGAIN
@@ -106,7 +122,7 @@ class CustomerHomeFragment : Fragment() {
                         historyAdapter.notifyDataSetChanged()
 
                         historyAdapter.onClickListener = fun (pemesanan: HistoryPemesanan) {
-                            Toast.makeText(requireContext(), pemesanan.toString(), Toast.LENGTH_SHORT).show()
+                            (activity as CustomerHomeActivity).toPesan(pemesanan.users_provider!!.users_id)
                         }
                     }
                 }

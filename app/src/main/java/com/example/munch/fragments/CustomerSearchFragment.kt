@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.munch.R
+import com.example.munch.activities.CustomerHomeActivity
 import com.example.munch.adapter.CustomerSearchAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.menu.MenuStore
@@ -58,7 +59,7 @@ class CustomerSearchFragment : Fragment() {
                         menuAdapter.notifyDataSetChanged()
 
                         menuAdapter.onClickListener = fun (menu: Menu) {
-                            Toast.makeText(requireContext(), "$menu", Toast.LENGTH_SHORT).show()
+                            (activity as CustomerHomeActivity).toPesan(menu.users_id)
                         }
                     }
                 }
