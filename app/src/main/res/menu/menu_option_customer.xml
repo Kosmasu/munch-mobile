@@ -5,9 +5,12 @@
     <item
         android:id="@+id/opt_customer_profile"
         android:icon="@drawable/vector_user_solid"
+        android:iconTint="@color/black"
+        android:iconTintMode="src_in"
         android:title="Profile"
         app:showAsAction="always" />
     <item
         android:id="@+id/opt_customer_logout"
+        android:iconTint="@color/greenDG"
         android:title="Logout" />
 </menu>

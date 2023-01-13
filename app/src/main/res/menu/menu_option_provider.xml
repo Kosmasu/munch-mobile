@@ -5,6 +5,7 @@
     <item
         android:id="@+id/opt_provider_profile"
         android:icon="@drawable/vector_user_tie_solid"
+        android:iconTint="@color/black"
         android:title="Profile"
         app:showAsAction="always" />
     <item
