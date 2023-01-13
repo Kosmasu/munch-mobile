@@ -36,6 +36,8 @@ class AdminHomeFragment : Fragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    authStore = AuthStore.getInstance(requireContext())
+    userStore = UserStore.getInstance(requireContext())
   }
 
   override fun onCreateView(
@@ -49,15 +51,14 @@ class AdminHomeFragment : Fragment() {
   @SuppressLint("SetTextI18n")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    authStore = AuthStore.getInstance(requireContext())
-    userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
       try {
         stats = authStore.myStat().body()?.data
+        listWaitingProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
 
         if (isSafeFragment()) {
-          (requireContext() as Activity).runOnUiThread {
+          (context as Activity).runOnUiThread {
+            //STATS
             binding.tvRegisteredAccounts.text = "${
               stats?.providers_count?.let {
                 stats?.customers_count?.plus(
@@ -67,63 +68,70 @@ class AdminHomeFragment : Fragment() {
             } Accounts"
             binding.tvCustomers.text = "${stats?.customers_count} Accounts"
             binding.tvProviders.text = "${stats?.providers_count} Accounts"
+
+            providerAdapter = AdminUserAdapter(listWaitingProvider)
+            binding.rvListWaitingProvider.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+            binding.rvListWaitingProvider.adapter = providerAdapter
+            binding.rvListWaitingProvider.layoutManager = LinearLayoutManager(requireContext())
+            providerAdapter.notifyDataSetChanged()
+
+            providerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
+              val popUp = PopupMenu(requireContext(), it)
+              popUp.menuInflater.inflate(R.menu.menu_popup_approve, popUp.menu)
+              popUp.setOnMenuItemClickListener {
+                return@setOnMenuItemClickListener when(it.itemId) {
+                  R.id.menu_popup_approve -> {
+                    approve(user.users_id, requireContext())
+                    true
+                  }
+                  else -> {
+                    false
+                  }
+                }
+              }
+              popUp.show()
+            }
           }
         }
       } catch (e: Exception) {
         if (isSafeFragment()) {
-          (requireContext() as Activity).runOnUiThread {
-            Toast.makeText(requireContext(), "Error fetching stats", Toast.LENGTH_SHORT).show()
+          (context as Activity).runOnUiThread {
+            Toast.makeText(requireContext(), "Error fetching data", Toast.LENGTH_SHORT).show()
           }
-        }
-      }
-
-      try {
-        listWaitingProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
-
-        (requireContext() as Activity).runOnUiThread {
-          providerAdapter = AdminUserAdapter(listWaitingProvider)
-          binding.rvListWaitingProvider.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-          binding.rvListWaitingProvider.adapter = providerAdapter
-          binding.rvListWaitingProvider.layoutManager = LinearLayoutManager(requireContext())
-          providerAdapter.notifyDataSetChanged()
-
-          providerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
-            val popUp = PopupMenu(requireContext(), it)
-            popUp.menuInflater.inflate(R.menu.menu_popup_approve, popUp.menu)
-            popUp.setOnMenuItemClickListener {
-              return@setOnMenuItemClickListener when(it.itemId) {
-                R.id.menu_popup_approve -> {
-                  approve(user.users_id, requireContext())
-                  true
-                }
-                else -> {
-                  false
-                }
-              }
-            }
-            popUp.show()
-          }
-        }
-      } catch (e: Exception) {
-        (requireContext() as Activity).runOnUiThread {
-          Toast.makeText(requireContext(), "Error fetching waiting provider", Toast.LENGTH_SHORT).show()
         }
       }
     }
   }
 
+  @SuppressLint("SetTextI18n")
   fun approve(id: ULong, context: Context) {
     Retrofit.coroutine.launch {
       try {
         userStore.approveProvider(id)
         listWaitingProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
-        (context as Activity).runOnUiThread {
-          providerAdapter.data = listWaitingProvider
-          providerAdapter.notifyDataSetChanged()
+        stats = authStore.myStat().body()?.data
+
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            providerAdapter.data = listWaitingProvider
+            providerAdapter.notifyDataSetChanged()
+            Toast.makeText(requireContext(), "Berhasil approve provider", Toast.LENGTH_SHORT).show()
+
+            binding.tvRegisteredAccounts.text = "${
+              stats?.providers_count?.let {
+                stats?.customers_count?.plus(
+                  it
+                )
+              }
+            } Accounts"
+            binding.tvProviders.text = "${stats?.providers_count} Accounts"
+          }
         }
       } catch (e: Exception) {
-        (context as Activity).runOnUiThread {
-          Toast.makeText(requireContext(), "Error approve provider", Toast.LENGTH_SHORT).show()
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            Toast.makeText(requireContext(), "Error approve provider", Toast.LENGTH_SHORT).show()
+          }
         }
       }
     }

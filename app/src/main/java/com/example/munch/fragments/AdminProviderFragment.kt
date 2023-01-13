@@ -106,13 +106,18 @@ class AdminProviderFragment : Fragment() {
       Retrofit.coroutine.launch {
         try {
           listProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
-          (context as Activity).runOnUiThread {
-            providerAdapter.data = listProvider
-            providerAdapter.notifyDataSetChanged()
+
+          if (isSafeFragment()) {
+            (context as Activity).runOnUiThread {
+              providerAdapter.data = listProvider
+              providerAdapter.notifyDataSetChanged()
+            }
           }
         } catch (e: Exception) {
-          (context as Activity).runOnUiThread {
-            Toast.makeText(requireContext(), "Error fetching provider", Toast.LENGTH_SHORT).show()
+          if (isSafeFragment()) {
+            (context as Activity).runOnUiThread {
+              Toast.makeText(requireContext(), "Error fetching provider", Toast.LENGTH_SHORT).show()
+            }
           }
         }
 
@@ -120,14 +125,23 @@ class AdminProviderFragment : Fragment() {
     }
   }
 
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
+  }
+
   fun ban(id: ULong, context: Context) {
     Retrofit.coroutine.launch {
       try {
         userStore.ban(id)
         listProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
-        (context as Activity).runOnUiThread {
-          providerAdapter.data = listProvider
-          providerAdapter.notifyDataSetChanged()
+
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            providerAdapter.data = listProvider
+            providerAdapter.notifyDataSetChanged()
+            Toast.makeText(requireContext(), "Berhasil ban provider", Toast.LENGTH_SHORT).show()
+          }
         }
       } catch (e: Exception) {
         (context as Activity).runOnUiThread {
@@ -142,20 +156,21 @@ class AdminProviderFragment : Fragment() {
       try {
         userStore.unban(id)
         listProvider = userStore.fetchUnpaginated(reqMap).body()?.data!!
-        (context as Activity).runOnUiThread {
-          providerAdapter.data = listProvider
-          providerAdapter.notifyDataSetChanged()
+
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            providerAdapter.data = listProvider
+            providerAdapter.notifyDataSetChanged()
+            Toast.makeText(requireContext(), "Berhasil unban provider", Toast.LENGTH_SHORT).show()
+          }
         }
       } catch (e: Exception) {
-        (context as Activity).runOnUiThread {
-          Toast.makeText(requireContext(), "Error unban provider", Toast.LENGTH_SHORT).show()
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            Toast.makeText(requireContext(), "Error unban provider", Toast.LENGTH_SHORT).show()
+          }
         }
       }
     }
-  }
-
-  override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
   }
 }

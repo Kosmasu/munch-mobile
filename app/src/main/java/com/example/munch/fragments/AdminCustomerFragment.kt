@@ -22,7 +22,7 @@ import com.example.munch.model.User
 import kotlinx.coroutines.launch
 
 class AdminCustomerFragment : Fragment() {
-  var _binding: FragmentAdminCustomerBinding? = null
+  private var _binding: FragmentAdminCustomerBinding? = null
   val binding get() = _binding!!
 
   var reqMap : Map<String, String> = mapOf("users_nama" to "", "users_role" to "customer")
@@ -32,6 +32,7 @@ class AdminCustomerFragment : Fragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    userStore = UserStore.getInstance(requireContext())
   }
 
   @SuppressLint("NotifyDataSetChanged")
@@ -45,14 +46,12 @@ class AdminCustomerFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    userStore = UserStore.getInstance(requireContext())
     Retrofit.coroutine.launch {
       try {
         listCustomer = userStore.fetchUnpaginated(reqMap).body()?.data!!
 
         if (isSafeFragment()) {
-          (requireContext() as Activity).runOnUiThread {
+          (context as Activity).runOnUiThread {
             customerAdapter = AdminUserAdapter(listCustomer)
             binding.rvListCustomer.addItemDecoration(
               DividerItemDecoration(
@@ -93,7 +92,7 @@ class AdminCustomerFragment : Fragment() {
         }
       } catch (e: Exception) {
         if (isSafeFragment()) {
-          (requireContext() as Activity).runOnUiThread {
+          (context as Activity).runOnUiThread {
             Toast.makeText(requireContext(), "Error fetching customer", Toast.LENGTH_SHORT).show()
           }
         }
@@ -106,13 +105,18 @@ class AdminCustomerFragment : Fragment() {
       Retrofit.coroutine.launch {
         try {
           listCustomer = userStore.fetchUnpaginated(reqMap).body()?.data!!
-          (context as Activity).runOnUiThread {
-            customerAdapter.data = listCustomer
-            customerAdapter.notifyDataSetChanged()
+
+          if (isSafeFragment()) {
+            (context as Activity).runOnUiThread {
+              customerAdapter.data = listCustomer
+              customerAdapter.notifyDataSetChanged()
+            }
           }
         } catch (e: Exception) {
-          (context as Activity).runOnUiThread {
-            Toast.makeText(requireContext(), "Error fetching customer", Toast.LENGTH_SHORT).show()
+          if (isSafeFragment()) {
+            (context as Activity).runOnUiThread {
+              Toast.makeText(requireContext(), "Error fetching customer", Toast.LENGTH_SHORT).show()
+            }
           }
         }
       }
@@ -124,13 +128,18 @@ class AdminCustomerFragment : Fragment() {
       try {
         userStore.ban(id)
         listCustomer = userStore.fetchUnpaginated(reqMap).body()?.data!!
-        (context as Activity).runOnUiThread {
-          customerAdapter.data = listCustomer
-          customerAdapter.notifyDataSetChanged()
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            customerAdapter.data = listCustomer
+            customerAdapter.notifyDataSetChanged()
+            Toast.makeText(requireContext(), "Berhasil ban customer", Toast.LENGTH_SHORT).show()
+          }
         }
       } catch (e: Exception) {
-        (context as Activity).runOnUiThread {
-          Toast.makeText(requireContext(), "Error ban customer", Toast.LENGTH_SHORT).show()
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            Toast.makeText(requireContext(), "Error ban customer", Toast.LENGTH_SHORT).show()
+          }
         }
       }
 
@@ -142,13 +151,18 @@ class AdminCustomerFragment : Fragment() {
       try {
         userStore.unban(id)
         listCustomer = userStore.fetchUnpaginated(reqMap).body()?.data!!
-        (context as Activity).runOnUiThread {
-          customerAdapter.data = listCustomer
-          customerAdapter.notifyDataSetChanged()
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            customerAdapter.data = listCustomer
+            customerAdapter.notifyDataSetChanged()
+            Toast.makeText(requireContext(), "Berhasil unban customer", Toast.LENGTH_SHORT).show()
+          }
         }
       } catch (e: Exception) {
-        (context as Activity).runOnUiThread {
-          Toast.makeText(requireContext(), "Error unban customer", Toast.LENGTH_SHORT).show()
+        if (isSafeFragment()) {
+          (context as Activity).runOnUiThread {
+            Toast.makeText(requireContext(), "Error unban customer", Toast.LENGTH_SHORT).show()
+          }
         }
       }
     }
