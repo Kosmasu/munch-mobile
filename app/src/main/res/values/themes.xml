@@ -10,7 +10,7 @@
         <item name="colorSecondary">@color/bg</item>
         <item name="colorSecondaryVariant">@color/bg</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="titleTextColor">@color/black</item>
+        <item name="titleTextColor">@color/greenDG</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->

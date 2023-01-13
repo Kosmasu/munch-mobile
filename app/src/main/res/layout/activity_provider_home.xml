@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/nav"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/greenDG"
+        app:itemTextColor="@color/greenDG"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navbar_provider" />
 
