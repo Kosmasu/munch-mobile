@@ -77,8 +77,14 @@ class CustomerHomeFragment : Fragment() {
                     (context as Activity).runOnUiThread {
                         //CATERING ANDA
                         cateringAdapter = CustomerCateringAndaAdapter(cateringAnda)
+                        binding.rvCusMyOrder.addItemDecoration(
+                            DividerItemDecoration(
+                                requireContext(),
+                                DividerItemDecoration.HORIZONTAL
+                            )
+                        )
                         binding.rvCusMyOrder.adapter = cateringAdapter
-                        binding.rvCusMyOrder.layoutManager = LinearLayoutManager(requireContext())
+                        binding.rvCusMyOrder.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                         cateringAdapter.notifyDataSetChanged()
 
                         cateringAdapter.onClickListener = fun (it: View, detail: DetailPemesanan) {
@@ -87,6 +93,7 @@ class CustomerHomeFragment : Fragment() {
                             popUp.setOnMenuItemClickListener {
                                 return@setOnMenuItemClickListener when(it.itemId) {
                                     R.id.menu_diterima -> {
+                                        diterima(detail.detail_id)
                                         true
                                     }
                                     else -> {
@@ -148,5 +155,36 @@ class CustomerHomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun diterima(detail_id : ULong) {
+        Retrofit.coroutine.launch {
+            try {
+                pesananStore.receive(detail_id)
+                cateringAnda = (pesananStore.fetchDelivery(reqMapCateringAnda).body()?.data as ArrayList<DetailPemesanan?>)
+
+                if (isSafeFragment()) {
+                    (context as Activity).runOnUiThread {
+                        cateringAdapter.data = cateringAnda
+                        cateringAdapter.notifyDataSetChanged()
+                        Toast.makeText(
+                            requireContext(),
+                            "Berhasil menerima pesanan",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                if (isSafeFragment()) {
+                    (context as Activity).runOnUiThread {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error menerima pesanan",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 }

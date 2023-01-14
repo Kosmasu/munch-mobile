@@ -14,7 +14,7 @@ data class User (
   val users_role: String?,
   val users_status: String?,
   val users_photo: String?,
-  val users_rating: Int,
+  val users_rating: Double?,
   val created_at: Timestamp?,
   val updated_at: Timestamp?,
   val deleted_at: Timestamp?,

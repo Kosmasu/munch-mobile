@@ -11,12 +11,12 @@ import com.example.munch.R
 import com.example.munch.model.DetailPemesanan
 
 class CustomerCateringAndaAdapter(
-    val data : ArrayList<DetailPemesanan?>
+    var data : ArrayList<DetailPemesanan?>
 ): RecyclerView.Adapter<CustomerCateringAndaAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerCateringAndaAdapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
         return ViewHolder(itemView.inflate(
-            R.layout.layout_card_provider, parent, false
+            R.layout.layout_card_catering_anda, parent, false
         ))
     }
 
