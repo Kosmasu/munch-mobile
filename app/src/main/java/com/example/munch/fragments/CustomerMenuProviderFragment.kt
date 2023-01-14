@@ -19,7 +19,7 @@ import com.example.munch.model.Menu
 import com.example.munch.model.User
 import kotlinx.coroutines.launch
 
-class CustomerMenuProviderFragment(var provider_id : ULong) : Fragment() {
+class CustomerMenuProviderFragment(val provider_id : ULong) : Fragment() {
     private var _binding: FragmentCustomerMenuProviderBinding? = null
     val binding get() = _binding!!
 

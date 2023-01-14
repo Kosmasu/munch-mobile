@@ -36,7 +36,7 @@ class CustomerPesanAdapter(
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val cbMenu: CheckBox = itemView.findViewById(R.id.cbMenu)
         init {
-            view.setOnClickListener {
+            cbMenu.setOnClickListener {
                 onClickListener?.invoke(data[adapterPosition])
             }
         }

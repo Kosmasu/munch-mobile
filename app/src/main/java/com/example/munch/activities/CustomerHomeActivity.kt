@@ -49,7 +49,7 @@ class CustomerHomeActivity : AppCompatActivity() {
           true
         }
         "cart" -> {
-          swapFragment(cartFragment, "CustomerCartFargment")
+          toCart()
           true
         }
         "history" -> {
@@ -99,12 +99,11 @@ class CustomerHomeActivity : AppCompatActivity() {
   }
 
   fun toTopup() {
-    supportFragmentManager.beginTransaction().apply {
-      replace(binding.flFragmentCustomer.id, topupFragment, "CustomerTopupFragment")
-      setReorderingAllowed(true)
-      addToBackStack("CustomerTopupFragment")
-      commit()
-    }
+    swapFragment(topupFragment, "CustomerTopupFragment")
+  }
+
+  fun toCart() {
+    swapFragment(cartFragment, "CustomerCartFragment")
   }
 
   fun toDetailPemesanan(pemesanan_id: ULong) {
