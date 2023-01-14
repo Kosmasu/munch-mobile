@@ -3,6 +3,7 @@ package com.example.munch.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.munch.R
@@ -14,7 +15,7 @@ class CustomerUserAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
         return ViewHolder(itemView.inflate(
-            R.layout.layout_card_provider, parent, false
+            R.layout.layout_card_top_catering, parent, false
         ))
     }
 
@@ -30,8 +31,9 @@ class CustomerUserAdapter(
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val tvProvider: TextView = itemView.findViewById(R.id.tvNamaMenuProvider)
-        val tvRating: TextView = itemView.findViewById(R.id.tvRatingProvider)
+        val ivProvider: ImageView = itemView.findViewById(R.id.iv_topCatering)
+        val tvProvider: TextView = itemView.findViewById(R.id.tvNama_topCatering)
+        val tvRating: TextView = itemView.findViewById(R.id.tvRating_topCatering)
         init {
             view.setOnClickListener {
                 onClickListener?.invoke(data[adapterPosition])
