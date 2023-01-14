@@ -75,7 +75,7 @@ class AdminHomeFragment : Fragment() {
             binding.rvListWaitingProvider.layoutManager = LinearLayoutManager(requireContext())
             providerAdapter.notifyDataSetChanged()
 
-            providerAdapter.onClickListener = fun (it: View, position: Int, user: User) {
+            providerAdapter.onClickListener = fun (it: View, user: User) {
               val popUp = PopupMenu(requireContext(), it)
               popUp.menuInflater.inflate(R.menu.menu_popup_approve, popUp.menu)
               popUp.setOnMenuItemClickListener {
