@@ -48,7 +48,8 @@ abstract class Retrofit {
             val response = chain.proceed(chain.request())
             if (!response.isSuccessful) {
               println("RESPONSE INTERCEPTOR")
-              throw IOException(response.toString())
+//              throw HttpException(response)
+              throw IOException(response.message())
             }
             return response
           }
