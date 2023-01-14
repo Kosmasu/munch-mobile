@@ -7,8 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+
 //import retrofit2.converter.scalars.ScalarsConverterFactory
 
 abstract class Retrofit {
@@ -40,8 +43,20 @@ abstract class Retrofit {
           }
         }
 
+        val responseInterceptor = object: Interceptor {
+          override fun intercept(chain: Interceptor.Chain): Response {
+            val response = chain.proceed(chain.request())
+            if (!response.isSuccessful) {
+              println("RESPONSE INTERCEPTOR")
+              throw IOException(response.toString())
+            }
+            return response
+          }
+        }
+
         val client : OkHttpClient = OkHttpClient.Builder().apply {
           addInterceptor(interceptor)
+          addInterceptor(responseInterceptor)
         }.build()
 
         _instance = Retrofit.Builder().baseUrl(baseUrl)
