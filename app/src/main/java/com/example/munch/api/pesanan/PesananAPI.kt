@@ -23,6 +23,10 @@ interface PesananAPI {
   @POST("pesanan")
   suspend fun store(@Body body: RequestBody): Response<Result<String?>>
 
+  //untested
+  @POST("pesanan")
+  suspend fun store(@Body body: RequestBodyStore): Response<Result<String?>>
+
   @PATCH("pesanan/{pesanan_id}/rate")
   suspend fun rate(@Path("pesanan_id") pesanan_id: ULong, @Body body: RequestBody): Response<Result<String?>>
 

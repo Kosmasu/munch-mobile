@@ -1,7 +1,7 @@
 package com.example.munch.model
 
-import java.sql.Timestamp
-import java.time.LocalDateTime
+
+
 
 data class Cart(
   val cart_id: ULong,
@@ -13,6 +13,6 @@ data class Cart(
   val cart_tanggal: String?,
   val menu: Menu?,
   val customer: User?,
-  val created_at: Timestamp?,
-  val updated_at: Timestamp?,
+  val created_at: String?,
+  val updated_at: String?,
 )

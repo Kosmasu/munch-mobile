@@ -1,6 +1,6 @@
 package com.example.munch.model
 
-import java.sql.Timestamp
+
 
 data class User (
   val users_id: ULong,
@@ -15,8 +15,8 @@ data class User (
   val users_status: String?,
   val users_photo: String?,
   val users_rating: Int,
-  val created_at: Timestamp?,
-  val updated_at: Timestamp?,
-  val deleted_at: Timestamp?,
+  val created_at: String?,
+  val updated_at: String?,
+  val deleted_at: String?,
   val menu: List<Menu>
 )

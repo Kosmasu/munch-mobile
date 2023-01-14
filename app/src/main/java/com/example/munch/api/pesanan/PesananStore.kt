@@ -38,6 +38,10 @@ class PesananStore(val context: Context) : PesananAPI {
     return pesananAPI.store(body)
   }
 
+  override suspend fun store(body: RequestBodyStore): Response<Result<String?>> {
+    return pesananAPI.store(body)
+  }
+
   override suspend fun rate(pesanan_id: ULong, body: RequestBody): Response<Result<String?>> {
     return pesananAPI.rate(pesanan_id, body)
   }

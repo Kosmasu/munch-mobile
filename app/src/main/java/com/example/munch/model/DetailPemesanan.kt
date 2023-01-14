@@ -1,6 +1,6 @@
 package com.example.munch.model
 
-import java.sql.Timestamp
+
 
 data class DetailPemesanan(
   val detail_id: ULong,
@@ -12,6 +12,6 @@ data class DetailPemesanan(
   val detail_total: Long?,
   val detail_tanggal: String?,
   val detail_status: String?, //enum("belum dikirim", "terkirim", "diterima")
-  val created_at: Timestamp?,
-  val updated_at: Timestamp?,
+  val created_at: String?,
+  val updated_at: String?,
 )
