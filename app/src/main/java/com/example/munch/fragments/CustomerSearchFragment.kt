@@ -59,7 +59,7 @@ class CustomerSearchFragment : Fragment() {
                         menuAdapter.notifyDataSetChanged()
 
                         menuAdapter.onClickListener = fun (menu: Menu) {
-                            (activity as CustomerHomeActivity).toPesan(menu.users_id)
+                            (activity as CustomerHomeActivity).toProvider(menu.users_id)
                         }
                     }
                 }

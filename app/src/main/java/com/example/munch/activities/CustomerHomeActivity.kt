@@ -125,6 +125,15 @@ class CustomerHomeActivity : AppCompatActivity() {
     }
   }
 
+  fun toProvider(provider_id: ULong) {
+    supportFragmentManager.beginTransaction().apply {
+      replace(binding.flFragmentCustomer.id, CustomerMenuProviderFragment(provider_id), "CustomerMenuProviderFragment")
+      setReorderingAllowed(true)
+      addToBackStack("CustomerMenuProviderFragment")
+      commit()
+    }
+  }
+
   fun toPesan(provider_id: ULong) {
     supportFragmentManager.beginTransaction().apply {
       replace(binding.flFragmentCustomer.id, CustomerMenuPesanFragment(provider_id), "CustomerMenuPesanFragment")

@@ -117,7 +117,7 @@ class CustomerHomeFragment : Fragment() {
                         userAdapter.notifyDataSetChanged()
 
                         userAdapter.onClickListener = fun (user: User) {
-                            (activity as CustomerHomeActivity).toPesan(user.users_id)
+                            (activity as CustomerHomeActivity).toProvider(user.users_id)
                         }
 
                         //ORDER AGAIN
