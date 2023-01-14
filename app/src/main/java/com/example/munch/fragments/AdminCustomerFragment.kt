@@ -63,7 +63,7 @@ class AdminCustomerFragment : Fragment() {
             binding.rvListCustomer.layoutManager = LinearLayoutManager(requireContext())
             customerAdapter.notifyDataSetChanged()
 
-            customerAdapter.onClickListener = fun(it: View, position: Int, user: User) {
+            customerAdapter.onClickListener = fun(it: View, user: User) {
               val popUp = PopupMenu(requireContext(), it)
               popUp.menuInflater.inflate(R.menu.menu_popup_ban_unban, popUp.menu)
               if (user.users_status == "aktif") {

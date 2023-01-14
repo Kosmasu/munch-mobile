@@ -44,10 +44,10 @@ class AdminUserAdapter(
         val tvEmail: TextView = itemView.findViewById(R.id.tvTabelKolom3)
         init {
             view.setOnClickListener {
-                onClickListener?.invoke(it, adapterPosition, data[adapterPosition])
+                onClickListener?.invoke(it, data[adapterPosition])
             }
         }
     }
 
-    var onClickListener:((view: View, position: Int, user: User)->Unit)? = null
+    var onClickListener:((view: View, user: User)->Unit)? = null
 }
