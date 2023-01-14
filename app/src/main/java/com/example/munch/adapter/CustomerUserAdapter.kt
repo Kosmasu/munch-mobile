@@ -22,6 +22,7 @@ class CustomerUserAdapter(
         val item = data[position]
 
         holder.tvProvider.text = item.users_nama
+        holder.tvRating.text = item.users_rating.toString()
     }
 
     override fun getItemCount(): Int {
@@ -30,6 +31,7 @@ class CustomerUserAdapter(
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val tvProvider: TextView = itemView.findViewById(R.id.tvNamaMenuProvider)
+        val tvRating: TextView = itemView.findViewById(R.id.tvRatingProvider)
         init {
             view.setOnClickListener {
                 onClickListener?.invoke(data[adapterPosition])

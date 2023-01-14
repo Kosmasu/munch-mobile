@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.munch.R
 import com.example.munch.activities.CustomerHomeActivity
+import com.example.munch.adapter.CustomerCateringAndaAdapter
 import com.example.munch.adapter.CustomerHistoryPemesananAdapter
 import com.example.munch.adapter.CustomerUserAdapter
 import com.example.munch.adapter.DetailPemesananAdapter
@@ -34,11 +35,11 @@ class CustomerHomeFragment : Fragment() {
 
     val date = LocalDate.now()
     var reqMapCateringAnda : Map<String, String> = mapOf("month" to date.monthValue.toString(), "year" to date.year.toString(), "detail_status" to "terkirim")
-    var reqMapTopCatering : Map<String, String> = mapOf("batch_size" to "5", "sort_column" to "users_rating", "sort_type" to "desc")
+    var reqMapTopCatering : Map<String, String> = mapOf("batch_size" to "5", "users_role" to "provider", "sort_column" to "users_rating", "sort_type" to "desc")
     var reqMapOrderAgain : Map<String, String> = mapOf("batch_size" to "5", "pemesanan_status" to "selesai")
     lateinit var pesananStore : PesananStore
     lateinit var userStore : UserStore
-    lateinit var detailAdapter : DetailPemesananAdapter
+    lateinit var cateringAdapter : CustomerCateringAndaAdapter
     lateinit var userAdapter : CustomerUserAdapter
     lateinit var historyAdapter : CustomerHistoryPemesananAdapter
     var cateringAnda : ArrayList<DetailPemesanan?> = arrayListOf()
@@ -75,23 +76,26 @@ class CustomerHomeFragment : Fragment() {
                 if (isSafeFragment()) {
                     (context as Activity).runOnUiThread {
                         //CATERING ANDA
-                        detailAdapter = DetailPemesananAdapter(requireActivity(), cateringAnda)
-                        binding.rvCusMyOrder.adapter = detailAdapter
+                        cateringAdapter = CustomerCateringAndaAdapter(cateringAnda)
+                        binding.rvCusMyOrder.adapter = cateringAdapter
                         binding.rvCusMyOrder.layoutManager = LinearLayoutManager(requireContext())
-                        detailAdapter.notifyDataSetChanged()
+                        cateringAdapter.notifyDataSetChanged()
 
-//                        detailAdapter.onClickListener = fun (detail: DetailPemesanan) {
-//                            val popUp = PopupMenu(requireContext(), it)
-//                            popUp.menuInflater.inflate(R.menu.menu_popup_delivery)
-//                            popUp.setOnMenuItemClickListener {
-//                                return@setOnMenuItemClickListener when(it.itemId) {
-//                                    else -> {
-//                                        false
-//                                    }
-//                                }
-//                            }
-//                            popUp.show()
-//                        }
+                        cateringAdapter.onClickListener = fun (it: View, detail: DetailPemesanan) {
+                            val popUp = PopupMenu(requireContext(), it)
+                            popUp.menuInflater.inflate(R.menu.menu_popup_diterima, popUp.menu)
+                            popUp.setOnMenuItemClickListener {
+                                return@setOnMenuItemClickListener when(it.itemId) {
+                                    R.id.menu_diterima -> {
+                                        true
+                                    }
+                                    else -> {
+                                        false
+                                    }
+                                }
+                            }
+                            popUp.show()
+                        }
 
                         //TOP CATERING
                         userAdapter = CustomerUserAdapter(topCatering)
