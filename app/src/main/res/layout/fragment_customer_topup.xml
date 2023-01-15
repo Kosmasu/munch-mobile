@@ -76,9 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="18dp"
-            android:background="@drawable/rounded_green_borderless"
-            app:backgroundTint="@null"
-            android:foreground="?android:attr/selectableItemBackground"
             android:text="TOP UP" />
 
     </LinearLayout>

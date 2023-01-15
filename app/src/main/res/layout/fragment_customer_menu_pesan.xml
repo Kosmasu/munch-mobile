@@ -74,12 +74,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:background="@drawable/rounded_green_borderless"
                     android:ems="15"
-                    android:text="Tambah"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:textColor="#000000"
-                    app:backgroundTint="@null" />
+                    android:text="Tambah" />
             </LinearLayout>
 
             <LinearLayout
@@ -143,12 +139,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:background="@drawable/rounded_green_borderless"
                     android:ems="15"
-                    android:text="Proceed to cart"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:textColor="#000000"
-                    app:backgroundTint="@null" />
+                    android:text="Proceed to cart" />
             </LinearLayout>
 
             <Button

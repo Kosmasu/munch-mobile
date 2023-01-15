@@ -53,10 +53,7 @@
         android:layout_gravity="right"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_margin="18dp"
-        android:background="@drawable/rounded_green_borderless"
         android:ems="10"
-        android:text="Pesan"
-        android:textColor="#000000"
-        app:backgroundTint="@null" />
+        android:text="Pesan" />
 
 </LinearLayout>
