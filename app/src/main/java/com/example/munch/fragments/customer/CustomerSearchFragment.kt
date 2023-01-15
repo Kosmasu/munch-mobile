@@ -1,4 +1,4 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.customer
 
 import android.app.Activity
 import android.os.Bundle
@@ -10,7 +10,6 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.munch.R
 import com.example.munch.activities.CustomerHomeActivity
 import com.example.munch.adapter.CustomerSearchAdapter
 import com.example.munch.api.Retrofit

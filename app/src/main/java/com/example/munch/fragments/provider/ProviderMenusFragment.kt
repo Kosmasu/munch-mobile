@@ -1,4 +1,4 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.provider
 
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +15,7 @@ import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.api.menu.MenuStore
 import com.example.munch.databinding.FragmentProviderMenusBinding
+import com.example.munch.fragments.DetailMenuFragment
 import kotlinx.coroutines.launch
 
 
@@ -61,7 +62,8 @@ class ProviderMenusFragment : Fragment() {
                 return@setOnMenuItemClickListener when(it.itemId) {
                     R.id.menu_tabel_details -> {
                         parentFragmentManager.beginTransaction().apply {
-                            replace(R.id.flFragmentProvider, DetailMenuFragment.newInstance(menu.menu_id) , TAG)
+                            replace(R.id.flFragmentProvider,
+                                DetailMenuFragment.newInstance(menu.menu_id), TAG)
                             setReorderingAllowed(true)
                             addToBackStack(TAG)
                             commit()
@@ -100,7 +102,7 @@ class ProviderMenusFragment : Fragment() {
 
         binding.btnAddMenu.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
-                replace(R.id.flFragmentProvider, ProviderModifyMenuFragment.newInstance() , tag)
+                replace(R.id.flFragmentProvider, ProviderModifyMenuFragment.newInstance(), tag)
                 setReorderingAllowed(true)
                 addToBackStack(tag)
                 commit()

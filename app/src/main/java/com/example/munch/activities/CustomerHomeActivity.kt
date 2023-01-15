@@ -10,6 +10,7 @@ import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityCustomerHomeBinding
 import com.example.munch.fragments.*
+import com.example.munch.fragments.customer.*
 import com.example.munch.model.HeaderCart
 import kotlinx.coroutines.launch
 

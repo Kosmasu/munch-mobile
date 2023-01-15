@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityProviderHomeBinding
-import com.example.munch.fragments.*
+import com.example.munch.fragments.provider.ProviderHistoryFragment
+import com.example.munch.fragments.provider.ProviderHomeFragment
+import com.example.munch.fragments.provider.ProviderMenusFragment
+import com.example.munch.fragments.provider.ProviderProfileFragment
 import kotlinx.coroutines.launch
 
 class ProviderHomeActivity : AppCompatActivity() {

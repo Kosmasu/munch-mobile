@@ -1,4 +1,4 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.customer
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.example.munch.R
 import com.example.munch.databinding.FragmentCustomerHistoryBinding
 
 import java.util.*

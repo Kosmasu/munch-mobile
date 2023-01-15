@@ -1,6 +1,5 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.guest
 
-import android.graphics.Paint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

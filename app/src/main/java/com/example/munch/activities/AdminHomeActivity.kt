@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment
 import com.example.munch.R
 import com.example.munch.databinding.ActivityAdminHomeBinding
 import com.example.munch.fragments.*
+import com.example.munch.fragments.admin.AdminCustomerFragment
+import com.example.munch.fragments.admin.AdminHistoryFragment
+import com.example.munch.fragments.admin.AdminHomeFragment
+import com.example.munch.fragments.admin.AdminProviderFragment
 
 class AdminHomeActivity : AppCompatActivity() {
   private lateinit var binding: ActivityAdminHomeBinding

@@ -11,6 +11,7 @@ import com.example.munch.R
 import com.example.munch.api.Retrofit
 import com.example.munch.api.menu.MenuStore
 import com.example.munch.databinding.FragmentDetailMenuBinding
+import com.example.munch.fragments.provider.ProviderModifyMenuFragment
 import com.example.munch.helpers.CurrencyUtils.toRupiah
 import com.example.munch.model.Menu
 import com.squareup.picasso.Picasso

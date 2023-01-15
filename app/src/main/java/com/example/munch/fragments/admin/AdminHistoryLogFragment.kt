@@ -1,4 +1,4 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.admin
 
 import android.os.Bundle
 import android.view.LayoutInflater
