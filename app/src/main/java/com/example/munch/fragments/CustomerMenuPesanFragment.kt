@@ -3,6 +3,7 @@ package com.example.munch.fragments
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.munch.activities.CustomerHomeActivity
 import com.example.munch.adapter.CustomerPesanAdapter
+import com.example.munch.adapter.CustomerSummaryAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.menu.MenuStore
 import com.example.munch.api.pesanan.PesananStore
@@ -20,7 +22,6 @@ import com.example.munch.databinding.FragmentCustomerMenuPesanBinding
 import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.Menu
 import kotlinx.coroutines.launch
-import okhttp3.FormBody
 import java.util.*
 
 class CustomerMenuPesanFragment(val provider_id : ULong) : Fragment() {
@@ -31,6 +32,7 @@ class CustomerMenuPesanFragment(val provider_id : ULong) : Fragment() {
     lateinit var pesananStore : PesananStore
     lateinit var menuStore : MenuStore
     lateinit var menuAdapter : CustomerPesanAdapter
+    lateinit var summaryAdapter: CustomerSummaryAdapter
     var listMenu : List<Menu> = listOf()
     var orderMenu : ArrayList<ULong> = arrayListOf()
     var summary : ArrayList<RequestBodyDetailMenu> = arrayListOf()
@@ -98,6 +100,11 @@ class CustomerMenuPesanFragment(val provider_id : ULong) : Fragment() {
             }
         }
 
+        // summary
+        summaryAdapter = CustomerSummaryAdapter(requireActivity(),summary)
+        binding.rvGridPemesanan.adapter = summaryAdapter
+        binding.rvGridPemesanan.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+
         binding.btnPesanTambah.setOnClickListener {
             if (orderMenu.isNotEmpty() && binding.etDatePesanMenu.text.isNotBlank()) {
                 orderMenu.forEach {
@@ -106,7 +113,9 @@ class CustomerMenuPesanFragment(val provider_id : ULong) : Fragment() {
                 orderMenu.clear()
                 Toast.makeText(requireContext(), "$summary", Toast.LENGTH_SHORT).show()
                 println(summary)
+                summaryAdapter.notifyItemInserted(summary.lastIndex)
             }
+            calcSummaryStat()
         }
 
         binding.btnProceedToCart.setOnClickListener {
@@ -144,4 +153,24 @@ class CustomerMenuPesanFragment(val provider_id : ULong) : Fragment() {
         _binding = null
     }
 
+    fun calcSummaryStat() {
+        var jumlah =0
+        var total = 0
+        for (item in summary) {
+            jumlah += item.detail_jumlah
+
+            var menu : Menu
+            Retrofit.coroutine.launch {
+                try {
+                    val resp = menuStore.fetch(item.menu_id)
+                    menu = resp.body()?.data!!
+                } catch (e: Exception) {
+                    Log.e("CustomerMenuPesanFragment", "onViewCreated: API Server error", e)
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
 }
