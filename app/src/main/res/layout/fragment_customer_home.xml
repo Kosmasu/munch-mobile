@@ -7,7 +7,7 @@
     android:isScrollContainer="true"
     android:orientation="vertical"
     android:padding="4dp"
-    tools:context=".fragments.CustomerHomeFragment">
+    tools:context=".fragments.customer.CustomerHomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"

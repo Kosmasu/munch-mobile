@@ -1,4 +1,4 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.customer
 
 import android.annotation.SuppressLint
 import android.app.Activity

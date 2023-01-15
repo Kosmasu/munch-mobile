@@ -7,7 +7,7 @@
     android:background="@drawable/rounded_border_solid"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context=".fragments.CustomerCartDetailsFragment">
+    tools:context=".fragments.customer.CustomerCartDetailsFragment">
 
     <TextView
         android:id="@+id/tvListCart_Provider"

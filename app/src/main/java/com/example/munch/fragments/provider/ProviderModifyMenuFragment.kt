@@ -1,4 +1,4 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.provider
 
 import android.app.Activity
 import android.content.Intent

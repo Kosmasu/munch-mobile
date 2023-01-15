@@ -1,4 +1,4 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.provider
 
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +17,7 @@ import com.example.munch.api.auth.AuthStore
 import com.example.munch.api.auth.MyStatResponse
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.databinding.FragmentProviderHomeBinding
+import com.example.munch.fragments.DetailPemesananFragment
 import com.example.munch.helpers.CurrencyUtils.toRupiah
 import com.example.munch.model.DetailPemesanan
 import com.example.munch.model.HistoryPemesanan
@@ -63,7 +64,8 @@ class ProviderHomeFragment : Fragment() {
                 return@setOnMenuItemClickListener when(it.itemId) {
                     R.id.menu_order_detail -> {
                         parentFragmentManager.beginTransaction().apply {
-                            replace(R.id.flFragmentProvider, DetailPemesananFragment.newInstance(pemesanan.pemesanan_id) , tag)
+                            replace(R.id.flFragmentProvider,
+                                DetailPemesananFragment.newInstance(pemesanan.pemesanan_id), tag)
                             setReorderingAllowed(true)
                             addToBackStack(tag)
                             commit()

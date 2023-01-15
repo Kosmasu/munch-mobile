@@ -1,61 +1,60 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.customer
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.munch.adapter.AdminHistoryTopupAdapter
+import com.example.munch.adapter.CustomerHistoryTopupAdapter
 import com.example.munch.api.Retrofit
 import com.example.munch.api.history.HistoryStore
-import com.example.munch.databinding.FragmentAdminHistoryTopupBinding
+import com.example.munch.databinding.FragmentCustomerHistoryTopupBinding
 import com.example.munch.helpers.FragmentUtils.isSafeFragment
 import com.example.munch.model.HistoryTopUp
 import kotlinx.coroutines.launch
 
-class AdminHistoryTopupFragment(date_lower: String = "", date_upper: String = "") : Fragment() {
-    private var _binding: FragmentAdminHistoryTopupBinding? = null
+class CustomerHistoryTopupFragment(date_lower: String = "", date_upper: String = "") : Fragment() {
+    private var _binding: FragmentCustomerHistoryTopupBinding? = null
     val binding get() = _binding!!
 
     var reqMap : Map<String, String> = mapOf("date_lower" to date_lower, "date_upper" to date_upper)
-    var listHistoryTopUp : List<HistoryTopUp> = listOf()
     lateinit var historyStore : HistoryStore
-    lateinit var topupAdapter : AdminHistoryTopupAdapter
+    lateinit var topupAdapter : CustomerHistoryTopupAdapter
+    var listHistoryTopup : List<HistoryTopUp> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        historyStore = HistoryStore.getInstance(requireContext())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAdminHistoryTopupBinding.inflate(inflater, container, false)
+        _binding = FragmentCustomerHistoryTopupBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        historyStore = HistoryStore.getInstance(requireContext())
         Retrofit.coroutine.launch {
             try {
-                listHistoryTopUp = historyStore.topUpUnpaginated(reqMap).body()?.data!!
+                listHistoryTopup = historyStore.topUpUnpaginated(reqMap).body()?.data!!
 
                 if (isSafeFragment()) {
                     requireActivity().runOnUiThread {
-                        topupAdapter = AdminHistoryTopupAdapter(listHistoryTopUp)
-                        binding.rvAdminHistoryTopup.addItemDecoration(
+                        topupAdapter = CustomerHistoryTopupAdapter(listHistoryTopup)
+                        binding.rvCustomerHistoryTopup.addItemDecoration(
                             DividerItemDecoration(
                                 requireContext(),
                                 DividerItemDecoration.VERTICAL
                             )
                         )
-                        binding.rvAdminHistoryTopup.adapter = topupAdapter
-                        binding.rvAdminHistoryTopup.layoutManager =
+                        binding.rvCustomerHistoryTopup.adapter = topupAdapter
+                        binding.rvCustomerHistoryTopup.layoutManager =
                             LinearLayoutManager(requireContext())
                         topupAdapter.notifyDataSetChanged()
                     }
@@ -63,7 +62,7 @@ class AdminHistoryTopupFragment(date_lower: String = "", date_upper: String = ""
             } catch (e: Exception) {
                 if (isSafeFragment()) {
                     requireActivity().runOnUiThread {
-                        Toast.makeText(requireContext(), "Check Date Again", Toast.LENGTH_SHORT)
+                        Toast.makeText(requireContext(), "Error fetch topup", Toast.LENGTH_SHORT)
                             .show()
                     }
                 }

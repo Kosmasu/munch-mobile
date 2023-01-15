@@ -11,8 +11,8 @@ import com.example.munch.activities.ProviderHomeActivity
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.ActivityMainBinding
-import com.example.munch.fragments.GuestLoginFragment
-import com.example.munch.fragments.GuestRegisterFragment
+import com.example.munch.fragments.guest.GuestLoginFragment
+import com.example.munch.fragments.guest.GuestRegisterFragment
 import kotlinx.coroutines.launch
 import okhttp3.FormBody
 import retrofit2.HttpException

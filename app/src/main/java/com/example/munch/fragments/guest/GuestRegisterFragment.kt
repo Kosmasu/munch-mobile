@@ -1,4 +1,4 @@
-package com.example.munch.fragments
+package com.example.munch.fragments.guest
 
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.text.isDigitsOnly
-import com.example.munch.R
 import com.example.munch.api.Retrofit
 import com.example.munch.api.auth.AuthStore
 import com.example.munch.databinding.FragmentGuestRegisterBinding

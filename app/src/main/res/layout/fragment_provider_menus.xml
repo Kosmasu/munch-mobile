@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="6dp"
-    tools:context=".fragments.ProviderMenusFragment">
+    tools:context=".fragments.provider.ProviderMenusFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
