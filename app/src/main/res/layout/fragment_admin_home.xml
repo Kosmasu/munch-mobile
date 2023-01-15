@@ -116,7 +116,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvListWaitingProvider"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:backgroundTint="#FFFFFF">
 
         </androidx.recyclerview.widget.RecyclerView>
 

@@ -20,9 +20,9 @@
         android:id="@+id/bnvProvider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/nav"
-        app:itemIconTint="@color/greenDG"
-        app:itemTextColor="@color/greenDG"
+        android:background="@color/greenDG"
+        app:itemIconTint="@color/text_black"
+        app:itemTextColor="@color/text_black"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navbar_provider" />
 
