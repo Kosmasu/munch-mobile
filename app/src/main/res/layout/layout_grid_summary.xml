@@ -20,6 +20,7 @@
             app:backgroundTint="@null"
             app:icon="@drawable/vector_cross"
             app:iconGravity="textEnd"
+            android:foreground="?android:attr/selectableItemBackground"
             app:iconPadding="0dp" />
 
         <TextView

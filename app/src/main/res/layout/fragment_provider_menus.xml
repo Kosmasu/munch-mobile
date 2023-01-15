@@ -63,6 +63,7 @@
                     android:background="@drawable/rounded_border_green"
                     android:gravity="center"
                     android:src="@drawable/vector_search"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:tint="#7CB342" />
             </LinearLayout>
 
@@ -73,7 +74,11 @@
                 android:layout_margin="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:text="Add New Menu" />
+                android:background="@drawable/rounded_green_borderless"
+                android:text="Add New Menu"
+                android:textColor="#000000"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:backgroundTint="@null" />
 
         </LinearLayout>
 

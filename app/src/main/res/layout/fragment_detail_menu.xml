@@ -172,6 +172,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/rounded_orange_borderless"
                     android:text="Edit Details"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:textColor="#000000"
                     app:backgroundTint="@null" />
 
@@ -183,6 +184,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/rounded_red_borderless"
                     android:text="Delete Menu"
+                    android:foreground="?android:attr/selectableItemBackground"
                     app:backgroundTint="@null"
                     android:textColor="#000000" />
             </LinearLayout>

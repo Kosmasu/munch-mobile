@@ -60,7 +60,11 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:background="@drawable/rounded_green_borderless"
+            android:text="Login"
+            android:textColor="#000000"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:backgroundTint="@null" />
     </LinearLayout>
 
     <ImageView

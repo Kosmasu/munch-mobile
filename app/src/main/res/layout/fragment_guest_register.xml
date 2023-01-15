@@ -131,7 +131,11 @@
             android:id="@+id/btnRegister"
             android:layout_width="345dp"
             android:layout_height="wrap_content"
-            android:text="Register" />
+            android:background="@drawable/rounded_green_borderless"
+            android:text="Register"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:backgroundTint="@null"
+            android:textColor="#000000" />
     </LinearLayout>
 
     <ImageView
