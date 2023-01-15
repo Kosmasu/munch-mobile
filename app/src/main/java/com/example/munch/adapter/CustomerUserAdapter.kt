@@ -1,5 +1,6 @@
 package com.example.munch.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +22,15 @@ class CustomerUserAdapter(
         ))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
 
         holder.tvProvider.text = item.users_nama
         holder.tvRating.text = item.users_rating.toString()
+        if (item.users_rating == null) {
+            holder.tvRating.text = "0.00"
+        }
 
         val url = Retrofit.hostUrl + "/storage/" + item.users_photo
         Picasso.get()
