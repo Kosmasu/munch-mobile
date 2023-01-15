@@ -2,18 +2,17 @@
     <!-- Base application theme. -->
     <style name="Theme.Munch" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/bg</item>
+        <item name="colorPrimary">@color/brownDG</item>
         <item name="colorPrimaryVariant">@color/bg</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/bg</item>
-        <item name="colorSecondaryVariant">@color/bg</item>
+        <item name="colorSecondary">@color/brownDG</item>
+        <item name="colorSecondaryVariant">@color/brownDG</item>
         <item name="colorOnSecondary">@color/greenDG</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
         <item name="android:textColorSecondary">@color/greenDG</item>
         <item name="titleTextColor">@color/greenDG</item>
-        <item name="actionOverflowButtonStyle">@color/greenDG</item>
     </style>
 </resources>
