@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.munch.R
 import com.example.munch.activities.CustomerHomeActivity
-import com.example.munch.adapter.CustomerCateringAndaAdapter
-import com.example.munch.adapter.CustomerHistoryPemesananAdapter
-import com.example.munch.adapter.CustomerUserAdapter
-import com.example.munch.adapter.DetailPemesananAdapter
+import com.example.munch.adapter.*
 import com.example.munch.api.Retrofit
 import com.example.munch.api.pesanan.PesananStore
 import com.example.munch.api.user.UserStore
@@ -41,7 +38,7 @@ class CustomerHomeFragment : Fragment() {
     lateinit var userStore : UserStore
     lateinit var cateringAdapter : CustomerCateringAndaAdapter
     lateinit var userAdapter : CustomerUserAdapter
-    lateinit var historyAdapter : CustomerHistoryPemesananAdapter
+    lateinit var orderAgainAdapter : CustomerOrderAgainAdapter
     var cateringAnda : ArrayList<DetailPemesanan?> = arrayListOf()
     var topCatering : List<User> = listOf()
     var orderAgain : List<HistoryPemesanan?> = listOf()
@@ -121,18 +118,18 @@ class CustomerHomeFragment : Fragment() {
                         }
 
                         //ORDER AGAIN
-                        historyAdapter = CustomerHistoryPemesananAdapter(orderAgain as List<HistoryPemesanan>)
+                        orderAgainAdapter = CustomerOrderAgainAdapter(orderAgain as List<HistoryPemesanan>)
                         binding.rvCusOrderAgain.addItemDecoration(
                             DividerItemDecoration(
                                 requireContext(),
-                                DividerItemDecoration.VERTICAL
+                                DividerItemDecoration.HORIZONTAL
                             )
                         )
-                        binding.rvCusOrderAgain.adapter = historyAdapter
-                        binding.rvCusOrderAgain.layoutManager = LinearLayoutManager(requireContext())
-                        historyAdapter.notifyDataSetChanged()
+                        binding.rvCusOrderAgain.adapter = orderAgainAdapter
+                        binding.rvCusOrderAgain.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                        orderAgainAdapter.notifyDataSetChanged()
 
-                        historyAdapter.onClickListener = fun (pemesanan: HistoryPemesanan) {
+                        orderAgainAdapter.onClickListener = fun (pemesanan: HistoryPemesanan) {
                             (activity as CustomerHomeActivity).toPesan(pemesanan.users_provider!!.users_id)
                         }
                     }
