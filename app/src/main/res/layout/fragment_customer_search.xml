@@ -31,14 +31,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:background="@drawable/rounded_border_green"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:padding="0dp"
             app:backgroundTint="@null"
             app:icon="@drawable/vector_search"
-            android:foreground="?android:attr/selectableItemBackground"
             app:iconGravity="textEnd"
             app:iconPadding="0dp"
-            app:iconTint="#7CB342" />
+            app:iconTint="@color/greenDG" />
     </LinearLayout>
 
     <LinearLayout

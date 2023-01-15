@@ -58,12 +58,13 @@
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_green_borderless"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     app:backgroundTint="@null"
                     app:icon="@drawable/vector_search"
-                    android:foreground="?android:attr/selectableItemBackground"
                     app:iconGravity="textEnd"
-                    app:iconPadding="0dp" />
+                    app:iconPadding="0dp"
+                    app:iconTint="@color/black" />
 
             </LinearLayout>
 

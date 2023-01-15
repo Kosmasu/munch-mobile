@@ -61,10 +61,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_border_green"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:src="@drawable/vector_search"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:tint="#7CB342" />
+                    android:tint="@color/greenDG" />
             </LinearLayout>
 
             <Button
