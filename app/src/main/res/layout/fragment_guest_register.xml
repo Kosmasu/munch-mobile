@@ -8,23 +8,10 @@
     tools:context=".fragments.GuestRegisterFragment">
 
     <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already have an account?"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.63"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="monospace"
         android:text="Register"
         android:textColor="#000000"
@@ -152,8 +139,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="187dp"
-        android:layout_height="143dp"
+        android:layout_width="138dp"
+        android:layout_height="58dp"
         android:scaleType="centerCrop"
         android:src="@drawable/munch"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
