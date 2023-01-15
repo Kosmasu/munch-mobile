@@ -75,6 +75,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:ems="15"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="Tambah" />
             </LinearLayout>
 
@@ -140,6 +141,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:ems="15"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="Proceed to cart" />
             </LinearLayout>
 

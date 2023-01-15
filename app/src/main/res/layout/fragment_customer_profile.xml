@@ -228,6 +228,7 @@
             android:layout_gravity="right"
             android:layout_margin="12dp"
             android:ems="12"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="go to topup" />
 
     </LinearLayout>

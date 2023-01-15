@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
         android:padding="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="Order Cart" />
 
     <Button
@@ -68,5 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
         android:padding="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="Clear Cart" />
 </LinearLayout>
