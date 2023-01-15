@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_borderless_shape"
-    android:backgroundTint="#FFFFFF"
     android:orientation="vertical"
     android:padding="4dp">
 
@@ -46,5 +45,6 @@
         android:id="@+id/rvAdminHistoryLog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:padding="2dp" />
 </LinearLayout>
