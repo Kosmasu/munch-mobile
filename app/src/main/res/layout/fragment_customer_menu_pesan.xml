@@ -77,6 +77,7 @@
                     android:background="@drawable/rounded_green_borderless"
                     android:ems="15"
                     android:text="Tambah"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:textColor="#000000"
                     app:backgroundTint="@null" />
             </LinearLayout>
@@ -145,6 +146,7 @@
                     android:background="@drawable/rounded_green_borderless"
                     android:ems="15"
                     android:text="Proceed to cart"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:textColor="#000000"
                     app:backgroundTint="@null" />
             </LinearLayout>

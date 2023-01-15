@@ -61,6 +61,7 @@
                     android:gravity="center"
                     app:backgroundTint="@null"
                     app:icon="@drawable/vector_search"
+                    android:foreground="?android:attr/selectableItemBackground"
                     app:iconGravity="textEnd"
                     app:iconPadding="0dp" />
 

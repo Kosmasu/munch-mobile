@@ -230,6 +230,7 @@
             android:background="@drawable/rounded_green_borderless"
             android:ems="12"
             android:text="go to topup"
+            android:foreground="?android:attr/selectableItemBackground"
             app:backgroundTint="@null" />
 
     </LinearLayout>

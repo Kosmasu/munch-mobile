@@ -28,6 +28,7 @@
         android:background="@drawable/rounded_border_green"
         android:text="Order Again"
         android:textColor="#7CB342"
+        android:foreground="?android:attr/selectableItemBackground"
         android:textStyle="bold"
         app:backgroundTint="@null" />
 </LinearLayout>
