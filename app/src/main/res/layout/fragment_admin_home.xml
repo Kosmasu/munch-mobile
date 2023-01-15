@@ -102,7 +102,7 @@
         android:layout_marginTop="18dp"
         android:background="@drawable/rounded_border_solid"
         android:orientation="vertical"
-        android:padding="2dp">
+        android:padding="7dp">
 
         <TextView
             android:id="@+id/tvHeaderProvider1"
@@ -117,7 +117,7 @@
             android:id="@+id/rvListWaitingProvider"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="#FFFFFF">
+            android:background="@color/white">
 
         </androidx.recyclerview.widget.RecyclerView>
 
